@@ -1,0 +1,48 @@
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.new-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 30%;
+  padding: 10px;
+}
+
+.label {
+  font-size: 1.7em;
+  text-transform: uppercase;
+  color: #4e79a7;
+
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+
+  padding: 5px 10px;
+}
+
+.button1 {
+  margin-left: 10px;
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 5px 10px;
+  width: 400px;
+}
