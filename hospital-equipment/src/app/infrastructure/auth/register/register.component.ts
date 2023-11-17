@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { User } from 'src/app/feature-moduls/model/User';
+import { AuthServiceService } from './auth-service.service';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +14,47 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: AuthServiceService
+  ) {}
+  ngOnInit(): void {}
+
+  userForm = new FormGroup({
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+    firstname: new FormControl('', [Validators.required]),
+    lastname: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    occupation: new FormControl('', [Validators.required]),
+    address: new FormGroup({
+      street: new FormControl('', [Validators.required]),
+      number: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      country: new FormControl('', [Validators.required]),
+    }),
+  });
+
+  registerUser(): void {
+    const user: User = {
+      firstname: this.userForm.value.firstname || '',
+      lastname: this.userForm.value.lastname || '',
+      email: this.userForm.value.email || '',
+      password: this.userForm.value.password || '',
+      phoneNumber: this.userForm.value.phoneNumber || '',
+      occupation: this.userForm.value.occupation || '',
+      address: {
+        street: this.userForm.value.address?.street || '',
+        number: this.userForm.value.address?.number || '',
+        city: this.userForm.value.address?.city || '',
+        country: this.userForm.value.address?.country || '',
+      },
+    };
+
+    this.service.signUp(user).subscribe({
+      next: () => {
+        console.log(user);
+      },
+    });
   }
 }
