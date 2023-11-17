@@ -97,7 +97,6 @@
 .card {
   min-width: 24%;
   max-width: 420px;
-  
   flex: 1;
   border-radius: 10px;
   display: flex;
