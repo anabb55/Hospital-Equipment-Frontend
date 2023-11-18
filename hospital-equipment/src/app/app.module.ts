@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule, DatePipe } from '@angular/common'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
@@ -7,6 +8,7 @@ import { RegisterComponent } from './infrastructure/auth/register/register.compo
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisteredUserModule } from './feature-moduls/registeredUser/registeredUser.module';
 import { ShowCompanyProfileComponent } from './feature-moduls/company/components/show-company-profile/show-company-profile.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CreateCompanyAdminComponent } from './feature-moduls/create-company-admin/create-company-admin.component';
@@ -28,6 +30,8 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CommonModule,
+    RegisteredUserModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
