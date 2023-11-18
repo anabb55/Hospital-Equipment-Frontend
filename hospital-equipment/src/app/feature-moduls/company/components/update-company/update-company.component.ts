@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CompanyServiceService } from '../../service/company-service.service';
 import { Company } from 'src/app/model/company.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 
 @Component({
   selector: 'app-update-company',
@@ -10,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UpdateCompanyComponent {
 
+  
   company: Company={
     id: 0,
     name: '',
@@ -37,6 +39,15 @@ export class UpdateCompanyComponent {
   companies: Company[]=[]
   constructor(private companyService: CompanyServiceService){
    this.getCompanyByAdmin()
+
+   this.companyService.getAdministratorById(1).subscribe({
+    next: (response: CompanyAdministrator)=>{
+      console.log(response);
+    },
+    error: (error)=>{
+      console.log(error)
+    }
+   })
   
   }
   getCompanyByAdmin(){ 

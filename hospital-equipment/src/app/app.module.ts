@@ -15,9 +15,10 @@ import { UpdateCompanyComponent } from './feature-moduls/company/components/upda
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministratorProfile/company-admin-profile/company-admin-profile.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, ShowCompanyProfileComponent,RegisterCompanyProfileComponent,CreateCompanyAdminComponent,UpdateCompanyComponent],
+  declarations: [AppComponent, RegisterComponent, ShowCompanyProfileComponent,RegisterCompanyProfileComponent,CreateCompanyAdminComponent,UpdateCompanyComponent, CompanyAdminProfileComponent],
 
   imports: [
     BrowserModule,
