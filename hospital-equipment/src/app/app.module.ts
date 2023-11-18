@@ -6,8 +6,10 @@ import { AppRoutingModule } from './infrastructure/router/app-routing.module';
 import { RegisterComponent } from './infrastructure/auth/register/register.component';
 import { AngularMaterialModule } from './angular-material/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowCompanyProfileComponent } from './feature-moduls/company/components/show-company-profile/show-company-profile.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ShowCompanyProfileComponent],
@@ -17,8 +19,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent],
