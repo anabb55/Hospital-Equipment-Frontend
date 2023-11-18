@@ -9,7 +9,7 @@ import { UpdateCompanyComponent } from 'src/app/feature-moduls/company/component
 
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
-  {path:'showCompanyProfile', component:ShowCompanyProfileComponent}
+  {path:'showCompanyProfile', component:ShowCompanyProfileComponent},
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
   { path: 'registerCompanyProfile', component: RegisterCompanyProfileComponent },
   {path: 'updateCompany', component: UpdateCompanyComponent}
