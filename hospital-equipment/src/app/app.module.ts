@@ -11,17 +11,28 @@ import { ShowCompanyProfileComponent } from './feature-moduls/company/components
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CreateCompanyAdminComponent } from './feature-moduls/create-company-admin/create-company-admin.component';
 import { RegisterCompanyProfileComponent } from './feature-moduls/register-company-profile/register-company-profile.component';
+import { UpdateCompanyComponent } from './feature-moduls/company/components/update-company/update-company.component';
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, ShowCompanyProfileComponent,RegisterCompanyProfileComponent,CreateCompanyAdminComponent],
+  declarations: [AppComponent, RegisterComponent, ShowCompanyProfileComponent,RegisterCompanyProfileComponent,CreateCompanyAdminComponent,UpdateCompanyComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularMaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    
+  
 
   ],
   providers: [],

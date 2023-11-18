@@ -14,15 +14,6 @@ export class ShowCompanyProfileComponent {
   constructor(private companyService: CompanyServiceService){
 
    this.getAllCompanies()
-
-   this.companyService.getCompaniesByAdministrator(1).subscribe({
-    next:(response)=>{
-      console.log(response);
-    },
-    error: (error)=>{
-      console.log(error);
-    }
-   })
   }
 
   getAllCompanies(){
