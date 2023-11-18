@@ -25,3 +25,4 @@ describe('AppComponent', () => {
     expect(compiled.querySelector('.content span')?.textContent).toContain('hospital-equipment app is running!');
   });
 });
+
