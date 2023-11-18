@@ -1,6 +1,7 @@
 import { Address } from "./Address";
 
 export interface CompanyAdmin {
+  adressId:string,
     email:string,
     name:string,
     password:string,

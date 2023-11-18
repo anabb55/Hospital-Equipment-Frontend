@@ -9,9 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CreateCompanyAdminComponent } from './feature-moduls/create-company-admin/create-company-admin.component';
+import { RegisterCompanyProfileComponent } from './feature-moduls/register-company-profile/register-company-profile.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, CreateCompanyAdminComponent],
+  declarations: [AppComponent, RegisterComponent, CreateCompanyAdminComponent, RegisterCompanyProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

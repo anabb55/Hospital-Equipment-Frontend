@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CompanyAdmin } from '../model/companyAdmin.model';
+import { RegisterCompanyService } from '../register-company-admin-service.service';
 
 @Component({
   selector: 'app-create-company-admin',
@@ -8,7 +9,9 @@ import { CompanyAdmin } from '../model/companyAdmin.model';
 })
 export class CreateCompanyAdminComponent {
 
+  constructor(private service:RegisterCompanyService){}
   adminData: CompanyAdmin = {
+    adressId:'',
     email: '',
     name: '',
     password: '',
@@ -23,8 +26,13 @@ export class CreateCompanyAdminComponent {
       number: '',
       street: ''
     }
-   }
+   };
+   createdAdmin:CompanyAdmin | undefined;
   createAdmin() {
-    
+          this.service.createCompanyAdmin(this.adminData).subscribe({
+            next:(result:CompanyAdmin)=>{
+                
+            }
+          })
 }
 }
