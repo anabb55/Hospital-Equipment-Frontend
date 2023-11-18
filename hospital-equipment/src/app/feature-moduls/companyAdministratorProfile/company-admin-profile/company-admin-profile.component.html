@@ -1,1 +1,80 @@
-<p>company-admin-profile works!</p>
+<div class="updateContainer">
+    <h1>Edit Your Personal Account</h1>
+
+    <form [formGroup]="inputForm">
+        <div>
+            <mat-form-field >
+
+                <input matInput type="text"  formControlName="lastname">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+
+                <input matInput type="text"  formControlName="firstname">
+            </mat-form-field>
+        </div>
+        
+        <div>
+            <mat-form-field appearance="fill">
+
+                <input matInput type="text" placeholder="Name" formControlName="phoneNumber">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+
+                <input matInput type="text" placeholder="Name" formControlName="occupation">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+
+                <input matInput type="text" placeholder="Name" formControlName="email">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+
+                <input matInput type="text" placeholder="Name" formControlName="password">
+            </mat-form-field>
+        </div>
+
+        
+        <div>
+            <div>
+                <mat-label>Address: </mat-label>
+            </div>
+
+
+            <div>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="city">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="country">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="street">
+                </mat-form-field>
+
+            </div>
+            <div>
+                <mat-form-field>
+                    <input matInput type="text" formControlName="number">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="buttonClass">
+            <button mat-raised-button type="submit" color="primary" (click)="edit()">Edit</button>
+
+        </div>
+
+
+    </form>
+</div>

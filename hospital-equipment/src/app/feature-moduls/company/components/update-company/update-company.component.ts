@@ -39,15 +39,6 @@ export class UpdateCompanyComponent {
   companies: Company[]=[]
   constructor(private companyService: CompanyServiceService){
    this.getCompanyByAdmin()
-
-   this.companyService.getAdministratorById(1).subscribe({
-    next: (response: CompanyAdministrator)=>{
-      console.log(response);
-    },
-    error: (error)=>{
-      console.log(error)
-    }
-   })
   
   }
   getCompanyByAdmin(){ 
@@ -76,7 +67,7 @@ export class UpdateCompanyComponent {
     street:this.company.address.street,
     number:this.company.address.number,
   });
-  console.log(this);
+  
   }
 
   edit(company:Company){
