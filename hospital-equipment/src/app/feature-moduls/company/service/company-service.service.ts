@@ -15,8 +15,13 @@ export class CompanyServiceService {
    return this.http.get<Company[]>(environment.apiHost+ 'companyProfile/');
   }
 
-  getCompaniesByAdministrator(id:number):Observable<Company[]>{
+  getCompanyByAdmin(id:number):Observable<Company[]>{
     return this.http.get<Company[]>(environment.apiHost+ 'companyProfile/byAdmin/' + id)
       
+  }
+
+  updateCompany(company:Company): Observable<Company>{
+    console.log('Poslata u servis',company)
+    return this.http.put<Company>(environment.apiHost+'companyProfile/update/'+company.id, company)
   }
 }
