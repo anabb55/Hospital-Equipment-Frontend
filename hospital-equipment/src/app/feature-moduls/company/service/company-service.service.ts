@@ -14,4 +14,9 @@ export class CompanyServiceService {
   getAllCompanies():Observable<Company[]>{
    return this.http.get<Company[]>(environment.apiHost+ 'companyProfile/');
   }
+
+  getCompaniesByAdministrator(id:number):Observable<Company[]>{
+    return this.http.get<Company[]>(environment.apiHost+ 'companyProfile/byAdmin/' + id)
+      
+  }
 }

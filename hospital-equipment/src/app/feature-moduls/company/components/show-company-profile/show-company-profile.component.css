@@ -187,6 +187,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  overflow-x: scroll;
 }
 
 .price {
@@ -242,4 +243,9 @@
   text-align: left;
   overflow: hidden;
   white-space: pre-wrap;
+}
+
+.eq-app{
+  display: flex;
+  flex-direction: row;
 }

@@ -20,12 +20,21 @@
 
         <div class="card-content">
           <h2 class="name">{{company.name}} </h2>
+          <div class="eq-app">
           <div class="desc-container">
             <p class="description"><i class="material-icons">&#xe0c8;</i>
               {{company.address.city}},{{company.address.country}} </p>
             <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
             <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
           </div>
+
+          <div *ngFor="let appointment of company.appointments">
+
+            <p >Date: {{appointment.date}}</p>
+            <p class="price">Duration: {{appointment.duration}}</p>
+
+          </div>
+        </div>
 
           <h2>Equipment</h2>
           <div class="card-footer">
@@ -37,6 +46,9 @@
               <p class="price-text">Amount:{{equipment.amount}}</p>
 
             </div>
+            
+           
+            
 
 
           </div>
