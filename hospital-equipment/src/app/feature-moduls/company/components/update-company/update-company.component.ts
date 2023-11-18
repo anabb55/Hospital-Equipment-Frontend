@@ -39,7 +39,8 @@ export class UpdateCompanyComponent {
    this.getCompanyByAdmin()
   
   }
-  getCompanyByAdmin(){
+  getCompanyByAdmin(){ 
+    //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
     this.companyService.getCompanyByAdmin(1).subscribe({
       next:(response)=>{
         this.companies=response

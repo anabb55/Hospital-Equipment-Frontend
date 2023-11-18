@@ -14,6 +14,7 @@ const routes: Routes = [
   {path:'showCompanyProfile', component:ShowCompanyProfileComponent},
   { path: 'register', component: RegisterComponent },
 { path: 'displayProfile', component: DisplayProfile },
+
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
   { path: 'registerCompanyProfile', component: RegisterCompanyProfileComponent },
   {path: 'updateCompany', component: UpdateCompanyComponent}
