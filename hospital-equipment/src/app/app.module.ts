@@ -8,9 +8,10 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateCompanyAdminComponent } from './feature-moduls/create-company-admin/create-company-admin.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent],
+  declarations: [AppComponent, RegisterComponent, CreateCompanyAdminComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
