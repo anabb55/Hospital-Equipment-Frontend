@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule, DatePipe } from '@angular/common'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
@@ -8,6 +9,7 @@ import { AngularMaterialModule } from './angular-material/angular-material.modul
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisteredUserModule } from './feature-moduls/registeredUser/registeredUser.module';
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent],
@@ -19,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    CommonModule,
+    RegisteredUserModule
   ],
   providers: [],
   bootstrap: [AppComponent],
