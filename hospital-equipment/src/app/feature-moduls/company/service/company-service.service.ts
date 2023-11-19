@@ -34,4 +34,8 @@ export class CompanyServiceService {
   updateCompanyAdmin(companyAdmin: CompanyAdministrator):Observable<CompanyAdministrator>{
     return this.http.put<CompanyAdministrator>(environment.apiHost+'companyAdministrators/update/'+companyAdmin.id,companyAdmin)
   }
+
+  getCompanyById(id:number):Observable<Company>{
+    return this.http.get<Company>(environment.apiHost+ 'companyProfile/getById/'+ id);
+   }
 }
