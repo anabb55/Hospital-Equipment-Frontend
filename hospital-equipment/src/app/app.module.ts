@@ -17,8 +17,12 @@ import { UpdateCompanyComponent } from './feature-moduls/company/components/upda
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+
 import { FailRegistrationComponent } from './infrastructure/auth/register/fail-registration/fail-registration.component';
 import { SuccessfullRegistrationComponent } from './infrastructure/auth/register/successfull-registration/successfull-registration.component';
+import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministratorProfile/company-admin-profile/company-admin-profile.component';
+import { OneCompanyComponent } from './feature-moduls/company/components/one-company/one-company.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,12 @@ import { SuccessfullRegistrationComponent } from './infrastructure/auth/register
     UpdateCompanyComponent,
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
+     CompanyAdminProfileComponent,
+    OneCompanyComponent
   ],
+
+
+
 
   imports: [
     BrowserModule,
