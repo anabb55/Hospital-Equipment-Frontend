@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CompanyServiceService } from '../../service/company-service.service';
 import { Company } from 'src/app/model/company.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-company-profile',
@@ -11,7 +12,7 @@ export class ShowCompanyProfileComponent {
 
   companies: Company[]=[]
   
-  constructor(private companyService: CompanyServiceService){
+  constructor(private companyService: CompanyServiceService, private router: Router){
 
    this.getAllCompanies()
   }
@@ -28,5 +29,8 @@ export class ShowCompanyProfileComponent {
     })
   }
 
+  showOneCompany(company:Company){
+    this.router.navigate(['/oneCompany/', company.id]);
+  }
   
 }
