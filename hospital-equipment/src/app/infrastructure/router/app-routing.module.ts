@@ -8,26 +8,35 @@ import { RegisterCompanyProfileComponent } from 'src/app/feature-moduls/register
 import { UpdateCompanyComponent } from 'src/app/feature-moduls/company/components/update-company/update-company.component';
 import { DisplayProfile } from 'src/app/feature-moduls/registeredUser/displayProfile/displayProfile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FailRegistrationComponent } from '../auth/register/fail-registration/fail-registration.component';
+import { SuccessfullRegistrationComponent } from '../auth/register/successfull-registration/successfull-registration.component';
 
 const routes: Routes = [
+  { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
-  {path:'showCompanyProfile', component:ShowCompanyProfileComponent},
-  { path: 'register', component: RegisterComponent },
-{ path: 'displayProfile', component: DisplayProfile },
+  { path: 'displayProfile', component: DisplayProfile },
 
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
-  { path: 'registerCompanyProfile', component: RegisterCompanyProfileComponent },
-  {path: 'updateCompany', component: UpdateCompanyComponent}
-]
-
+  {
+    path: 'registerCompanyProfile',
+    component: RegisterCompanyProfileComponent,
+  },
+  { path: 'updateCompany', component: UpdateCompanyComponent },
+  { path: 'failRegistration', component: FailRegistrationComponent },
+  {
+    path: 'successfullyRegistration',
+    component: SuccessfullRegistrationComponent,
+  },
+];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     RouterModule.forRoot(routes),
     FormsModule,
     CommonModule,
-    ],
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

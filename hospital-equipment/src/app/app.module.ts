@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule, DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
@@ -17,9 +17,20 @@ import { UpdateCompanyComponent } from './feature-moduls/company/components/upda
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { FailRegistrationComponent } from './infrastructure/auth/register/fail-registration/fail-registration.component';
+import { SuccessfullRegistrationComponent } from './infrastructure/auth/register/successfull-registration/successfull-registration.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, ShowCompanyProfileComponent,RegisterCompanyProfileComponent,CreateCompanyAdminComponent,UpdateCompanyComponent],
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    ShowCompanyProfileComponent,
+    RegisterCompanyProfileComponent,
+    CreateCompanyAdminComponent,
+    UpdateCompanyComponent,
+    FailRegistrationComponent,
+    SuccessfullRegistrationComponent,
+  ],
 
   imports: [
     BrowserModule,
@@ -35,9 +46,6 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    
-  
-
   ],
   providers: [],
   bootstrap: [AppComponent],

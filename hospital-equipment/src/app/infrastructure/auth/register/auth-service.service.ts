@@ -11,7 +11,7 @@ export class AuthServiceService {
 
   signUp(user: User): Observable<User> {
     return this.http.post<User>(
-      'http://localhost:8081/api/registeredUsers/signUp',
+      'http://localhost:8081/api/authentication/signUp',
       user
     );
   }
