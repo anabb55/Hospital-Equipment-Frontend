@@ -104,6 +104,7 @@
     cursor: pointer;
     box-shadow: 0 2px 16px 3px #dddddd;
     transition: box-shadow 0.3s ease;
+    margin-left: 550px;
   }
   
   .card:hover {
@@ -230,7 +231,7 @@
   
   .desc-container {
     overflow: hidden;
-    height: 150px;
+    
   }
   
   .description {
@@ -248,6 +249,7 @@
   .eq-app{
     display: flex;
     flex-direction: row;
+    height: 250px;
   }
 
   .container{

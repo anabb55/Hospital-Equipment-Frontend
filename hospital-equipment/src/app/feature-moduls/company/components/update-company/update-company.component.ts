@@ -43,7 +43,7 @@ export class UpdateCompanyComponent {
   }
   getCompanyByAdmin(){ 
     //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
-    this.companyService.getCompanyByAdmin(1).subscribe({
+    this.companyService.getCompanyByAdmin(3).subscribe({
       next:(response)=>{
         this.companies=response
         this.company=this.companies[0]
@@ -92,4 +92,5 @@ export class UpdateCompanyComponent {
     this.company.address.number=this.inputForm.value.number as string
     this.company.address.street=this.inputForm.value.street as string
   }
+
 }
