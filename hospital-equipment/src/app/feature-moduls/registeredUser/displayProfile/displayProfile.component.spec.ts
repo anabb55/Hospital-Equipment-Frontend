@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DisplayProfile } from './displayProfile.component'
+import { DisplayProfile } from './displayProfile.component';
+
 
 describe('DisplayProfile', () => {
   let component: DisplayProfile;
