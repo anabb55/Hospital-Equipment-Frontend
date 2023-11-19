@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FailRegistrationComponent } from '../auth/register/fail-registration/fail-registration.component';
 import { SuccessfullRegistrationComponent } from '../auth/register/successfull-registration/successfull-registration.component';
 
-
 const routes: Routes = [
   { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
@@ -33,14 +32,9 @@ const routes: Routes = [
     path: 'successfullyRegistration',
     component: SuccessfullRegistrationComponent,
   },
+  { path: 'companyAdminProfile', component: CompanyAdminProfileComponent },
+  { path: 'oneCompany/:id', component: OneCompanyComponent },
 ];
-
-  
-  {path:'companyAdminProfile', component: CompanyAdminProfileComponent},
-  {path:'oneCompany/:id', component: OneCompanyComponent}
-]
-
-
 
 @NgModule({
   declarations: [],
