@@ -1,0 +1,50 @@
+<div class="form-container">
+<form #adminForm (ngSubmit)="createAdmin()">
+    <h2 class="form-title">Create new company</h2>
+   
+    <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" [(ngModel)]="adminData.email"><br>
+    </div>
+    <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" [(ngModel)]="adminData.password"><br>
+    </div>
+    <div class="form-group">
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName" [(ngModel)]="adminData.firstName"><br>
+    </div>
+    <div class="form-group">
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName" [(ngModel)]="adminData.lastName"><br>
+    </div>
+    <div class="form-group">
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="adminData.phoneNumber"><br>
+    </div>
+    <div class="form-group">
+    <label for="occupation">Occupation:</label>
+    <input type="text" id="occupation" name="occupation" [(ngModel)]="adminData.occupation"><br>
+    </div>
+    <p>Adresa:</p>
+    <div class="form-group">
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" [(ngModel)]="adminData.adress.street" required>
+      </div>
+      <div class="form-group">
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="country" [(ngModel)]="adminData.adress.country" required>
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" [(ngModel)]="adminData.adress.city" required>
+      </div>
+      <div class="form-group">
+        <label for="number">Number:</label>
+        <input type="text" id="number" name="number" [(ngModel)]="adminData.adress.number" required>
+      </div>
+
+    <button type="submit">Create Admin</button>
+
+</form>
+</div>
