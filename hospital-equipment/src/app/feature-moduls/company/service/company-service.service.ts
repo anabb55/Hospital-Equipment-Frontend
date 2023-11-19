@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/env/environment.model';
@@ -38,4 +38,21 @@ export class CompanyServiceService {
   getCompanyById(id:number):Observable<Company>{
     return this.http.get<Company>(environment.apiHost+ 'companyProfile/getById/'+ id);
    }
+
+   searchCompanies(name: string, city: string): Observable<Company[]> {
+    const params = new HttpParams()
+      .set('name', name)
+      .set('city', city);
+
+    return this.http.get<Company[]>(environment.apiHost + 'companyProfile/search', { params });
+  }
+
+  searchCompaniesByRating(grade: number): Observable<Company[]> {
+    const params = new HttpParams().set('grade', grade.toString());
+    console.log("Rate je"+grade)
+  
+    return this.http.get<Company[]>(environment.apiHost + 'companyProfile/searchByRating', { params });
+  }
+
+
 }
