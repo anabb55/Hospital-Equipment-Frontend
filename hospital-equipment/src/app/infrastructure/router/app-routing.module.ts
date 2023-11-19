@@ -17,8 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path:'showCompanyProfile', component:ShowCompanyProfileComponent},
-  { path: 'register', component: RegisterComponent },
-{ path: 'displayProfile', component: DisplayProfile },
+  { path: 'displayProfile', component: DisplayProfile },
 
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
   { path: 'registerCompanyProfile', component: RegisterCompanyProfileComponent },
