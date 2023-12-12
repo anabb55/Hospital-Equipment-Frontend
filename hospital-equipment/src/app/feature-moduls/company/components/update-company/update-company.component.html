@@ -1,0 +1,108 @@
+
+<div class="container">
+  
+    <div class="card" >
+        <div class="image-content">
+            <span class="overlay">
+                <p class="tag">Stay safe</p>
+            </span>
+
+            <div class="card-image">
+                <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg"
+                    alt="" class="card-img">
+            </div>
+        </div>
+
+        <div class="card-content">
+            <h2 class="name">{{company.name}} </h2>
+            <div class="eq-app">
+                <div class="desc-container">
+                    <p class="description"><i class="material-icons">&#xe0c8;</i>
+                        {{company.address.city}},{{company.address.country}} </p>
+                    <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
+                    <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
+                </div>
+
+                <div *ngFor="let appointment of company.appointments">
+
+                    <p>Date: {{appointment.date}}</p>
+                    <p class="price">Duration: {{appointment.duration}}</p>
+
+                </div>
+            </div>
+
+            <h2>Equipment</h2>
+            <div class="card-footer">
+                <div *ngFor="let equipment of company.equipment">
+
+                    <p class="price-text">{{equipment.name}}</p>
+                    <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+                    <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+                    <p class="price-text">Amount:{{equipment.amount}}</p>
+
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="updateContainer">
+        <h1>Edit Company Details</h1>
+
+        <form [formGroup]="inputForm">
+            <div>
+                <mat-form-field appearance="fill">
+
+                    <input matInput type="text" placeholder="Name" formControlName="name">
+                </mat-form-field>
+            </div>
+
+            <div>
+                <mat-form-field>
+                    <textarea matInput rows="4" placeholder="Description" formControlName="description"></textarea>
+                </mat-form-field>
+
+            </div>
+            <div>
+                <div>
+                    <mat-label>Address: </mat-label>
+                </div>
+
+
+                <div>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="city" formControlName="city">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="country" formControlName="country">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="street" formControlName="street">
+                    </mat-form-field>
+
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="number" formControlName="number">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="buttonClass">
+                <button mat-raised-button type="submit" color="primary" (click)="edit(company)">Edit</button>
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
