@@ -11,7 +11,6 @@ export class CreateCompanyAdminComponent {
 
   constructor(private service:RegisterCompanyService){}
   adminData: CompanyAdmin = {
-    adressId:'',
     email: '',
     name: '',
     password: '',
@@ -20,12 +19,7 @@ export class CreateCompanyAdminComponent {
     phoneNumber: '',
     occupation: '',
     enabled: false,
-    adress: {
-      country: '',
-      city: '',
-      number: '',
-      street: ''
-    }
+    addressId:''
    };
    createdAdmin:CompanyAdmin | undefined;
   createAdmin() {

@@ -4,6 +4,6 @@ export interface CompanyProfile {
     name:string,
     description:string,
     grade:number,
-    adress:Address,
+    address:Address,
   }
   
