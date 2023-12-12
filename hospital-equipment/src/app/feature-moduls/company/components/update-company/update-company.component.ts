@@ -1,17 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CompanyServiceService } from '../../service/company-service.service';
 import { Company } from 'src/app/model/company.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { Equipment } from 'src/app/model/equipment.model';
+import { EquipmentStock } from 'src/app/feature-moduls/model/equipmentStock.model';
+
 
 @Component({
   selector: 'app-update-company',
   templateUrl: './update-company.component.html',
   styleUrls: ['./update-company.component.css']
 })
-export class UpdateCompanyComponent {
-
-  
+export class UpdateCompanyComponent implements OnInit{
+  displayedColumns: string[] = ['name', 'description', 'grade', 'amount','add'];
+  equipmentStock:EquipmentStock={
+    equipment:{
+      id:0,
+      name:'',
+      description:'',
+      grade:0,
+      companies:[]
+    },
+    company:{
+      id: 0,
+      name: '',
+      address: {
+        id: 0,
+        street: '',
+        city: '',
+        country:'',
+        number: '',
+      },
+      description: '',
+      grade: 0,
+      appointments: [],
+      administrators: [],
+      equipment: [],
+    },
+    amount:0
+  }
+  dataSource!: MatTableDataSource<any>;
   company: Company={
     id: 0,
     name: '',
@@ -41,13 +71,18 @@ export class UpdateCompanyComponent {
    this.getCompanyByAdmin()
   
   }
+  ngOnInit(): void {
+
+    
+    
+  }
   getCompanyByAdmin(){ 
     //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
     this.companyService.getCompanyByAdmin(3).subscribe({
       next:(response)=>{
         this.companies=response
         this.company=this.companies[0]
-        
+        this.getAvailableEquipmentForCompany()
         console.log('Kompanijee', this.companies)
         console.log('Kompanijaa', this.company)
         this.fillInputForm()
@@ -93,4 +128,31 @@ export class UpdateCompanyComponent {
     this.company.address.street=this.inputForm.value.street as string
   }
 
+  getAvailableEquipmentForCompany(){
+    this.companyService.getAvailableEquipmentForCompany(this.company.id).subscribe({
+      next:(response)=>{
+        console.log('Response',response);
+        this.dataSource=new MatTableDataSource<Equipment>(response);
+      },
+      error:(error)=>{
+        console.log(error)
+      }
+
+    })
+  }
+
+  addEquipmentToCompany(equipment:Equipment){
+    this.equipmentStock.company=this.company
+    this.equipmentStock.amount=1
+    this.equipmentStock.equipment=equipment
+    this.companyService.addEquipmentToCompany(this.equipmentStock).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      error:(error)=>{
+        console.log(error)
+      }
+    })
+
+  }
 }

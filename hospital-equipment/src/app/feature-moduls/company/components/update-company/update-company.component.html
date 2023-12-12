@@ -38,7 +38,7 @@
                     <p class="price-text">{{equipment.name}}</p>
                     <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
                     <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-                    <p class="price-text">Amount:{{equipment.amount}}</p>
+                    
 
                 </div>
 
@@ -105,4 +105,41 @@
 
         </form>
     </div>
+</div>
+<div>
+<h2>Available Equipment</h2>
+<h2>Equipment</h2>
+
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let equipment">{{ equipment.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+    <mat-cell *matCellDef="let equipment">{{ equipment.description }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="grade">
+    <mat-header-cell *matHeaderCellDef>Grade</mat-header-cell>
+    <mat-cell *matCellDef="let equipment">{{ equipment.grade }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+    <mat-cell *matCellDef="let equipment">{{ equipment.amount }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="add">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let equipment">
+      <button mat-icon-button (click)="addEquipmentToCompany(equipment)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
 </div>

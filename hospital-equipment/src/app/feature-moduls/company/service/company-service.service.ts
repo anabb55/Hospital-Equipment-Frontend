@@ -5,6 +5,8 @@ import { environment } from 'src/app/env/environment.model';
 import { Company } from 'src/app/model/company.model';
 import { CompanyAdmin } from '../../model/companyAdmin.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
+import { Equipment } from 'src/app/model/equipment.model';
+import { EquipmentStock } from '../../model/equipmentStock.model';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +56,13 @@ export class CompanyServiceService {
     return this.http.get<Company[]>(environment.apiHost + 'companyProfile/searchByRating', { params });
   }
 
+  getAvailableEquipmentForCompany(companyId:number):Observable<Equipment[]>{
+    return this.http.get<Equipment[]>(environment.apiHost+ 'equipments/findAvailable/' + companyId);
+   }
+
+   addEquipmentToCompany(equipmentStock:EquipmentStock):Observable<EquipmentStock[]>{
+    console.log('poslato',equipmentStock)
+    return this.http.post<EquipmentStock[]>(environment.apiHost+ 'equipmentStocks/create' ,equipmentStock);
+   }
 
 }
