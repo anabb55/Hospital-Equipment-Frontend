@@ -29,21 +29,9 @@
     <p>Adresa:</p>
     <div class="form-group">
         <label for="street">Street:</label>
-        <input type="text" id="street" name="street" [(ngModel)]="adminData.adress.street" required>
+        <input type="text" id="street" name="street" [(ngModel)]="adminData.addressId" required>
       </div>
-      <div class="form-group">
-        <label for="country">Country:</label>
-        <input type="text" id="country" name="country" [(ngModel)]="adminData.adress.country" required>
-      </div>
-      <div class="form-group">
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" [(ngModel)]="adminData.adress.city" required>
-      </div>
-      <div class="form-group">
-        <label for="number">Number:</label>
-        <input type="text" id="number" name="number" [(ngModel)]="adminData.adress.number" required>
-      </div>
-
+ 
     <button type="submit">Create Admin</button>
 
 </form>

@@ -1,7 +1,5 @@
-import { Address } from "./Address";
-
 export interface CompanyAdmin {
-  adressId:string,
+  
     email:string,
     name:string,
     password:string,
@@ -10,6 +8,7 @@ export interface CompanyAdmin {
     phoneNumber:string,
     occupation:string,
     enabled:boolean,
-    adress:Address
+    addressId:string,
+    
   }
   

@@ -47,7 +47,7 @@ export class DisplayProfile implements OnInit {
   loadProfileData() {
     console.log('Loading profile data...');
 
-    this.service.getProfile(5).subscribe({
+    this.service.getProfile(1).subscribe({
       next: (data: RegisteredUser) => {
         console.log('data je' + data);
         this.registeredUser.id = data.id;
@@ -122,7 +122,7 @@ export class DisplayProfile implements OnInit {
     console.log("Ovo je", JSON.stringify(updatedData, null, 2));
     
   
-    this.service.updateProfile(updatedData, 5).subscribe({
+    this.service.updateProfile(updatedData, 1).subscribe({
       next: (data: any) => {
         console.log('Profile updated successfully:', data);
         this.loadProfileData();
