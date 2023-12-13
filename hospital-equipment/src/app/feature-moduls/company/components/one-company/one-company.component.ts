@@ -29,7 +29,7 @@ export class OneCompanyComponent  {
     equipment: [],
   }
 
-  constructor(private activedRoute: ActivatedRoute, private companyService : CompanyServiceService){
+  constructor( private activedRoute: ActivatedRoute, private companyService : CompanyServiceService){
    this.getId();
    this.getCompany();
   }
@@ -51,6 +51,9 @@ export class OneCompanyComponent  {
         console.log(error)
       }
     })
+  }
+  addAdmin(){
+   
   }
 
 }

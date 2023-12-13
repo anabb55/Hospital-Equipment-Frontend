@@ -54,5 +54,8 @@ export class CompanyServiceService {
     return this.http.get<Company[]>(environment.apiHost + 'companyProfile/searchByRating', { params });
   }
 
+  updateCompanyAdministrators(company:Company):Observable<Company>{
+    return this.http.put<Company>(environment.apiHost + 'companyProfile/updateAdministrators',company);
+  }
 
 }

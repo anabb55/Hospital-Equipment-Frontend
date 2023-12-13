@@ -53,6 +53,12 @@ button {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
   }
+  /* Stil za onemogućeno dugme */
+button:disabled {
+  color: #ccc; /* Siva boja teksta kada je dugme onemogućeno */
+  border-color: #ccc; /* Siva boja ivice kada je dugme onemogućeno */
+  cursor: not-allowed; /* Kursor postaje nedozvoljen kada je dugme onemogućeno */
+}
   
   /* Stil za dugme kada je pokazivač miša iznad njega */
   button:hover {

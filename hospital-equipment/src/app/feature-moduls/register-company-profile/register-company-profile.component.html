@@ -1,6 +1,6 @@
 <div class="form-container">
 
-<form (ngSubmit)="onSubmit()" class="company-form">
+<form class="company-form" #companyForm="ngForm">
     <h2 class="form-title">Create new company</h2>
     <div  class="form-group">
       <label for="name">Name:</label>
@@ -16,20 +16,29 @@
     </div>
     <div class="form-group">
       <label for="street">Street:</label>
-      <input type="text" id="street" name="street" [(ngModel)]="address.street" required>
+      <input type="text" id="street" name="street" [(ngModel)]="street" required>
     </div>
     <div class="form-group">
       <label for="country">Country:</label>
-      <input type="text" id="country" name="country" [(ngModel)]="address.country" required>
+      <input type="text" id="country" name="country" [(ngModel)]="country" required>
     </div>
     <div class="form-group">
       <label for="city">City:</label>
-      <input type="text" id="city" name="city" [(ngModel)]="address.city" required>
+      <input type="text" id="city" name="city" [(ngModel)]="city" required>
     </div>
     <div class="form-group">
       <label for="number">Number:</label>
-      <input type="text" id="number" name="number" [(ngModel)]="address.number" required>
+      <input type="text" id="number" name="number" [(ngModel)]="number" required>
     </div>
-    <button type="submit">Create Company</button>
+    <div >
+      <label>Add company admin:</label>
+      <div *ngFor="let admin of admins">
+        <span>{{ admin.firstName }}  {{admin.lastName}} </span>
+        <button (click)="addAdmin(admin)">Add</button>
+      </div>
+    </div>
+    <div>
+      <button type="submit" (click)=onSubmit() [disabled]="!companyForm.valid">Create Company</button>
+    </div>
   </form>
  </div>

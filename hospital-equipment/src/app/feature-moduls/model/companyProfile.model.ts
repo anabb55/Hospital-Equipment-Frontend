@@ -1,4 +1,4 @@
-import { Address } from "./Address";
+import { Address } from "src/app/model/address.model";
 
 export interface CompanyProfile {
     name:string,

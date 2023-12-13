@@ -25,7 +25,8 @@ export class CreateCompanyAdminComponent {
   createAdmin() {
           this.service.createCompanyAdmin(this.adminData).subscribe({
             next:(result:CompanyAdmin)=>{
-                
+                this.createdAdmin =result;
+                console.log("admin: "+ this.createdAdmin.firstName);
             }
           })
 }
