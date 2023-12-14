@@ -14,31 +14,34 @@
       <label for="grade">Grade:</label>
       <input type="number" id="grade" name="grade" [(ngModel)]="company.grade" required>
     </div>
-    <div class="form-group">
-      <label for="street">Street:</label>
-      <input type="text" id="street" name="street" [(ngModel)]="street" required>
+
+    <p>Adresa:</p>
+    <div class="select-wrapper">
+      <select id="street" name="address" [(ngModel)]="company.address" required>
+        <option value="" disabled selected>Select Address</option>
+        <option *ngFor="let address of addresses" [value]="address">{{address.street}} {{address.number}}, {{address.city}} {{address.country}}</option>
+      </select>
     </div>
-    <div class="form-group">
-      <label for="country">Country:</label>
-      <input type="text" id="country" name="country" [(ngModel)]="country" required>
-    </div>
-    <div class="form-group">
-      <label for="city">City:</label>
-      <input type="text" id="city" name="city" [(ngModel)]="city" required>
-    </div>
-    <div class="form-group">
-      <label for="number">Number:</label>
-      <input type="text" id="number" name="number" [(ngModel)]="number" required>
-    </div>
-    <div >
-      <label>Add company admin:</label>
+    
+<br>
+    <div>
+      <h3>Add company admin:</h3>
       <div *ngFor="let admin of admins">
         <span>{{ admin.firstName }}  {{admin.lastName}} </span>
-        <button (click)="addAdmin(admin)">Add</button>
+        <button (click)="addAdmin(admin)" class="button">Add</button><br><br>
       </div>
     </div>
-    <div>
-      <button type="submit" (click)=onSubmit() [disabled]="!companyForm.valid">Create Company</button>
-    </div>
+<br>
+<div *ngIf="admins.length === 0">
+  
+  <a href="javascript:void(0)" (click)="createAdmin()" class="create-link">No available adminstrators. Create new!</a>
+</div>
+
+<div *ngIf="admins.length !== 0">
+  <a href="javascript:void(0)" (click)="createAdmin()" class="create-link">Create new administrator</a>
+</div>
+<br><br><br>
+      <button type="submit" (click)=onSubmit() [disabled]="!companyForm.valid" class="submitButton">Create Company</button>
+    
   </form>
  </div>

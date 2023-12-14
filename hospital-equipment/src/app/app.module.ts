@@ -22,6 +22,8 @@ import { FailRegistrationComponent } from './infrastructure/auth/register/fail-r
 import { SuccessfullRegistrationComponent } from './infrastructure/auth/register/successfull-registration/successfull-registration.component';
 import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministratorProfile/company-admin-profile/company-admin-profile.component';
 import { OneCompanyComponent } from './feature-moduls/company/components/one-company/one-company.component';
+import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
+import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { OneCompanyComponent } from './feature-moduls/company/components/one-com
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
      CompanyAdminProfileComponent,
-    OneCompanyComponent
+    OneCompanyComponent,
+    CreateSystemAdminComponent,
+    SearchEquipmentComponent
   ],
 
 

@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Address } from 'src/app/model/address.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Company } from 'src/app/model/company.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-company-profile',
@@ -19,6 +20,7 @@ export class RegisterCompanyProfileComponent implements OnInit {
   number: string = ''
   country: string = ''
   
+  addresses:Address[] =[] 
   address: Address = {
     id : 0,
     city: '',
@@ -46,13 +48,18 @@ export class RegisterCompanyProfileComponent implements OnInit {
   admins: CompanyAdministrator[] = []
 
   savedAddress:Address | undefined
-  constructor(private service:RegisterCompanyService,private _snackBar: MatSnackBar){
+  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar){
     
   }
   ngOnInit(): void {
     this.service.getAllCompanyAdmins().subscribe({
       next:(result:CompanyAdministrator[])=>{
         this.admins = result;
+      }
+    })
+    this.service.getAllAddresses().subscribe({
+      next:(result:Address[])=>{
+        this.addresses = result;
       }
     })
   }
@@ -92,5 +99,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
   addAdmin(admin: CompanyAdministrator) {
     this.company.administrators.push(admin);
     console.log("Admini: "+ this.company.administrators);
+  }
+  createAdmin(){
+    console.log("Usaoooo")
+    this.router.navigate(['registerCompanyAdmin']);
   }
 }
