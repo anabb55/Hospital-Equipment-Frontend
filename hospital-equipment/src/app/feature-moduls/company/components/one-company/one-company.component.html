@@ -1,3 +1,6 @@
+<div class="overload">
+    <div class="first_column">
+        
 <div class="card" >
     <div class="image-content">
         <span class="overlay">
@@ -5,7 +8,7 @@
         </span>
 
         <div class="card-image">
-            <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg"
+            <img src="https://t4.ftcdn.net/jpg/02/51/62/57/360_F_251625725_Rn45uiFslh3l2RCMGXBpLip1ispIM1Re.jpg"
                 alt="" class="card-img">
         </div>
     </div>
@@ -20,31 +23,71 @@
                 <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
             </div>
 
-            <div *ngFor="let appointment of company.appointments">
-
-                <p>Date: {{appointment.date}}</p>
-                <p class="price">Duration: {{appointment.duration}}</p>
-
-            </div>
+            
         </div>
-
-        <h2>Equipment</h2>
-        <div class="card-footer">
-            <div *ngFor="let equipment of company.equipment">
-
-                <p class="price-text">{{equipment.name}}</p>
-                <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
-                <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-                <p class="price-text">Amount:{{equipment.amount}}</p>
-
-            </div>
-
-
-
-
-
-        </div>
-
     </div>
 
+        </div>
+    </div>
+
+    <div class="second_column">
+    
+        <div class="search-bar">
+            <div class="search">
+            <input type="text" placeholder="Enter the name of equipment" [(ngModel)]="searchQuery">
+            <button (click)="searchCompanies()">🔍</button>
+          </div></div>
+          <div class="above-card">
+            <div class="card-footer" *ngIf="extraordinaryClickedFinish">
+                <ul class="equipment-list">
+                    <li *ngFor="let app of extraordinaryAppointments" class="equipment-item">
+                        <div class="above-button">
+                      <p class="eq-name">📅{{app.date}}</p>
+                      <button (click)="addAppointment(app)" class="add-button" [disabled]="buttonDisabled" [ngClass]="{'disabled-button': buttonDisabled}">+</button>
+                    </div>
+                      <p class="price-text">🕓:{{app.startTime}}</p>
+                      <p class="price-text">⏳:{{app.duration}} min</p>
+                    </li>
+                  </ul>
+                  
+            </div>
+    <div class="card-footer" *ngIf="!extraordinaryClickedFinish">
+        <ul class="equipment-list">
+            <li *ngFor="let equipment of equipmentList" class="equipment-item">
+                <div class="above-button">
+              <p class="eq-name">{{equipment.name}}</p>
+              <button (click)="addEquipment(equipment)" class="add-button">+</button>
+            </div>
+              <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+              <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+              <p class="price-text">Amount:{{equipment.amount}}</p>
+            </li>
+          </ul>
+          
+    </div>
+  
+    <div class="button-options" *ngIf="!extraordinaryClickedFinish">
+        <button class="button" (click)="CheckFreeAppointments()" *ngIf="!buttonClicked">See predefined appointments</button>
+        <div *ngIf="buttonClicked && !extraordinaryClicked" class="buttons_app"> 
+        <button class="button">Finish</button>
+        <button class="button" (click)="CheckExtraordinaryeAppointments()">Choose your own appointment</button>
+        </div>
+        <div class="extraOrdinary" *ngIf="extraordinaryClicked">
+            <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="selectedDate">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          
+            <button class="image-button" (click)="CheckExtraOrdinary()">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Perspective-Button-Search-icon.png" alt="Alt tekst">
+            </button>
+          </div>
+          
+        
+        
+      </div>
+     
+
+</div>
+</div>
 </div>
