@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CompanyProfile } from './model/companyProfile.model';
 import { Observable } from 'rxjs';
 import { CompanyAdmin } from './model/companyAdmin.model';
+import { Address } from './model/Address';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,9 @@ export class RegisterCompanyService {
   createCompanyAdmin(admin:CompanyAdmin): Observable<CompanyAdmin> {
     return this.http.post<CompanyAdmin>( 'http://localhost:8081/api/companyAdministrators/save',admin);
   }
+
+  createAddress(address:Address): Observable<Address> {
+    return this.http.post<Address>( 'http://localhost:8081/api/addresses/save',address);
+  }
+  
 }

@@ -1,10 +1,9 @@
-
 <div class="container">
-  
-    <div class="card" >
+
+    <div class="card">
         <div class="image-content">
             <span class="overlay">
-                <p class="tag">Stay safe</p>
+                <p class="tag" (click)="editDetails()">Edit CompanyDetails</p>
             </span>
 
             <div class="card-image">
@@ -33,25 +32,41 @@
 
             <h2>Equipment</h2>
             <div class="card-footer">
-                <div *ngFor="let equipment of company.equipment">
 
-                    <p class="price-text">{{equipment.name}}</p>
-                    <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
-                    <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-                    <p class="price-text">Amount:{{equipment.amount}}</p>
+                <div *ngFor="let equipment of companyEquipment">
+                    <div>
+                        <mat-form-field class="input">
+                            <mat-label>Name</mat-label>
+                            <input matInput [(ngModel)]="equipment.name" type="text">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="input">
+                            <mat-label>Description</mat-label>
+                            <input matInput [(ngModel)]="equipment.description" type="text">
+                        </mat-form-field>
+                    </div>
 
+                    <ng-container *ngIf="equipmentAmounts">
+                        <p class="price-text" *ngFor="let ea of equipmentAmounts">
+                            <ng-container *ngIf="ea.equipmentId === equipment.id">
+                                <mat-form-field class="input">
+                                    <input matInput [(ngModel)]="ea.amount" type="text">
+                                </mat-form-field>
+                                <div class="editEq">
+                                    <p class="tag" (click)="editEquipment(equipment,ea.amount)">Edit</p>
+                                </div>
+                            </ng-container>
+                        </p>
+                    </ng-container>
+                    
                 </div>
-
-
-
-
-
             </div>
-
         </div>
 
     </div>
-    <div class="updateContainer">
+
+    <div class="updateContainer" *ngIf="showEditDetailsTable">
         <h1>Edit Company Details</h1>
 
         <form [formGroup]="inputForm">
@@ -105,4 +120,55 @@
 
         </form>
     </div>
+</div>
+<div class="buttonOptions">
+    <button mat-raised-button type="submit" color="primary" (click)="addEquipmentClick()">AddEquipment</button>
+</div>
+<div *ngIf="showAddTable">
+    <h2>Available Equipment</h2>
+
+
+    <mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">{{ equipment.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">{{ equipment.description }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="grade">
+            <mat-header-cell *matHeaderCellDef>Grade</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">{{ equipment.grade }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+            <mat-cell *matCellDef="let equipment">
+                <ng-container *ngIf="equipmentAmounts">
+                    <p class="price-text" *ngFor="let ea of equipmentAmounts">
+                        <ng-container *ngIf="ea.equipmentId === equipment.id">
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="ea.amount" placeholder="Enter amount" type="number">
+                            </mat-form-field>
+                        </ng-container>
+                    </p>
+                </ng-container>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="add">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let equipment">
+                <button mat-icon-button (click)="addEquipmentToCompany(equipment)">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
 </div>
