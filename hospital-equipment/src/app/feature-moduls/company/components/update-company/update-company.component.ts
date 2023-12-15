@@ -6,6 +6,7 @@ import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { Equipment } from 'src/app/model/equipment.model';
 import { EquipmentStock } from 'src/app/feature-moduls/model/equipmentStock.model';
+import { EquipmentAmount } from 'src/app/feature-moduls/model/equipmentAmount.model';
 
 
 @Component({
@@ -13,15 +14,25 @@ import { EquipmentStock } from 'src/app/feature-moduls/model/equipmentStock.mode
   templateUrl: './update-company.component.html',
   styleUrls: ['./update-company.component.css']
 })
-export class UpdateCompanyComponent implements OnInit{
+export class UpdateCompanyComponent {
+  showEditDetailsTable:boolean=false
+  showAddTable:boolean=false
+  enteredAmount:number=0
+  amount:number | undefined
   displayedColumns: string[] = ['name', 'description', 'grade', 'amount','add'];
+  equipmentAmounts:EquipmentAmount[]=[]
+  equipmentAmount:EquipmentAmount={
+    equipmentId: 0,
+    amount:0
+  }
+  companyEquipment:Equipment[]=[]
   equipmentStock:EquipmentStock={
     equipment:{
       id:0,
       name:'',
       description:'',
       grade:0,
-      companies:[]
+      companies:[],
     },
     company:{
       id: 0,
@@ -42,6 +53,7 @@ export class UpdateCompanyComponent implements OnInit{
     amount:0
   }
   dataSource!: MatTableDataSource<any>;
+  dataSource2!: MatTableDataSource<any>;
   company: Company={
     id: 0,
     name: '',
@@ -67,22 +79,22 @@ export class UpdateCompanyComponent implements OnInit{
     number: new FormControl('',[Validators.required])
   })
   companies: Company[]=[]
+
+
   constructor(private companyService: CompanyServiceService){
    this.getCompanyByAdmin()
   
   }
-  ngOnInit(): void {
-
-    
-    
-  }
+  
   getCompanyByAdmin(){ 
     //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
     this.companyService.getCompanyByAdmin(3).subscribe({
       next:(response)=>{
         this.companies=response
         this.company=this.companies[0]
+        this.getEquipmentByCompany();
         this.getAvailableEquipmentForCompany()
+        
         console.log('Kompanijee', this.companies)
         console.log('Kompanijaa', this.company)
         this.fillInputForm()
@@ -106,12 +118,14 @@ export class UpdateCompanyComponent implements OnInit{
   }
 
   edit(company:Company){
+    this.showEditDetailsTable=false
     console.log('This.Company', this.company)
    this.setUpdatedFields()
     this.companyService.updateCompany(this.company).subscribe({
       next: (response)=>{
         console.log('Apdejtovana',response);
         this.inputForm.reset()
+        
       },
       error: (error)=>{
         console.log(error);
@@ -143,7 +157,7 @@ export class UpdateCompanyComponent implements OnInit{
 
   addEquipmentToCompany(equipment:Equipment){
     this.equipmentStock.company=this.company
-    this.equipmentStock.amount=1
+    this.equipmentStock.amount=this.enteredAmount
     this.equipmentStock.equipment=equipment
     this.companyService.addEquipmentToCompany(this.equipmentStock).subscribe({
       next:(response)=>{
@@ -154,5 +168,63 @@ export class UpdateCompanyComponent implements OnInit{
       }
     })
 
+  }
+
+  getEquipmentByCompany(){
+    this.companyService.getEquipmentForCompany(this.company.id).subscribe({
+      next:(response)=>{
+        this.companyEquipment=response;
+        this.dataSource2=new MatTableDataSource<Equipment>(response);
+        this.findAmountForEachEquipment();
+      },
+      error:(err)=> {
+        console.log(err)
+      },
+    })
+  }
+
+  findAmountForEachEquipment(){
+    this.companyEquipment.forEach(equipment=>{
+     this.getEquipmentAmountByCompany(equipment.id);
+    }) 
+  }
+
+  getEquipmentAmountByCompany(equipmentId:number){
+    this.companyService.getEquipmentAmountForCompany(this.company.id,equipmentId).subscribe({
+      next:(response)=>{
+        this.amount=response
+        console.log('Kolcinaa',this.amount)
+        this.populateEquipmentAmount(equipmentId,this.amount)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
+  populateEquipmentAmount(equipmentId:number,amount:number){
+      const equipmentAmount = { equipmentId: equipmentId, amount: amount };
+      this.equipmentAmounts.push(equipmentAmount);
+  }
+
+  addEquipmentClick(){
+    this.showAddTable=true
+  }
+
+  editDetails(){
+    this.showEditDetailsTable=true;
+  }
+
+  editEquipment(equipment:Equipment,amount:number){
+    console.log('Updejtovani',equipment)
+    console.log('Updejtovani kolicina',amount)
+    this.companyService.updateAmount(this.company.id,equipment.id,amount).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+
+    })
   }
 }

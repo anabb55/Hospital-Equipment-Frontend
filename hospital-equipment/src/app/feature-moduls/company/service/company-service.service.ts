@@ -56,6 +56,7 @@ export class CompanyServiceService {
     return this.http.get<Company[]>(environment.apiHost + 'companyProfile/searchByRating', { params });
   }
 
+  //returns all equipment that Company doesn't possess
   getAvailableEquipmentForCompany(companyId:number):Observable<Equipment[]>{
     return this.http.get<Equipment[]>(environment.apiHost+ 'equipments/findAvailable/' + companyId);
    }
@@ -64,5 +65,20 @@ export class CompanyServiceService {
     console.log('poslato',equipmentStock)
     return this.http.post<EquipmentStock[]>(environment.apiHost+ 'equipmentStocks/create' ,equipmentStock);
    }
+
+   //returns equipment that Company does possess
+   getEquipmentForCompany(companyId:number):Observable<Equipment[]>{
+    return this.http.get<Equipment[]>(environment.apiHost+ 'equipmentStocks/equipmentByCompany/' + companyId);
+   }
+
+   getEquipmentAmountForCompany(companyId:number,equipmentId:number):Observable<number>{
+  
+    return this.http.get<number>(environment.apiHost+ 'equipmentStocks/equipmentAmount/'+ companyId +'/' + equipmentId );
+   }
+
+   updateAmount(companyId:number,equipmentId:number,amount:number){
+    const url = `${environment.apiHost}equipmentStocks/update/${equipmentId}/${companyId}?amount=${amount}`;
+    return this.http.post(url, { });
+  }
 
 }
