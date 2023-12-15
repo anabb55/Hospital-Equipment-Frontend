@@ -6,7 +6,11 @@ import { Company } from 'src/app/model/company.model';
 import { CompanyAdmin } from '../../model/companyAdmin.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Equipment } from 'src/app/model/equipment.model';
+
+import { Appointment } from 'src/app/model/appointment.model';
+
 import { EquipmentStock } from '../../model/equipmentStock.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +45,11 @@ export class CompanyServiceService {
     return this.http.get<Company>(environment.apiHost+ 'companyProfile/getById/'+ id);
    }
 
+   getEquipmentByCompanyId(companyId: number): Observable<Equipment[]> {
+    return this.http.get<Equipment[]>(`${environment.apiHost}companyProfile/company/${companyId}/equipment`);
+  }
+  
+
    searchCompanies(name: string, city: string): Observable<Company[]> {
     const params = new HttpParams()
       .set('name', name)
@@ -49,12 +58,27 @@ export class CompanyServiceService {
     return this.http.get<Company[]>(environment.apiHost + 'companyProfile/search', { params });
   }
 
+  searchEquipmentByName(name: string, companyId: number): Observable<Equipment[]> {
+    const url = `${environment.apiHost}companyProfile/equipment/${companyId}/search`;
+    const params = { name: name };
+    return this.http.get<Equipment[]>(url, { params: params });
+  }
+
   searchCompaniesByRating(grade: number): Observable<Company[]> {
     const params = new HttpParams().set('grade', grade.toString());
     console.log("Rate je"+grade)
   
     return this.http.get<Company[]>(environment.apiHost + 'companyProfile/searchByRating', { params });
   }
+
+
+ generateRandomAppointments(companyId: number, date: Date): Observable<Appointment[]> {
+  const apiUrl = `${environment.apiHost}appointments/generateRandomAppointments/${companyId}?date=${date.toISOString()}`;
+  return this.http.get<Appointment[]>(apiUrl);
+}
+
+
+
 
   //returns all equipment that Company doesn't possess
   getAvailableEquipmentForCompany(companyId:number):Observable<Equipment[]>{
@@ -80,5 +104,6 @@ export class CompanyServiceService {
     const url = `${environment.apiHost}equipmentStocks/update/${equipmentId}/${companyId}?amount=${amount}`;
     return this.http.post(url, { });
   }
+
 
 }
