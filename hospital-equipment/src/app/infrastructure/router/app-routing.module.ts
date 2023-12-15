@@ -14,15 +14,21 @@ import { DisplayProfile } from 'src/app/feature-moduls/registeredUser/displayPro
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FailRegistrationComponent } from '../auth/register/fail-registration/fail-registration.component';
 import { SuccessfullRegistrationComponent } from '../auth/register/successfull-registration/successfull-registration.component';
+import { LoginComponent } from '../auth/register/login/login.component';
+import { AuthGuard } from 'src/app/interceptor/auth.guard';
+import { RoleGuard } from 'src/app/interceptor/role.guard';
 
 const routes: Routes = [
   { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
-  {path:'showCompanyProfile', component:ShowCompanyProfileComponent},
+  { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
 
-
-  { path: 'displayProfile', component: DisplayProfile },
-
+  {
+    path: 'displayProfile',
+    component: DisplayProfile,
+    // canActivate: [AuthGuard, RoleGuard],
+    // data: { roles: ['ROLE_REGISTERED_USER'] },
+  },
 
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
 
@@ -38,6 +44,7 @@ const routes: Routes = [
   },
   { path: 'companyAdminProfile', component: CompanyAdminProfileComponent },
   { path: 'oneCompany/:id', component: OneCompanyComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
