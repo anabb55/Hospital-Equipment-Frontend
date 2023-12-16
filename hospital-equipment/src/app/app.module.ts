@@ -22,10 +22,16 @@ import { FailRegistrationComponent } from './infrastructure/auth/register/fail-r
 import { SuccessfullRegistrationComponent } from './infrastructure/auth/register/successfull-registration/successfull-registration.component';
 import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministratorProfile/company-admin-profile/company-admin-profile.component';
 import { OneCompanyComponent } from './feature-moduls/company/components/one-company/one-company.component';
+
 import { LoginComponent } from './infrastructure/auth/register/login/login.component';
 import { NavbarComponent } from './feature-moduls/layout/navbar/navbar.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
+
+import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
+import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+
+
 
 @NgModule({
   declarations: [
@@ -37,10 +43,15 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
     UpdateCompanyComponent,
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
+
     CompanyAdminProfileComponent,
     OneCompanyComponent,
     LoginComponent,
     NavbarComponent,
+
+    CreateSystemAdminComponent,
+    SearchEquipmentComponent,
+
   ],
 
   imports: [
