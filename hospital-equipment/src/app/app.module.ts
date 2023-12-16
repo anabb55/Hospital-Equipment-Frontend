@@ -34,7 +34,8 @@ import { MatTableModule } from '@angular/material/table';
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
      CompanyAdminProfileComponent,
-    OneCompanyComponent
+    OneCompanyComponent,
+    
   ],
 
 

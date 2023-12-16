@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Equipment } from 'src/app/model/equipment.model';
 import { EquipmentStock } from 'src/app/feature-moduls/model/equipmentStock.model';
 import { EquipmentAmount } from 'src/app/feature-moduls/model/equipmentAmount.model';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -15,33 +16,43 @@ import { EquipmentAmount } from 'src/app/feature-moduls/model/equipmentAmount.mo
   styleUrls: ['./update-company.component.css']
 })
 export class UpdateCompanyComponent {
-  showEditDetailsTable:boolean=false
-  showAddTable:boolean=false
-  enteredAmount:number=0
-  amount:number | undefined
-  displayedColumns: string[] = ['name', 'description', 'grade', 'amount','add'];
-  equipmentAmounts:EquipmentAmount[]=[]
-  equipmentAmount:EquipmentAmount={
+
+  showAddAppointment:boolean=false
+  resultList: Equipment[] = []
+  searchQuery: string = ''
+  availableEquipment: Equipment[] = []
+  showSearch: boolean = false
+  showEditDetailsTable: boolean = false
+  showAdd: boolean = false
+  showUpdate: boolean = false
+  showDelete: boolean = false
+  showUpdateCom = false
+  enteredAmount: number = 0
+  amount: number | undefined
+  displayedColumns: string[] = ['name', 'description', 'grade', 'amount', 'add'];
+  equipmentAmounts: EquipmentAmount[] = []
+  equipmentAmount: EquipmentAmount = {
     equipmentId: 0,
-    amount:0
+    amount: 0
   }
-  companyEquipment:Equipment[]=[]
-  equipmentStock:EquipmentStock={
-    equipment:{
-      id:0,
-      name:'',
-      description:'',
-      grade:0,
-      companies:[],
+  companyEquipment: Equipment[] = []
+  equipmentStock: EquipmentStock = {
+    equipment: {
+      id: 0,
+      name: '',
+      description: '',
+      grade: 0,
+      companies: [],
+      amount: 0
     },
-    company:{
+    company: {
       id: 0,
       name: '',
       address: {
         id: 0,
         street: '',
         city: '',
-        country:'',
+        country: '',
         number: '',
       },
       description: '',
@@ -50,18 +61,18 @@ export class UpdateCompanyComponent {
       administrators: [],
       equipment: [],
     },
-    amount:0
+    amount: 0
   }
   dataSource!: MatTableDataSource<any>;
   dataSource2!: MatTableDataSource<any>;
-  company: Company={
+  company: Company = {
     id: 0,
     name: '',
     address: {
       id: 0,
       street: '',
       city: '',
-      country:'',
+      country: '',
       number: '',
     },
     description: '',
@@ -70,161 +81,269 @@ export class UpdateCompanyComponent {
     administrators: [],
     equipment: [],
   }
-  inputForm= new FormGroup({
-    name: new FormControl('',[Validators.required]),
-    description: new FormControl('',[Validators.required]),
-    city: new FormControl('',[Validators.required]),
-    country: new FormControl('',[Validators.required]),
-    street: new FormControl('',[Validators.required]),
-    number: new FormControl('',[Validators.required])
+  inputForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    country: new FormControl('', [Validators.required]),
+    street: new FormControl('', [Validators.required]),
+    number: new FormControl('', [Validators.required])
   })
-  companies: Company[]=[]
+  companies: Company[] = []
 
-
-  constructor(private companyService: CompanyServiceService){
-   this.getCompanyByAdmin()
-  
+  id:number=0
+  constructor(private companyService: CompanyServiceService, private activedRoute:ActivatedRoute) {
+    this.getId()
+    this.getCompanyByAdmin()
+    this.showSearch = false
   }
-  
-  getCompanyByAdmin(){ 
+
+  getId() {
+    this.activedRoute.params.subscribe(params => {
+      this.id = +params['id']
+      console.log('ID komponente:', this.id);
+    });
+  }
+  getCompanyByAdmin() {
     //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
     this.companyService.getCompanyByAdmin(3).subscribe({
-      next:(response)=>{
-        this.companies=response
-        this.company=this.companies[0]
+      next: (response) => {
+        this.companies = response
+        this.company = this.companies[0]
         this.getEquipmentByCompany();
         this.getAvailableEquipmentForCompany()
-        
+
         console.log('Kompanijee', this.companies)
         console.log('Kompanijaa', this.company)
         this.fillInputForm()
       },
-      error: (error)=>{
+      error: (error) => {
         console.log(error);
       }
-     }) 
+    })
   }
 
-  fillInputForm(){
-   this.inputForm.patchValue({
-    name: this.company.name,
-    description: this.company.description,
-    city: this.company.address.city,
-    country:this.company.address.country,
-    street:this.company.address.street,
-    number:this.company.address.number,
-  });
-  
+  fillInputForm() {
+    this.inputForm.patchValue({
+      name: this.company.name,
+      description: this.company.description,
+      city: this.company.address.city,
+      country: this.company.address.country,
+      street: this.company.address.street,
+      number: this.company.address.number,
+    });
+
   }
 
-  edit(company:Company){
-    this.showEditDetailsTable=false
+  edit(company: Company) {
+    this.showEditDetailsTable = false
     console.log('This.Company', this.company)
-   this.setUpdatedFields()
+    this.setUpdatedFields()
     this.companyService.updateCompany(this.company).subscribe({
-      next: (response)=>{
-        console.log('Apdejtovana',response);
+      next: (response) => {
+        console.log('Apdejtovana', response);
+        this.showUpdateCom = false
         this.inputForm.reset()
-        
+
       },
-      error: (error)=>{
+      error: (error) => {
         console.log(error);
       }
     })
+
   }
 
-  setUpdatedFields(){
-    this.company.name=this.inputForm.value.name as string
-    this.company.description=this.inputForm.value.description as string
-    this.company.address.city=this.inputForm.value.city as string
-    this.company.address.country=this.inputForm.value.country as string
-    this.company.address.number=this.inputForm.value.number as string
-    this.company.address.street=this.inputForm.value.street as string
+  setUpdatedFields() {
+    this.company.name = this.inputForm.value.name as string
+    this.company.description = this.inputForm.value.description as string
+    this.company.address.city = this.inputForm.value.city as string
+    this.company.address.country = this.inputForm.value.country as string
+    this.company.address.number = this.inputForm.value.number as string
+    this.company.address.street = this.inputForm.value.street as string
   }
 
-  getAvailableEquipmentForCompany(){
+  getAvailableEquipmentForCompany() {
     this.companyService.getAvailableEquipmentForCompany(this.company.id).subscribe({
-      next:(response)=>{
-        console.log('Response',response);
-        this.dataSource=new MatTableDataSource<Equipment>(response);
+      next: (response) => {
+        console.log('Response', response);
+        this.availableEquipment = response
       },
-      error:(error)=>{
+      error: (error) => {
         console.log(error)
       }
 
     })
   }
 
-  addEquipmentToCompany(equipment:Equipment){
-    this.equipmentStock.company=this.company
-    this.equipmentStock.amount=this.enteredAmount
-    this.equipmentStock.equipment=equipment
+  addEquipmentToCompany(equipment: Equipment) {
+    this.equipmentStock.company = this.company
+    this.equipmentStock.amount = equipment.amount
+    this.equipmentStock.equipment = equipment
     this.companyService.addEquipmentToCompany(this.equipmentStock).subscribe({
-      next:(response)=>{
+      next: (response) => {
         console.log(response)
+        this.getAvailableEquipmentForCompany();
+        this.getEquipmentByCompany();
       },
-      error:(error)=>{
+      error: (error) => {
         console.log(error)
       }
     })
 
+
   }
 
-  getEquipmentByCompany(){
+  getEquipmentByCompany() {
     this.companyService.getEquipmentForCompany(this.company.id).subscribe({
-      next:(response)=>{
-        this.companyEquipment=response;
-        this.dataSource2=new MatTableDataSource<Equipment>(response);
+      next: (response) => {
+        this.companyEquipment = response;
+        this.dataSource2 = new MatTableDataSource<Equipment>(response);
         this.findAmountForEachEquipment();
       },
-      error:(err)=> {
+      error: (err) => {
         console.log(err)
       },
     })
   }
 
-  findAmountForEachEquipment(){
-    this.companyEquipment.forEach(equipment=>{
-     this.getEquipmentAmountByCompany(equipment.id);
-    }) 
+  findAmountForEachEquipment() {
+    this.companyEquipment.forEach(equipment => {
+      this.getEquipmentAmountByCompany(equipment.id);
+    })
   }
 
-  getEquipmentAmountByCompany(equipmentId:number){
-    this.companyService.getEquipmentAmountForCompany(this.company.id,equipmentId).subscribe({
-      next:(response)=>{
-        this.amount=response
-        console.log('Kolcinaa',this.amount)
-        this.populateEquipmentAmount(equipmentId,this.amount)
+  getEquipmentAmountByCompany(equipmentId: number) {
+    this.companyService.getEquipmentAmountForCompany(this.company.id, equipmentId).subscribe({
+      next: (response) => {
+        this.amount = response
+        console.log('Kolcinaa', this.amount)
+        this.populateEquipmentAmount(equipmentId, this.amount)
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err)
       }
     })
   }
-  populateEquipmentAmount(equipmentId:number,amount:number){
-      const equipmentAmount = { equipmentId: equipmentId, amount: amount };
+  populateEquipmentAmount(equipmentId: number, amount: number) {
+    const equipmentAmount = { equipmentId: equipmentId, amount: amount };
+    const exists = this.equipmentAmounts.some(ea => ea.equipmentId === equipmentId);
+    if (!exists) {
       this.equipmentAmounts.push(equipmentAmount);
+    }
+    console.log('EquipmentAmounts', this.equipmentAmounts)
   }
 
-  addEquipmentClick(){
-    this.showAddTable=true
+  addEquipmentClick() {
+    this.showAdd = true
+    this.showDelete = false
+    this.showSearch = false
+    this.showUpdate = false
+    this.showUpdateCom = false
+    this.showAddAppointment=false
   }
 
-  editDetails(){
-    this.showEditDetailsTable=true;
+  editDetails() {
+    this.showAdd = false
+    this.showDelete = false
+    this.showSearch = false
+    this.showUpdate = false
+    this.showUpdateCom = true
+    this.showAddAppointment=false
   }
 
-  editEquipment(equipment:Equipment,amount:number){
-    console.log('Updejtovani',equipment)
-    console.log('Updejtovani kolicina',amount)
-    this.companyService.updateAmount(this.company.id,equipment.id,amount).subscribe({
-      next:(response)=>{
+  searchClick() {
+    this.showAdd = false
+    this.showDelete = false
+    this.showSearch = true
+    this.showUpdate = false
+    this.showUpdateCom = false
+    this.showAddAppointment=false
+    this.getEquipmentByCompanyId()
+
+  }
+
+  updateEquipment() {
+    this.getEquipmentByCompany();
+    this.showAdd = false
+    this.showDelete = false
+    this.showSearch = false
+    this.showUpdate = true
+    this.showUpdateCom = false
+    this.showAddAppointment=false
+  }
+
+  addAppointment() {
+    this.showAdd = false
+    this.showDelete = false
+    this.showSearch = false
+    this.showUpdate = false
+    this.showUpdateCom = false
+    this.showAddAppointment=true
+  }
+
+  editEquipment(equipment: Equipment, amount: number) {
+
+    console.log('Updejtovani', equipment)
+    console.log('Updejtovani kolicina', amount)
+    this.companyService.updateAmount(this.company.id, equipment.id, amount).subscribe({
+      next: (response) => {
+        console.log(response)
+
+      },
+      error: (err) => {
+        console.log(err)
+      }
+
+    })
+
+  }
+
+  delete(equipmentId: number) {
+    this.companyService.deleteEquipmentStock(this.company.id, equipmentId).subscribe({
+      next: (response) => {
         console.log(response)
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err)
       }
+    })
+  }
 
+  //SEARCH
+  
+  searchCompanies(): void {
+    if (this.searchQuery.trim() === '') {
+      this.getEquipmentByCompanyId();
+      console.log('prazan',this.resultList )
+
+    }
+    else {
+     
+      this.companyService.searchEquipmentByName(this.searchQuery, this.company.id)
+        .subscribe({
+          next: (response) => {
+            console.log('u funkciji id kompanije', this.company.id)
+            console.log(this.searchQuery)
+            this.resultList = response;
+            console.log('resultList',response)
+            
+          },
+          error: (error) => {
+            console.log(error);
+          }
+        });
+    }
+  }
+
+  getEquipmentByCompanyId() {
+    this.companyService.getEquipmentForCompany(this.company.id).subscribe({
+      next: (response) => {
+        this.resultList = response;
+       
+      },
+      error: (err) => {
+        console.log(err)
+      },
     })
   }
 }

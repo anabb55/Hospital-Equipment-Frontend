@@ -105,5 +105,8 @@ export class CompanyServiceService {
     return this.http.post(url, { });
   }
 
-
+  deleteEquipmentStock(companyId:number,equipmentId:number){
+  
+    return this.http.delete(environment.apiHost+ 'equipmentStocks/update/'+ companyId +'/' + equipmentId );
+   }
 }

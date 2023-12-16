@@ -6,5 +6,5 @@ export interface Equipment{
     description:string,
     grade:number,
     companies:Company[],
-
+    amount:number
 }
