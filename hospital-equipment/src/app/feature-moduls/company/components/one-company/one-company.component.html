@@ -46,11 +46,12 @@
                       <button (click)="addAppointment(app)" class="add-button" [disabled]="buttonDisabled" [ngClass]="{'disabled-button': buttonDisabled}">+</button>
                     </div>
                       <p class="price-text">🕓:{{app.startTime}}</p>
-                      <p class="price-text">⏳:{{app.duration}} min</p>
+                      <p class="price-text">⏳:{{app.endTime}} </p>
                     </li>
                   </ul>
                   
             </div>
+           
     <div class="card-footer" *ngIf="!extraordinaryClickedFinish">
         <ul class="equipment-list">
             <li *ngFor="let equipment of equipmentList" class="equipment-item">
@@ -65,6 +66,9 @@
           </ul>
           
     </div>
+
+      
+
   
     <div class="button-options" *ngIf="!extraordinaryClickedFinish">
         <button class="button" (click)="CheckFreeAppointments()" *ngIf="!buttonClicked">See predefined appointments</button>
@@ -82,6 +86,8 @@
               <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Perspective-Button-Search-icon.png" alt="Alt tekst">
             </button>
           </div>
+
+          
           
         
         
@@ -89,5 +95,28 @@
      
 
 </div>
+<div class="equipment-footer" *ngIf="equipmentAdd">
+    <ul class="equipment-list">
+        <li *ngFor="let equipment of equipmentListForReservation" class="equipment-item">
+            <div class="above-button">
+          <p class="eq-name">{{equipment.name}}</p>
+          <button (click)="addEquipment(equipment)" class="add-button">+</button>
+        </div>
+          <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+          <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+        </li>
+      </ul>
+      
+</div>
+
+<div class="button-options" *ngIf="finishedReservation && !reserveClicked">
+    <button class="button" (click)="reserveEquipment()">RESERVE</button>
+      
+      </div>
+      <div class="card-footer" *ngIf="reserveClicked">
+        <p>{{ confirmationText }}</p>
+        <button class="button"
+        (click)="confirmReservation()">Confirm Reservation</button>
+      </div>
 </div>
 </div>

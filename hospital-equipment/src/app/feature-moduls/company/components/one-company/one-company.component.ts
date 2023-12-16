@@ -12,8 +12,9 @@ import { Appointment } from 'src/app/model/appointment.model';
   styleUrls: ['./one-company.component.css']
 })
 export class OneCompanyComponent  {
-
+  reservationData: any = {};
   id:number=0;
+  confirmationText: string = "Confirm your reservation!!";
   selectedDate: Date=new Date();
   buttonDisabled: boolean = false;
   searchQuery: string = '';
@@ -21,8 +22,11 @@ export class OneCompanyComponent  {
   equipmentListForReservation: Equipment[] = []; //kada dodajemon opremu ide u ovu listu kako bismo prebacili na bek kasnije
   extraordinaryAppointments:Appointment[]=[];
   buttonClicked: boolean = false;
+  finishedReservation: boolean = false;
+  equipmentAdd: boolean = false;
   extraordinaryClicked:boolean=false;
   extraordinaryClickedFinish:boolean=false;
+  reserveClicked:boolean=false;
   minDate: Date;
   company: Company={
     id: 0,
@@ -92,14 +96,24 @@ export class OneCompanyComponent  {
 
   addEquipment(equipment: Equipment): void {
     this.equipmentListForReservation.push(equipment);
+    this.equipmentAdd=true;
     console.log('Lista opreme je ' + JSON.stringify(this.equipmentListForReservation));
 
     console.log('Dodaj opremu:', equipment);
   }
 
   addAppointment(appointment:Appointment):void{
-    console.log('app je'+JSON.stringify(appointment));
-    this.buttonDisabled = true;
+    this.companyService.saveAppointment(this.id, appointment)
+      .subscribe(
+        response => {
+          console.log('Termin je uspešno kreiran!', response);
+          this.buttonDisabled = true;
+          this.finishedReservation=true;
+        },
+        error => {
+          console.error('Došlo je do greške prilikom kreiranja termina.', error);
+        }
+      );
 
   }
   CheckFreeAppointments():void{
@@ -126,7 +140,21 @@ export class OneCompanyComponent  {
       }
     );
   }
+  reserveEquipment():void{
+    this.companyService.makeReservation(this.reservationData,1)
+    .subscribe(
+      response => {
+        console.log('Rezervacija je uspesno kreiranaa!', response);
+        this.reserveClicked=true;
+      },
+      error => {
+        console.error(error); 
+      }
+    );
+  }
+  confirmReservation():void{
 
+  }
 
   getCompany(){
     this.companyService.getCompanyById(this.id).subscribe({

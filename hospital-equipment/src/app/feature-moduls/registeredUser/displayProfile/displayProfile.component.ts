@@ -135,8 +135,8 @@ export class DisplayProfile implements OnInit {
   loyaltyProgramAdvantages() {
     this.toastr.success('You have ' + this.registeredUser.loyaltyProgram.discountPercentage + ' % discount on all...', 'Success', {
       positionClass: 'toast-top-right',
-      toastClass: 'toast-custom-style', // Dodajte svoj CSS stil za prilagođavanje izgleda
-      titleClass: 'toast-custom-title', // Dodajte svoj CSS stil za prilagođavanje izgleda
+      toastClass: 'toast-custom-style', 
+      titleClass: 'toast-custom-title', 
     });
   }
   

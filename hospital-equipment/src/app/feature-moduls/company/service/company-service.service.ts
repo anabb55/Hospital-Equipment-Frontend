@@ -7,6 +7,7 @@ import { CompanyAdmin } from '../../model/companyAdmin.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Equipment } from 'src/app/model/equipment.model';
 import { Appointment } from 'src/app/model/appointment.model';
+import { Reservation } from 'src/app/model/reservation,model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,17 @@ export class CompanyServiceService {
   return this.http.get<Appointment[]>(apiUrl);
 }
 
+saveAppointment(companyId: number, appointmentDTO: any): Observable<any> {
+  const url = `${environment.apiHost}appointments/create/${companyId}`;
+  return this.http.post(url, appointmentDTO);
+}
 
+
+
+makeReservation(reservationDTO: Reservation, id: number): Observable<Reservation> {
+  
+  return this.http.post<Reservation>(`http://localhost:8081/api/reservation/createReservation/${id}`,reservationDTO);
+}
 
 
 }
