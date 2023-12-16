@@ -108,5 +108,9 @@ export class CompanyServiceService {
   deleteEquipmentStock(companyId:number,equipmentId:number){
   
     return this.http.delete(environment.apiHost+ 'equipmentStocks/update/'+ companyId +'/' + equipmentId );
-   }
+  }
+
+  addApp(appointment:Appointment):Observable<Appointment>{
+    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp',appointment);
+  }
 }

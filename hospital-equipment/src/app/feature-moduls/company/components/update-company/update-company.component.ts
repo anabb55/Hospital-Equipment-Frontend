@@ -8,6 +8,8 @@ import { Equipment } from 'src/app/model/equipment.model';
 import { EquipmentStock } from 'src/app/feature-moduls/model/equipmentStock.model';
 import { EquipmentAmount } from 'src/app/feature-moduls/model/equipmentAmount.model';
 import { ActivatedRoute } from '@angular/router';
+import { Appointment, AppointmentStatus } from 'src/app/model/appointment.model';
+import { Time } from '@angular/common';
 
 
 @Component({
@@ -17,7 +19,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UpdateCompanyComponent {
 
-  showAddAppointment:boolean=false
+  appointments: Appointment[] = []
+  showAddAppointment: boolean = false
   resultList: Equipment[] = []
   searchQuery: string = ''
   availableEquipment: Equipment[] = []
@@ -89,10 +92,17 @@ export class UpdateCompanyComponent {
     street: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required])
   })
+
+  appForm = new FormGroup({
+    date: new FormControl('', [Validators.required]),
+    startTime: new FormControl('', [Validators.required]),
+    endTime: new FormControl('', [Validators.required]),
+
+  })
   companies: Company[] = []
 
-  id:number=0
-  constructor(private companyService: CompanyServiceService, private activedRoute:ActivatedRoute) {
+  id: number = 0
+  constructor(private companyService: CompanyServiceService, private activedRoute: ActivatedRoute) {
     this.getId()
     this.getCompanyByAdmin()
     this.showSearch = false
@@ -239,7 +249,7 @@ export class UpdateCompanyComponent {
     this.showSearch = false
     this.showUpdate = false
     this.showUpdateCom = false
-    this.showAddAppointment=false
+    this.showAddAppointment = false
   }
 
   editDetails() {
@@ -248,7 +258,7 @@ export class UpdateCompanyComponent {
     this.showSearch = false
     this.showUpdate = false
     this.showUpdateCom = true
-    this.showAddAppointment=false
+    this.showAddAppointment = false
   }
 
   searchClick() {
@@ -257,7 +267,7 @@ export class UpdateCompanyComponent {
     this.showSearch = true
     this.showUpdate = false
     this.showUpdateCom = false
-    this.showAddAppointment=false
+    this.showAddAppointment = false
     this.getEquipmentByCompanyId()
 
   }
@@ -269,7 +279,7 @@ export class UpdateCompanyComponent {
     this.showSearch = false
     this.showUpdate = true
     this.showUpdateCom = false
-    this.showAddAppointment=false
+    this.showAddAppointment = false
   }
 
   addAppointment() {
@@ -278,7 +288,7 @@ export class UpdateCompanyComponent {
     this.showSearch = false
     this.showUpdate = false
     this.showUpdateCom = false
-    this.showAddAppointment=true
+    this.showAddAppointment = true
   }
 
   editEquipment(equipment: Equipment, amount: number) {
@@ -310,23 +320,23 @@ export class UpdateCompanyComponent {
   }
 
   //SEARCH
-  
+
   searchCompanies(): void {
     if (this.searchQuery.trim() === '') {
       this.getEquipmentByCompanyId();
-      console.log('prazan',this.resultList )
+      console.log('prazan', this.resultList)
 
     }
     else {
-     
+
       this.companyService.searchEquipmentByName(this.searchQuery, this.company.id)
         .subscribe({
           next: (response) => {
             console.log('u funkciji id kompanije', this.company.id)
             console.log(this.searchQuery)
             this.resultList = response;
-            console.log('resultList',response)
-            
+            console.log('resultList', response)
+
           },
           error: (error) => {
             console.log(error);
@@ -339,11 +349,39 @@ export class UpdateCompanyComponent {
     this.companyService.getEquipmentForCompany(this.company.id).subscribe({
       next: (response) => {
         this.resultList = response;
-       
+
       },
       error: (err) => {
         console.log(err)
       },
+    })
+  }
+
+  addApp() {
+    const dateValue: string | null | undefined = this.appForm.value.date;
+    const startTimeValue: string | null | undefined = this.appForm.value.startTime;
+    
+
+    if (dateValue !== null && dateValue !== undefined) {
+      this.appointments[0].date = new Date(dateValue);
+    }
+
+
+    if (startTimeValue !== null && startTimeValue !== undefined) {
+      const parsedTime: Time = JSON.parse(startTimeValue);
+      this.appointments[0].startTime = parsedTime; 
+    }
+
+    console.log('Kreirani app', this.appointments[0])
+
+    this.companyService.addApp(this.appointments[0]).subscribe({
+      next:(response)=>{
+        console.log(response)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+      
     })
   }
 }
