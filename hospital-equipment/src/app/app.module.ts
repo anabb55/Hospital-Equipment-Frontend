@@ -20,6 +20,7 @@ import { FailRegistrationComponent } from './infrastructure/auth/register/fail-r
 import { SuccessfullRegistrationComponent } from './infrastructure/auth/register/successfull-registration/successfull-registration.component';
 import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministratorProfile/company-admin-profile/company-admin-profile.component';
 import { OneCompanyComponent } from './feature-moduls/company/components/one-company/one-company.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { OneCompanyComponent } from './feature-moduls/company/components/one-com
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatTableModule,
 
   ],
   providers: [],

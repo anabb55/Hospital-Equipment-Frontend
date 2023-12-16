@@ -187,7 +187,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    overflow-x: scroll;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    
+    
+    
   }
   
   .price {
@@ -199,6 +203,7 @@
   
   .price-text {
     font-size: 16px;
+    min-width: 200px;
   }
   
   .price-number {
@@ -261,4 +266,15 @@
   }
   .mat-form-field-flex{
     background-color: lightgray;
+  }
+
+  .buttonOptions{
+    margin-left: 100px;
+  }
+
+  .input{
+    max-width: 150px;
+  }
+  .editEq{
+    max-width: 50px;
   }
