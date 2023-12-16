@@ -1,130 +1,165 @@
 <div class="overload">
-    <div class="first_column">
-        
-<div class="card" >
-    <div class="image-content">
+  <div class="first_column">
+    <div class="card">
+      <div class="image-content">
         <span class="overlay">
-            <p class="tag">Stay safe</p>
+          <p class="tag">Stay safe</p>
         </span>
 
         <div class="card-image">
-            <img src="https://t4.ftcdn.net/jpg/02/51/62/57/360_F_251625725_Rn45uiFslh3l2RCMGXBpLip1ispIM1Re.jpg"
-                alt="" class="card-img">
+          <img
+            src="https://t4.ftcdn.net/jpg/02/51/62/57/360_F_251625725_Rn45uiFslh3l2RCMGXBpLip1ispIM1Re.jpg"
+            alt=""
+            class="card-img"
+          />
         </div>
-    </div>
+      </div>
 
-    <div class="card-content">
-        <h2 class="name">{{company.name}} </h2>
+      <div class="card-content">
+        <h2 class="name">{{ company.name }}</h2>
         <div class="eq-app">
-            <div class="desc-container">
-                <p class="description"><i class="material-icons">&#xe0c8;</i>
-                    {{company.address.city}},{{company.address.country}} </p>
-                <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
-                <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
-            </div>
-
-            
+          <div class="desc-container">
+            <p class="description">
+              <i class="material-icons">&#xe0c8;</i>
+              {{ company.address.city }},{{ company.address.country }}
+            </p>
+            <p class="description">
+              <i class="material-icons">&#xe873;</i>{{ company.description }}
+            </p>
+            <p class="description">
+              <i class="material-icons">&#xe885;</i> {{ company.grade }}
+            </p>
+          </div>
         </div>
-
+      </div>
     </div>
+  </div>
 
-
-        </div>
+  <div class="second_column" *ngIf="userRole == 'ROLE_REGISTERED_USER'">
+    <div class="search-bar">
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Enter the name of equipment"
+          [(ngModel)]="searchQuery"
+        />
+        <button (click)="searchCompanies()">🔍</button>
+      </div>
     </div>
-
-
-    <div class="second_column">
-    
-        <div class="search-bar">
-            <div class="search">
-            <input type="text" placeholder="Enter the name of equipment" [(ngModel)]="searchQuery">
-            <button (click)="searchCompanies()">🔍</button>
-          </div></div>
-          <div class="above-card">
-            <div class="card-footer" *ngIf="extraordinaryClickedFinish">
-                <ul class="equipment-list">
-                    <li *ngFor="let app of extraordinaryAppointments" class="equipment-item">
-                        <div class="above-button">
-                      <p class="eq-name">📅{{app.date}}</p>
-                      <button (click)="addAppointment(app)" class="add-button" [disabled]="buttonDisabled" [ngClass]="{'disabled-button': buttonDisabled}">+</button>
-                    </div>
-                      <p class="price-text">🕓:{{app.startTime}}</p>
-                      <p class="price-text">⏳:{{app.endTime}} </p>
-                    </li>
-                  </ul>
-                  
-            </div>
-           
-    <div class="card-footer" *ngIf="!extraordinaryClickedFinish">
+    <div class="above-card">
+      <div class="card-footer" *ngIf="extraordinaryClickedFinish">
         <ul class="equipment-list">
-            <li *ngFor="let equipment of equipmentList" class="equipment-item">
-                <div class="above-button">
-              <p class="eq-name">{{equipment.name}}</p>
-              <button (click)="addEquipment(equipment)" class="add-button">+</button>
+          <li
+            *ngFor="let app of extraordinaryAppointments"
+            class="equipment-item"
+          >
+            <div class="above-button">
+              <p class="eq-name">📅{{ app.date }}</p>
+              <button
+                (click)="addAppointment(app)"
+                class="add-button"
+                [disabled]="buttonDisabled"
+                [ngClass]="{ 'disabled-button': buttonDisabled }"
+              >
+                +
+              </button>
             </div>
-              <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
-              <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-             
-            </li>
-          </ul>
-          
-    </div>
+            <p class="price-text">🕓:{{ app.startTime }}</p>
+            <p class="price-text">⏳:{{ app.endTime }}</p>
+          </li>
+        </ul>
+      </div>
 
-      
-
-            <div>
-                <button (click)="addAdmin()">Add company admin</button>
+      <div class="card-footer" *ngIf="!extraordinaryClickedFinish">
+        <ul class="equipment-list">
+          <li *ngFor="let equipment of equipmentList" class="equipment-item">
+            <div class="above-button">
+              <p class="eq-name">{{ equipment.name }}</p>
+              <button (click)="addEquipment(equipment)" class="add-button">
+                +
+              </button>
             </div>
+            <p class="price-text">
+              <i class="material-icons">&#xe873;</i>{{ equipment.description }}
+            </p>
+            <p class="price-text">
+              <i class="material-icons">&#xe885;</i> {{ equipment.grade }}
+            </p>
+          </li>
+        </ul>
+      </div>
 
+      <div>
+        <button (click)="addAdmin()">Add company admin</button>
+      </div>
 
-  
-    <div class="button-options" *ngIf="!extraordinaryClickedFinish">
-        <button class="button" (click)="CheckFreeAppointments()" *ngIf="!buttonClicked">See predefined appointments</button>
-        <div *ngIf="buttonClicked && !extraordinaryClicked" class="buttons_app"> 
-        <button class="button">Finish</button>
-        <button class="button" (click)="CheckExtraordinaryeAppointments()">Choose your own appointment</button>
+      <div class="button-options" *ngIf="!extraordinaryClickedFinish">
+        <button
+          class="button"
+          (click)="CheckFreeAppointments()"
+          *ngIf="!buttonClicked"
+        >
+          See predefined appointments
+        </button>
+        <div *ngIf="buttonClicked && !extraordinaryClicked" class="buttons_app">
+          <button class="button">Finish</button>
+          <button class="button" (click)="CheckExtraordinaryeAppointments()">
+            Choose your own appointment
+          </button>
         </div>
         <div class="extraOrdinary" *ngIf="extraordinaryClicked">
-            <input matInput [matDatepicker]="picker" [min]="minDate" [(ngModel)]="selectedDate">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          
-            <button class="image-button" (click)="CheckExtraOrdinary()">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Perspective-Button-Search-icon.png" alt="Alt tekst">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [min]="minDate"
+            [(ngModel)]="selectedDate"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <button class="image-button" (click)="CheckExtraOrdinary()">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Perspective-Button-Search-icon.png"
+              alt="Alt tekst"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="equipment-footer" *ngIf="equipmentAdd">
+      <ul class="equipment-list">
+        <li
+          *ngFor="let equipment of equipmentListForReservation"
+          class="equipment-item"
+        >
+          <div class="above-button">
+            <p class="eq-name">{{ equipment.name }}</p>
+            <button (click)="addEquipment(equipment)" class="add-button">
+              +
             </button>
           </div>
-
-          
-          
-        
-        
-      </div>
-     
-
-</div>
-<div class="equipment-footer" *ngIf="equipmentAdd">
-    <ul class="equipment-list">
-        <li *ngFor="let equipment of equipmentListForReservation" class="equipment-item">
-            <div class="above-button">
-          <p class="eq-name">{{equipment.name}}</p>
-          <button (click)="addEquipment(equipment)" class="add-button">+</button>
-        </div>
-          <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
-          <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+          <p class="price-text">
+            <i class="material-icons">&#xe873;</i>{{ equipment.description }}
+          </p>
+          <p class="price-text">
+            <i class="material-icons">&#xe885;</i> {{ equipment.grade }}
+          </p>
         </li>
       </ul>
-      
-</div>
+    </div>
 
-<div class="button-options" *ngIf="finishedReservation && !reserveClicked">
-    <button class="button" (click)="reserveEquipment()">RESERVE</button>
-      
-      </div>
-      <div class="card-footer" *ngIf="reserveClicked">
-        <p>{{ confirmationText }}</p>
-        <button class="button"
-        (click)="confirmReservation()">Confirm Reservation</button>
-      </div>
-</div>
+    <div class="button-options" *ngIf="finishedReservation && !reserveClicked">
+      <button class="button" (click)="reserveEquipment()">RESERVE</button>
+    </div>
+    <div class="card-footer" *ngIf="reserveClicked">
+      <p>{{ confirmationText }}</p>
+      <button class="button" (click)="confirmReservation()">
+        Confirm Reservation
+      </button>
+    </div>
+  </div>
 </div>
