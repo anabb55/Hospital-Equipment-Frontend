@@ -72,6 +72,9 @@ export class CompanyServiceService {
     return this.http.get<Company[]>(environment.apiHost + 'companyProfile/searchByRating', { params });
   }
 
+  updateCompanyAdministrators(company:Company):Observable<Company>{
+    return this.http.put<Company>(environment.apiHost + 'companyProfile/updateAdministrators',company);
+  }
 
  generateRandomAppointments(companyId: number, date: Date): Observable<Appointment[]> {
   const apiUrl = `${environment.apiHost}appointments/generateRandomAppointments/${companyId}?date=${date.toISOString()}`;
