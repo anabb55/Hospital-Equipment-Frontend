@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/env/environment.model';
@@ -11,6 +11,7 @@ import { Appointment } from 'src/app/model/appointment.model';
 import { Reservation } from 'src/app/model/reservation,model';
 
 import { EquipmentStock } from '../../model/equipmentStock.model';
+import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
 
 
 @Injectable({
@@ -114,5 +115,22 @@ makeReservation(reservationDTO: Reservation, id: number): Observable<Reservation
     return this.http.post(url, { });
   }
 
+  processReservation(reservationEquipmentStockDTO: ReservationEquipmentStock, stocks: Equipment[],companyId:number): Observable<any> {
+    const requestData = {
+      reservationEquipmentStockDTO: reservationEquipmentStockDTO,
+      stocks: stocks,
+      companyId: companyId
+
+    };
+    console.log(requestData)
+  
+    const url = `${environment.apiHost}reservationEquipment/processReservation`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  
+    return this.http.post<any>(url, requestData, { headers });
+  }
+  
+  
+  
 
 }

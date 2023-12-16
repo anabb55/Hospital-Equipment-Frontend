@@ -5,6 +5,8 @@ import { Company } from 'src/app/model/company.model';
 import { Equipment } from 'src/app/model/equipment.model';
 import { DateAdapter } from '@angular/material/core';
 import { Appointment } from 'src/app/model/appointment.model';
+import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
+import { EquipmentStock } from 'src/app/model/equipment_stock.model';
 
 @Component({
   selector: 'app-one-company',
@@ -13,10 +15,12 @@ import { Appointment } from 'src/app/model/appointment.model';
 })
 export class OneCompanyComponent  {
   reservationData: any = {};
+  reservationEqStock : any={};
   id:number=0;
   confirmationText: string = "Confirm your reservation!!";
   selectedDate: Date=new Date();
   buttonDisabled: boolean = false;
+  confirmReservationClicked:boolean=false;
   searchQuery: string = '';
   equipmentList: Equipment[] = [];  //prikaz unutar firme tj eqStock
   equipmentListForReservation: Equipment[] = []; //kada dodajemon opremu ide u ovu listu kako bismo prebacili na bek kasnije
@@ -147,13 +151,26 @@ export class OneCompanyComponent  {
         console.log('Rezervacija je uspesno kreiranaa!', response);
         this.reserveClicked=true;
       },
-      error => {
+      error => {        this.reserveClicked=true;
+
         console.error(error); 
       }
     );
   }
   confirmReservation():void{
-
+    this.companyService.processReservation(this.reservationEqStock,this.equipmentListForReservation,this.id)
+    .subscribe( 
+      response => {
+        console.log('Krajnja rezervacija done!', response);
+        console.log(this.reservationEqStock)
+        this.reserveClicked=true;
+        this.confirmReservationClicked=true;
+      },
+      error => {
+        console.error(error); 
+        console.log(this.reservationEqStock);
+      }
+    );
   }
 
   getCompany(){
