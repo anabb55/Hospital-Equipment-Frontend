@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
+
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
 import { RegisterComponent } from './infrastructure/auth/register/register.component';
@@ -22,6 +25,15 @@ import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministra
 import { OneCompanyComponent } from './feature-moduls/company/components/one-company/one-company.component';
 import { MatTableModule } from '@angular/material/table';
 
+import { LoginComponent } from './infrastructure/auth/register/login/login.component';
+import { NavbarComponent } from './feature-moduls/layout/navbar/navbar.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
+
+import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
+import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+
+
 
 @NgModule({
   declarations: [
@@ -33,12 +45,16 @@ import { MatTableModule } from '@angular/material/table';
     UpdateCompanyComponent,
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
-     CompanyAdminProfileComponent,
-    OneCompanyComponent
+
+    CompanyAdminProfileComponent,
+    OneCompanyComponent,
+    LoginComponent,
+    NavbarComponent,
+
+    CreateSystemAdminComponent,
+    SearchEquipmentComponent,
+
   ],
-
-
-
 
   imports: [
     BrowserModule,
@@ -54,10 +70,24 @@ import { MatTableModule } from '@angular/material/table';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+
     MatTableModule,
 
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

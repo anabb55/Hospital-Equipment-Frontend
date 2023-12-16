@@ -1,0 +1,68 @@
+/* Stilovi za centriranje forme i oblikovanje */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150vh;
+  }
+  
+  .company-form {
+    width: 500px;
+    padding: 20px;
+    border: 2px solid green;
+    border-radius: 10px;
+  }
+  
+  /* Stilovi za obavezna polja */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label::after {
+    content: '*';
+    color: red;
+    margin-left: 5px;
+  }
+  
+  /* Stilovi za velika input polja */
+  textarea,
+  input[type='text'],
+  input[type='number'] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid green;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Stilovi za naslov iznad forme */
+  .form-title {
+    text-align: center;
+    color: green;
+  }
+  
+  /* Stil za obično dugme */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #006400; /* Tamno zelena boja */
+    background-color: transparent;
+    border: 2px solid #006400; /* Tamno zelena boja ivice */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Stil za dugme kada je pokazivač miša iznad njega */
+  button:hover {
+    background-color: #006400; /* Tamno zelena boja pozadine */
+    color: #fff; /* Bela boja teksta */
+  }
+  
+  /* Stil za dugme kada je pritisnuto */
+  button:active {
+    background-color: #004d00; /* Tamnija zelena boja pozadine kada je dugme pritisnuto */
+    border-color: #004d00; /* Tamnija zelena boja ivice kada je dugme pritisnuto */
+  }
+  

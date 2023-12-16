@@ -50,7 +50,9 @@ export class OneCompanyComponent  {
   }
 
 
+
   constructor(private activedRoute: ActivatedRoute, private companyService : CompanyServiceService,private dateAdapter: DateAdapter<Date>){
+
    this.getId();
    this.getCompany();
    this.minDate = new Date();  
@@ -183,6 +185,9 @@ export class OneCompanyComponent  {
         console.log(error)
       }
     })
+  }
+  addAdmin(){
+   
   }
 
 }

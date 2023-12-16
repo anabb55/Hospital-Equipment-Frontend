@@ -43,9 +43,9 @@
   }
   
   /* Stil za obično dugme */
-button {
-    padding: 10px 20px;
-    font-size: 16px;
+.button {
+    padding: 7px 15px;
+    font-size: 12px;
     color: #006400; /* Tamno zelena boja */
     background-color: transparent;
     border: 2px solid #006400; /* Tamno zelena boja ivice */
@@ -53,16 +53,75 @@ button {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
   }
+ .submitButton{
+  padding: 7px 15px;
+    font-size: 12px;
+    color: #006400; /* Tamno zelena boja */
+    background-color: transparent;
+    border: 2px solid #006400; /* Tamno zelena boja ivice */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+ }
+  /* Stil za onemogućeno dugme */
+.submitButton:disabled {
+  color: #ccc; /* Siva boja teksta kada je dugme onemogućeno */
+  border-color: #ccc; /* Siva boja ivice kada je dugme onemogućeno */
+  cursor: not-allowed; /* Kursor postaje nedozvoljen kada je dugme onemogućeno */
+}
   
   /* Stil za dugme kada je pokazivač miša iznad njega */
-  button:hover {
+  .button:hover {
+    background-color: #006400; /* Tamno zelena boja pozadine */
+    color: #fff; /* Bela boja teksta */
+  }
+  .submitButton:hover {
     background-color: #006400; /* Tamno zelena boja pozadine */
     color: #fff; /* Bela boja teksta */
   }
   
   /* Stil za dugme kada je pritisnuto */
-  button:active {
+  .button:active {
     background-color: #004d00; /* Tamnija zelena boja pozadine kada je dugme pritisnuto */
     border-color: #004d00; /* Tamnija zelena boja ivice kada je dugme pritisnuto */
   }
+  .submitButton:active {
+    background-color: #004d00; /* Tamnija zelena boja pozadine kada je dugme pritisnuto */
+    border-color: #004d00; /* Tamnija zelena boja ivice kada je dugme pritisnuto */
+  }
+  a.create-link {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+  }
   
+  a.create-link:hover {
+    color: darkblue;
+  }
+  /* Stilovi za select wrapper */
+.select-wrapper {
+  border: 2px solid #4CAF50; /* Zeleni okvir */
+  background-color: white; /* Bijela pozadina */
+  border-radius: 5px;
+  padding: 5px;
+}
+
+/* Stilovi za padajući meni */
+select {
+  width: 100%; /* Prilagodite širinu prema potrebama */
+  padding: 8px;
+  border: none;
+  outline: none;
+  background: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  color: black; /* Boja teksta */
+}
+
+/* Stilovi za opcije u padajućem meniju */
+select option {
+  background-color: white; /* Bijela pozadina za opcije */
+  color: black; /* Boja teksta za opcije */
+}

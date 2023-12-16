@@ -6,6 +6,7 @@ export interface User {
   password: String;
   firstname: String;
   lastname: String;
+  username: String;
   phoneNumber: String;
   occupation: String;
   address: Address;
