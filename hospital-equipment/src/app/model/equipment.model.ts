@@ -6,6 +6,6 @@ export interface Equipment{
     description:string,
     type:string,
     grade:number,
-    amount:number,
-    companies:Company[]
+    companies:Company[],
+
 }

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
+
 import { JwtModule } from '@auth0/angular-jwt';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
 import { RegisterComponent } from './infrastructure/auth/register/register.component';
@@ -17,11 +19,11 @@ import { UpdateCompanyComponent } from './feature-moduls/company/components/upda
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButton, MatButtonModule } from '@angular/material/button';
-
 import { FailRegistrationComponent } from './infrastructure/auth/register/fail-registration/fail-registration.component';
 import { SuccessfullRegistrationComponent } from './infrastructure/auth/register/successfull-registration/successfull-registration.component';
 import { CompanyAdminProfileComponent } from './feature-moduls/companyAdministratorProfile/company-admin-profile/company-admin-profile.component';
 import { OneCompanyComponent } from './feature-moduls/company/components/one-company/one-company.component';
+import { MatTableModule } from '@angular/material/table';
 
 import { LoginComponent } from './infrastructure/auth/register/login/login.component';
 import { NavbarComponent } from './feature-moduls/layout/navbar/navbar.component';
@@ -68,6 +70,10 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+
+    MatTableModule,
+
+
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
@@ -80,6 +86,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
       useClass: TokenInterceptor,
       multi: true,
     },
+
   ],
   bootstrap: [AppComponent],
 })

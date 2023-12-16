@@ -22,9 +22,26 @@
     font-display: swap;
   }
   
+  .first_column{
+    display: flex;
+    height: 100vh;
+    width: 55%;
+    padding-left: 20px;
+    align-items: center;
+    justify-content: center;
+  }
   
+
   
-  
+  .overload {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg');  /* Postavite putanju do vaše slike */
+    background-size: cover;  
+
+  }
   
   .p-header {
     margin: 0;
@@ -85,27 +102,20 @@
   
   }
   
-  .card-wrapper {
-    padding: 36px 0 64px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+
   
   .card {
-    min-width: 24%;
-    max-width: 420px;
-    flex: 1;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    box-shadow: 0 2px 16px 3px #dddddd;
+    box-shadow: 0 2px 16px 3px rgba(221, 221, 221, 0.5); 
     transition: box-shadow 0.3s ease;
-    margin-left: 550px;
+    width: 80%;
+    height: 60%;
+    background-color: rgba(255, 255, 255, 0.9); 
   }
+  
   
   .card:hover {
     box-shadow: 0 4px 16px 3px #707070;
@@ -176,21 +186,221 @@
   
   .name {
     font-family: "Trip", "sans-serif";
-    font-size: 22px;
+    font-size: 32px;
     font-weight: bold;
     color: #333;
     text-align: left;
     margin-top: 12px;
   }
-  
+
+  .above-card{
+    display: flex;
+    height: 30%;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
+
   .card-footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    overflow-x: scroll;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .equipment-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    border: 2px solid #044643; 
+    border-radius: 10px; 
+    padding: 10px; 
+    background: url('https://us.123rf.com/450wm/jchizhe/jchizhe1903/jchizhe190300193/118409119-shopping-cart-on-blue-background-minimalism-style-creative-design-copy-space-banner-shop-trolley-at.jpg?ver=6') center center no-repeat;
+    background-size: cover;
   }
   
+  
+  .equipment-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0;
+    overflow-x: auto; 
+  }
+  
+  .equipment-item {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    min-width: 200px; 
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  
+  
+ 
+  .search-bar{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    padding-top: 50px;
+    width: 100%;
+
+  }
+  .eq-name {
+    text-align: center;
+    font-size: 15px;
+    color: #0f6655;
+    margin-bottom: 5px;
+    font-weight: bold; 
+    text-transform: uppercase; 
+  }
+
+  .above-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .add-button {
+    border-radius: 50%;
+    background-color: #5fd1b8;
+    color: white;
+    padding: 10px;
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+  }
+  
+  .add-button:hover {
+    background-color: #0ca845;
+  }
+  
+  
+  
+  .search{
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  
+  .search-bar input:focus {
+    box-shadow: 0 0 10px rgba(40, 167, 133, 0.8); 
+  }
+  
+  .search-bar input, .search-bar button {
+    transition: all 0.3s ease; 
+  }
+  
+  .search-bar button:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(40, 167, 133, 0.8); 
+  }
+
+  .button-options{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+  }
+
+  .button{
+    background-color: #5fd1b8;
+    color: white;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex; 
+    align-items: center;
+    text-align: center;
+    font-size: 15px;
+    justify-content: center; 
+    width: 60%;
+  }
+
+  .buttons_app{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+.extraOrdinary{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.extraOrdinary input{
+  height: min-content;
+}
+
+.image-button {
+  background: transparent; 
+  border: none;
+  cursor: pointer;
+}
+
+.image-button img {
+  width: 70px;
+  height: 40px;
+  background: transparent; 
+
+}
+.disabled-button {
+  background-color: #dddddd; 
+  color: #888888; 
+  cursor: not-allowed; 
+}
+
+
+
+
+  
+  .search-bar button:hover {
+  font-size: 30px;}
+  
+  
+  .search-bar input {
+    border: 3px solid #28a785; 
+    border-radius: 25px; 
+    font-size: 25px;
+    width: 95%;
+    padding: 8px; 
+    text-align: center;
+    outline: none; 
+  }
+
+  .second_column{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 33%;
+    padding-top: 30px;
+  }
+  
+  .search-bar button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 25px;
+  }
   .price {
     display: flex;
     flex-direction: row;
@@ -214,21 +424,7 @@
     color: #FFF;
   }
   
-  .easy {
-    border: 2px solid green;
-    color: green;
-  }
-  
-  .moderate {
-    border: 2px solid darkorange;
-    color: darkorange;
-  }
-  
-  .difficult {
-    border: 2px solid red;
-    color: red;
-  }
-  
+
   .desc-container {
     overflow: hidden;
     
