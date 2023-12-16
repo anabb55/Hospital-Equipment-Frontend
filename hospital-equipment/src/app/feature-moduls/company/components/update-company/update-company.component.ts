@@ -28,11 +28,12 @@ export class UpdateCompanyComponent {
   companyEquipment:Equipment[]=[]
   equipmentStock:EquipmentStock={
     equipment:{
-      id:0,
-      name:'',
-      description:'',
-      grade:0,
-      companies:[],
+      id: 0,
+      name: '',
+      description: '',
+      grade: 0,
+      companies: [],
+      type: ''
     },
     company:{
       id: 0,
