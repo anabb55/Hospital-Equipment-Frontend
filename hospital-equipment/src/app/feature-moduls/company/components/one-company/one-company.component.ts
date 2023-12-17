@@ -12,7 +12,6 @@ import { EquipmentStock } from 'src/app/model/equipment_stock.model';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
 @Component({
   selector: 'app-one-company',
   templateUrl: './one-company.component.html',
@@ -21,13 +20,13 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class OneCompanyComponent implements OnInit {
   reservationData: any = {};
 
-  reservationEqStock : any={};
-  id:number=0;
-  confirmationText: string = "Confirm your reservation!!";
-  selectedDate: Date=new Date();
+  reservationEqStock: any = {};
+  id: number = 0;
+  confirmationText: string = 'Confirm your reservation!!';
+  selectedDate: Date = new Date();
 
   buttonDisabled: boolean = false;
-  confirmReservationClicked:boolean=false;
+  confirmReservationClicked: boolean = false;
   searchQuery: string = '';
   equipmentList: Equipment[] = []; //prikaz unutar firme tj eqStock
   equipmentListForReservation: Equipment[] = []; //kada dodajemon opremu ide u ovu listu kako bismo prebacili na bek kasnije
@@ -140,11 +139,11 @@ export class OneCompanyComponent implements OnInit {
     const token = this.jwtHelper.decodeToken();
     this.userId = token.id;
 
-    // this.companyService
-    //   .updateStatus(appointment.id, appointment)
-    //   .subscribe((res) => {
-    //     console.log(res);
-    //   });
+    this.companyService
+      .updateStatus(appointment.id, appointment)
+      .subscribe((res) => {
+        console.log(res);
+      });
     this.companyService
       .createReservationPredefined(appointment, this.userId)
       .subscribe((res) => {
@@ -207,28 +206,38 @@ export class OneCompanyComponent implements OnInit {
         this.reserveClicked = true;
       },
 
-      error => {        this.reserveClicked=true;
+      (error) => {
+        this.reserveClicked = true;
 
-        console.error(error); 
+        console.error(error);
       }
     );
   }
-  confirmReservation():void{
-    this.companyService.processReservation(this.reservationEqStock,this.equipmentListForReservation,this.id)
-    .subscribe( 
-      response => {
-        console.log('Krajnja rezervacija done!', response);
-        console.log(this.reservationEqStock)
-        this.reserveClicked=true;
-        this.confirmReservationClicked=true;
-      },
-      error => {
-        console.error(error); 
-        console.log(this.reservationEqStock);
-      }
-    );
-  }
+  confirmReservation(): void {
+    this.companyService.sendQRCode().subscribe((res) => {
+      console.log('mail je poslat');
+      alert('Check your email!');
+    });
 
+    this.companyService
+      .processReservation(
+        this.reservationEqStock,
+        this.equipmentListForReservation,
+        this.id
+      )
+      .subscribe(
+        (response) => {
+          console.log('Krajnja rezervacija done!', response);
+          console.log(this.reservationEqStock);
+          this.reserveClicked = true;
+          this.confirmReservationClicked = true;
+        },
+        (error) => {
+          console.error(error);
+          console.log(this.reservationEqStock);
+        }
+      );
+  }
 
   getCompany() {
     this.companyService.getCompanyById(this.id).subscribe({

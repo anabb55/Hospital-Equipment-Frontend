@@ -6,6 +6,7 @@ import { RegisteredUser } from '../../model/RegisteredUser';
 import { RegisteredUserService } from '../registeredUser.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-display-profile', // Adjust the selector as needed
@@ -17,13 +18,15 @@ export class DisplayProfile implements OnInit {
   profileForm: FormGroup;
   isEditing: boolean = false;
   userRole: string = '';
+  userId: number = 1;
 
   constructor(
     private service: RegisteredUserService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
     private toastr: ToastrService,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private jwtHelper: JwtHelperService
   ) {
     this.profileForm = this.fb.group({
       id: [''],
@@ -48,8 +51,10 @@ export class DisplayProfile implements OnInit {
 
   loadProfileData() {
     console.log('Loading profile data...');
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
 
-    this.service.getProfile(1).subscribe({
+    this.service.getProfile(this.userId).subscribe({
       next: (data: RegisteredUser) => {
         console.log('data je' + data);
         this.registeredUser.id = data.id;
@@ -132,12 +137,16 @@ export class DisplayProfile implements OnInit {
     // });
   }
   loyaltyProgramAdvantages() {
-
-    this.toastr.success('You have ' + this.registeredUser.loyaltyProgram.discountPercentage + ' % discount on all...', 'Success', {
-      positionClass: 'toast-top-right',
-      toastClass: 'toast-custom-style', 
-      titleClass: 'toast-custom-title', 
-    });
-
+    this.toastr.success(
+      'You have ' +
+        this.registeredUser.loyaltyProgram.discountPercentage +
+        ' % discount on all...',
+      'Success',
+      {
+        positionClass: 'toast-top-right',
+        toastClass: 'toast-custom-style',
+        titleClass: 'toast-custom-title',
+      }
+    );
   }
 }
