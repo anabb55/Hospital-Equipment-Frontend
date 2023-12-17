@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  flex-direction: space-between;
+  align-items: center;
+
+  height: 8%;
+  background-color: #266d6f;
+}
+.inner-wrap {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  gap: 30px;
+}
+
+.spacer {
+  flex: 0.95;
+}
+
+.nbutton {
+  margin: 0;
+  height: 100%;
+  font-size: 22px;
+  font-family: Georgia, serif;
+  font-weight: medium;
+
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(212, 243, 232);
+  cursor: pointer;
+  text-align: center;
+}
+
+.link {
+  color: #ffffff;
+  font-size: 22px;
+  font-family: Georgia, serif;
+}
+
+.link:hover {
+  color: rgb(77, 157, 148);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}

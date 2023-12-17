@@ -1,0 +1,38 @@
+<div class="search-container">
+  <div class="search-equipment">
+    <h1>Search equipment</h1>
+    <input type="text" placeholder="Enter equipment name" [(ngModel)]="searchTerm" class="green-border search-input">
+    <button (click)="searchEquipment()" class="search-button">Search</button>
+  </div>
+
+  <div class="additional-filters">
+    <h2>Filters</h2>
+    <label>Type:</label><br>
+    <input type="text" placeholder="Type" [(ngModel)]="descriptionSearch" class="green-border"><br>
+    <label>Grade Range:</label><br>
+    <input type="number" placeholder="Min grade" [(ngModel)]="minGrade" class="green-border"><br>
+    <input type="number" placeholder="Max grade" [(ngModel)]="maxGrade" class="green-border"><br>
+    <button (click)="filter()" class="search-button">Filter</button>
+  </div>
+</div>
+
+<div class="equipment-list">
+  <div *ngFor="let item of filteredList" class="equipment-card">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.name }}</h5>
+        <p class="card-text">Description: {{ item.description }}</p>
+        <p class="card-text">Type: {{ item.type }}</p>
+        <p class="card-text">Grade: {{ item.grade }}</p>
+        <div *ngIf="item.companies.length > 0">
+          <p class="card-text">Companies with this equipment:</p>
+          <ul class="company-list">
+            <li *ngFor="let comp of item.companies" class="company-item">
+              {{ comp }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

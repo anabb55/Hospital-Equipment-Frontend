@@ -4,7 +4,8 @@ export interface Equipment{
     id:number,
     name:string,
     description:string,
+    type:string,
     grade:number,
-    amount:number,
-    companies:Company[]
+    companies:Company[],
+    amount:number
 }

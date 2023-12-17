@@ -1,4 +1,4 @@
-import { Address } from './Address';
+import { Address } from './Adress.model';
 
 export interface User {
   id?: number;
@@ -6,6 +6,7 @@ export interface User {
   password: String;
   firstname: String;
   lastname: String;
+  username: String;
   phoneNumber: String;
   occupation: String;
   address: Address;

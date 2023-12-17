@@ -1,264 +1,562 @@
 @font-face {
-    font-family: 'Trip';
-    src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Trip';
-    src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
-    font-weight: medium;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: 'Trip';
-    src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  
-  
-  
-  
-  .p-header {
-    margin: 0;
-    font-family: 'Trip', sans-serif;
-    font-weight: normal;
-    font-size: 14px;
-  }
-  
-  .p-value {
-    font-family: 'Trip', sans-serif;
-    font-weight: medium;
-    font-size: 16px;
-  }
-  
-  .button {
-    align-self: flex-end;
-    font-family: 'Trip', sans-serif;
-    font-weight: medium;
-    font-size: 18px;
-    background-color: #0a83cb;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0;
-    height: 48px;
-    width: 100%;
-    transition: all 0.3s ease;
-  }
-  
-  .button:hover {
-    background-color: #221853;
-    box-shadow: 0 2px 5px 1px #333333;
-  }
-  
-  .companies-view {
-    width: 100%;
-    align-items: center;
-  }
-  
-  .results-title {
-    font-size: 32px;
-    font-family: "Trip", "sans-serif";
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .results-number {
-    font-family: "Trip", "sans-serif";
-    font-weight: medium;
-    text-align: center;
-  }
-  
-  /* Companies cards style */
-  .slide-content {
-    border-radius: 10px;
-  
-  }
-  
-  .card-wrapper {
-    padding: 36px 0 64px 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  
-  .card {
-    min-width: 24%;
-    max-width: 420px;
-    flex: 1;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    box-shadow: 0 2px 16px 3px #dddddd;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .card:hover {
-    box-shadow: 0 4px 16px 3px #707070;
-  }
-  
-  .image-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 24px;
-  }
-  
-  .image-content {
-    position: relative;
-  }
-  
-  .overlay {
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    height: 18%;
-    width: 100%;
-    border-radius: 10px;
-    padding: 0 8px;
-    z-index: 2;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 4px;
-  }
-  
-  .tag {
-    font-size: 12px;
-    font-weight: medium;
-    color: #FFF;
-    background-color: rgb(30, 119, 183);
-    border-radius: 15px;
-    padding: 3px 9px;
-  }
-  
-  .card-image {
-    position: relative;
-    height: 100%;
-    max-height: 200px;
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-    overflow: hidden;
-  }
-  
-  .card-image .card-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
-    transition: transform 0.3s ease;
-  }
-  
-  .card:hover .card-image .card-img {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .name {
-    font-family: "Trip", "sans-serif";
-    font-size: 22px;
-    font-weight: bold;
-    color: #333;
-    text-align: left;
-    margin-top: 12px;
-  }
-  
-  .card-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    overflow-x: scroll;
-  }
-  
-  .price {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .price-text {
-    font-size: 16px;
-  }
-  
-  .price-number {
-    font-size: 22px;
-    font-weight: bold;
-  }
-  
-  .difficulty {
-    font-size: 14px;
-    border-radius: 6px;
-    padding: 2px 4px;
-    color: #FFF;
-  }
-  
-  .easy {
-    border: 2px solid green;
-    color: green;
-  }
-  
-  .moderate {
-    border: 2px solid darkorange;
-    color: darkorange;
-  }
-  
-  .difficult {
-    border: 2px solid red;
-    color: red;
-  }
-  
-  .desc-container {
-    overflow: hidden;
-    height: 150px;
-  }
-  
-  .description {
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-    font-size: 14px;
-    color: #707070;
-    margin: 0 8px 16px 8px;
-    text-align: left;
-    overflow: hidden;
-    white-space: pre-wrap;
-  }
-  
-  .eq-app{
-    display: flex;
-    flex-direction: row;
-  }
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  .container{
-    display: flex;
-    margin-top: 100px;
-    margin-left: 100px;
-  }
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-weight: medium;
+  font-style: normal;
+  font-display: swap;
+}
 
-  .updateContainer{
-    margin-left: 500px;
-  }
-  .mat-form-field-flex{
-    background-color: lightgray;
-  }
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.first_column{
+  display: flex;
+  height: 100vh;
+  width: 55%;
+  padding-left: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.overload {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg');  /* Postavite putanju do vaše slike */
+  background-size: cover;  
+
+}
+
+.p-header {
+  margin: 0;
+  font-family: 'Trip', sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.p-value {
+  font-family: 'Trip', sans-serif;
+  font-weight: medium;
+  font-size: 16px;
+}
+
+.button {
+  align-self: flex-end;
+  font-family: 'Trip', sans-serif;
+  font-weight: medium;
+  font-size: 18px;
+  background-color: #0a83cb;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0;
+  height: 48px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #221853;
+  box-shadow: 0 2px 5px 1px #333333;
+}
+
+.companies-view {
+  width: 100%;
+  align-items: center;
+}
+
+.results-title {
+  font-size: 32px;
+  font-family: "Trip", "sans-serif";
+  font-weight: bold;
+  text-align: center;
+}
+
+.results-number {
+  font-family: "Trip", "sans-serif";
+  font-weight: medium;
+  text-align: center;
+}
+
+/* Companies cards style */
+.slide-content {
+  border-radius: 10px;
+
+}
+
+
+
+.card {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  box-shadow: 0 2px 16px 3px rgba(221, 221, 221, 0.5); 
+  transition: box-shadow 0.3s ease;
+  width: 80%;
+  height: 60%;
+  background-color: rgba(255, 255, 255, 0.9); 
+}
+
+
+.card:hover {
+  box-shadow: 0 4px 16px 3px #707070;
+}
+
+.image-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 24px;
+}
+
+.image-content {
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 18%;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0 8px;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: medium;
+  color: #FFF;
+  background-color: rgb(30, 119, 183);
+  border-radius: 15px;
+  padding: 3px 9px;
+}
+
+.card-image {
+  position: relative;
+  height: 100%;
+  max-height: 200px;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+}
+
+.card-image .card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-image .card-img {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.name {
+  font-family: "Trip", "sans-serif";
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+  margin-top: 12px;
+}
+
+.above-card{
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.equipment-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 0;
+  overflow-x: auto; 
+}
+
+.equipment-item {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  min-width: 200px; 
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+
+
+
+.search-bar{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  padding-top: 50px;
+  width: 100%;
+
+}
+.eq-name {
+  text-align: center;
+  font-size: 15px;
+  color: #0f6655;
+  margin-bottom: 5px;
+  font-weight: bold; 
+  text-transform: uppercase; 
+}
+
+.above-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.add-button {
+  border-radius: 50%;
+  background-color: #5fd1b8;
+  color: white;
+  padding: 10px;
+  height: 20px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.add-button:hover {
+  background-color: #0ca845;
+}
+
+
+
+.search{
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.search-bar input:focus {
+  box-shadow: 0 0 10px rgba(40, 167, 133, 0.8); 
+}
+
+.search-bar input, .search-bar button {
+  transition: all 0.3s ease; 
+}
+
+.search-bar button:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(40, 167, 133, 0.8); 
+}
+
+.button-options{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px ;
+  margin-right: 150px;
+
+}
+
+.button{
+  background-color: #5fd1b8;
+  color: white;
+  height: 30px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex; 
+  align-items: center;
+  text-align: center;
+  font-size: 15px;
+  justify-content: center; 
+  width: 60%;
+}
+
+.buttons_app{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.extraOrdinary{
+display: flex;
+flex-direction: row;
+gap: 10px;
+}
+
+.extraOrdinary input{
+height: min-content;
+}
+
+.image-button {
+background: transparent; 
+border: none;
+cursor: pointer;
+}
+
+.image-button img {
+width: 70px;
+height: 40px;
+background: transparent; 
+
+}
+.disabled-button {
+background-color: #dddddd; 
+color: #888888; 
+cursor: not-allowed; 
+}
+
+
+
+
+
+.search-bar button:hover {
+font-size: 30px;}
+
+
+.search-bar input {
+  border: 3px solid #28a785; 
+  border-radius: 25px; 
+  font-size: 25px;
+  width: 95%;
+  padding: 8px; 
+  text-align: center;
+  outline: none; 
+}
+
+.second_column{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 33%;
+  padding-top: 30px;
+}
+
+.search-bar button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 25px;
+}
+.price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.price-text {
+  font-size: 16px;
+}
+
+.price-number {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.difficulty {
+  font-size: 14px;
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: #FFF;
+}
+
+
+.desc-container {
+  overflow: hidden;
+  
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+  color: #707070;
+  margin: 0 8px 16px 8px;
+  text-align: left;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.eq-app{
+  display: flex;
+  flex-direction: row;
+  height: 250px;
+}
+
+.container{
+  display: flex;
+  margin-top: 100px;
+  margin-left: 100px;
+}
+
+.updateContainer{
+  margin-top: 100px;
+  margin-left: 250px;
+}
+.mat-form-field-flex{
+  background-color: lightgray;
+}
+
+/*STILOVI ZA DODAVANJE APP*/
+.form-container {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+.company-form {
+  margin-top: 30%;
+  width: 500px;
+  padding: 20px;
+  border: 2px solid green;
+  border-radius: 10px;
+}
+
+/* Stilovi za obavezna polja */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label::after {
+  content: '*';
+  color: red;
+  margin-left: 5px;
+}
+
+/* Stilovi za velika input polja */
+textarea,
+input[type='text'],
+input[type='number'] {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid green;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Stilovi za naslov iznad forme */
+.form-title {
+  text-align: center;
+  color: green;
+}
+
+/* Stil za obično dugme */
+.button {
+  padding: 7px 15px;
+  font-size: 12px;
+  color: #006400; /* Tamno zelena boja */
+  background-color: transparent;
+  border: 2px solid #006400; /* Tamno zelena boja ivice */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+.submitButton{
+padding: 7px 15px;
+  font-size: 12px;
+  color: #006400; /* Tamno zelena boja */
+  background-color: transparent;
+  border: 2px solid #006400; /* Tamno zelena boja ivice */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+/* Stil za onemogućeno dugme */
+.submitButton:disabled {
+color: #ccc; /* Siva boja teksta kada je dugme onemogućeno */
+border-color: #ccc; /* Siva boja ivice kada je dugme onemogućeno */
+cursor: not-allowed; /* Kursor postaje nedozvoljen kada je dugme onemogućeno */
+}
+
+/* Stil za dugme kada je pokazivač miša iznad njega */
+.button:hover {
+  background-color: #006400; /* Tamno zelena boja pozadine */
+  color: #fff; /* Bela boja teksta */
+}
+.submitButton:hover {
+  background-color: #006400; /* Tamno zelena boja pozadine */
+  color: #fff; /* Bela boja teksta */
+}
+
+/* Stil za dugme kada je pritisnuto */
+.button:active {
+  background-color: #004d00; /* Tamnija zelena boja pozadine kada je dugme pritisnuto */
+  border-color: #004d00; /* Tamnija zelena boja ivice kada je dugme pritisnuto */
+}
+.submitButton:active {
+  background-color: #004d00; /* Tamnija zelena boja pozadine kada je dugme pritisnuto */
+  border-color: #004d00; /* Tamnija zelena boja ivice kada je dugme pritisnuto */
+}
+a.create-link {
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
+}
+
+a.create-link:hover {
+  color: darkblue;
+}
+/* Stilovi za select wrapper */
+.select-wrapper {
+border: 2px solid #4CAF50; /* Zeleni okvir */
+background-color: white; /* Bijela pozadina */
+border-radius: 5px;
+padding: 5px;
+}
+
+
+

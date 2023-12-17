@@ -1,7 +1,7 @@
-import { Address } from "./Address";
+import { Address } from "src/app/model/address.model";
 
 export interface CompanyAdmin {
-  adressId:string,
+  
     email:string,
     name:string,
     password:string,
@@ -10,6 +10,7 @@ export interface CompanyAdmin {
     phoneNumber:string,
     occupation:string,
     enabled:boolean,
-    adress:Address
+    address:Address,
+    
   }
   
