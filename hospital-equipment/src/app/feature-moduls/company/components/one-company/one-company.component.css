@@ -460,3 +460,17 @@
   .mat-form-field-flex{
     background-color: lightgray;
   }
+  .end-footer {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    background-color: #23968e;
+    color: #fff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .end-footer a {
+    color: #fff; 
+  }
+  

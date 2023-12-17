@@ -28,17 +28,21 @@ export class UpdateCompanyComponent {
   equipmentAmounts: EquipmentAmount[] = [];
   equipmentAmount: EquipmentAmount = {
     equipmentId: 0,
+
     amount: 0,
   };
   companyEquipment: Equipment[] = [];
   equipmentStock: EquipmentStock = {
     equipment: {
+
       id: 0,
       name: '',
       description: '',
       grade: 0,
       companies: [],
+
       type: '',
+
     },
     company: {
       id: 0,
