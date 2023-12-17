@@ -249,7 +249,10 @@
     background-size: cover;
   }
   
-  
+  .above-ev{
+    height: 100%;
+    padding-top: 30px;
+  }
   .equipment-list {
     list-style-type: none;
     display: flex;
