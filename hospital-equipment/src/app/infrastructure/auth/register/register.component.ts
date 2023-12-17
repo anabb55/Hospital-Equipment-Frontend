@@ -63,7 +63,6 @@ export class RegisterComponent implements OnChanges {
         number: this.userForm.value.address?.number || '',
         city: this.userForm.value.address?.city || '',
         country: this.userForm.value.address?.country || '',
-        id: 0
       },
     };
 
