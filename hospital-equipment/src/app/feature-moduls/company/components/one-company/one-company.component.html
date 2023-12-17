@@ -29,7 +29,9 @@
             <p class="description">
               <i class="material-icons">&#xe885;</i> {{ company.grade }}
             </p>
-                  <button class="buttonAdmin" (click)="addAdmin()">Add company admin</button>
+            <button class="buttonAdmin" (click)="addAdmin()">
+              Add company admin
+            </button>
           </div>
         </div>
       </div>
@@ -38,163 +40,180 @@
 
   <div class="second_column" *ngIf="userRole == 'ROLE_REGISTERED_USER'">
     <div class="above-ev" *ngIf="!confirmReservationClicked">
-    <div class="search-bar">
-      <div class="search">
-        <input
-          type="text"
-          placeholder="Enter the name of equipment"
-          [(ngModel)]="searchQuery"
-        />
-        <button (click)="searchCompanies()">🔍</button>
+      <div class="search-bar">
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Enter the name of equipment"
+            [(ngModel)]="searchQuery"
+          />
+          <button (click)="searchCompanies()">🔍</button>
+        </div>
       </div>
-    </div>
 
-    <div class="above-card">
-      <div class="card-footer" *ngIf="predefinedAppointmentsFlag && !confirmReservationClicked">
-        <ul class="equipment-list">
-          <li *ngFor="let app of predefinedAppointments" class="equipment-item">
-            <div class="above-button">
-              <p class="eq-name">📅{{ app.date }}</p>
-              <button
-                (click)="createReservation(app)"
-                class="add-button"
-                [disabled]="buttonDisabled"
-                [ngClass]="{ 'disabled-button': buttonDisabled }"
-              >
-                +
-              </button>
-            </div>
-            <p class="price-text">🕓:{{ app.startTime }}</p>
-            <p class="price-text">⏳:{{ app.endTime }}</p>
-          </li>
-        </ul>
+      <div class="above-card">
+        <div
+          class="card-footer"
+          *ngIf="predefinedAppointmentsFlag && !confirmReservationClicked"
+        >
+          <ul class="equipment-list">
+            <li
+              *ngFor="let app of predefinedAppointments"
+              class="equipment-item"
+            >
+              <div class="above-button">
+                <p class="eq-name">📅{{ app.date }}</p>
+                <button
+                  (click)="createReservation(app)"
+                  class="add-button"
+                  [disabled]="buttonDisabled"
+                  [ngClass]="{ 'disabled-button': buttonDisabled }"
+                >
+                  +
+                </button>
+              </div>
+              <p class="price-text">🕓:{{ app.startTime }}</p>
+              <p class="price-text">⏳:{{ app.endTime }}</p>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer" *ngIf="extraordinary">
+          <ul class="equipment-list">
+            <li
+              *ngFor="let app of extraordinaryAppointments"
+              class="equipment-item"
+            >
+              <div class="above-button">
+                <p class="eq-name">📅{{ app.date }}</p>
+                <button
+                  (click)="addAppointment(app)"
+                  class="add-button"
+                  [disabled]="buttonDisabled"
+                  [ngClass]="{ 'disabled-button': buttonDisabled }"
+                >
+                  +
+                </button>
+              </div>
+              <p class="price-text">🕓:{{ app.startTime }}</p>
+              <p class="price-text">⏳:{{ app.endTime }}</p>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          class="card-footer"
+          *ngIf="!equipmentFlag && !confirmReservationClicked"
+        >
+          <ul class="equipment-list">
+            <li *ngFor="let equipment of equipmentList" class="equipment-item">
+              <div class="above-button">
+                <p class="eq-name">{{ equipment.name }}</p>
+                <button (click)="addEquipment(equipment)" class="add-button">
+                  +
+                </button>
+              </div>
+              <p class="price-text">
+                <i class="material-icons">&#xe873;</i
+                >{{ equipment.description }}
+              </p>
+              <p class="price-text">
+                <i class="material-icons">&#xe885;</i> {{ equipment.grade }}
+              </p>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          *ngIf="buttonClicked && extraordinaryClickedFinish"
+          class="buttons_app"
+        >
+          <button class="button">Finish</button>
+          <button class="button" (click)="CheckExtraordinaryeAppointments()">
+            Choose your own appointment
+          </button>
+        </div>
+
+        <div
+          class="extraOrdinary"
+          *ngIf="extraordinaryClicked && !confirmReservationClicked"
+        >
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [min]="minDate"
+            [(ngModel)]="selectedDate"
+          />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <button class="image-button" (click)="CheckExtraOrdinary()">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Perspective-Button-Search-icon.png"
+              alt="Alt tekst"
+            />
+          </button>
+        </div>
+
+        <div
+          class="button-options"
+          *ngIf="!extraordinaryClickedFinish && !confirmReservationClicked"
+        >
+          <button
+            class="button"
+            (click)="CheckFreeAppointments()"
+            *ngIf="!buttonClicked"
+          >
+            See predefined appointments
+          </button>
+        </div>
       </div>
-      <div class="card-footer" *ngIf="extraordinary">
+      <div class="equipment-footer" *ngIf="equipmentAdd">
         <ul class="equipment-list">
           <li
-            *ngFor="let app of extraordinaryAppointments"
+            *ngFor="let equipment of equipmentListForReservation"
             class="equipment-item"
           >
-            <div class="above-button">
-              <p class="eq-name">📅{{ app.date }}</p>
-              <button
-                (click)="addAppointment(app)"
-                class="add-button"
-                [disabled]="buttonDisabled"
-                [ngClass]="{ 'disabled-button': buttonDisabled }"
-              >
-                +
-              </button>
-            </div>
-            <p class="price-text">🕓:{{ app.startTime }}</p>
-            <p class="price-text">⏳:{{ app.endTime }}</p>
-          </li>
-        </ul>
-      </div>
-
-      <div class="card-footer" *ngIf="!equipmentFlag && !confirmReservationClicked">
-        <ul class="equipment-list">
-          <li *ngFor="let equipment of equipmentList" class="equipment-item">
             <div class="above-button">
               <p class="eq-name">{{ equipment.name }}</p>
               <button (click)="addEquipment(equipment)" class="add-button">
                 +
               </button>
             </div>
-              <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
-              <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-             
-            </li>
-          </ul>
-          
-    </div>
-    
-    
-
-      
-
-           
+            <p class="price-text">
+              <i class="material-icons">&#xe873;</i>{{ equipment.description }}
+            </p>
+            <p class="price-text">
+              <i class="material-icons">&#xe885;</i> {{ equipment.grade }}
+            </p>
+          </li>
+        </ul>
+      </div>
 
       <div
-        *ngIf="buttonClicked && extraordinaryClickedFinish"
-        class="buttons_app"
+        class="button-options"
+        *ngIf="finishedReservation && !reserveClicked"
       >
-        <button class="button">Finish</button>
-        <button class="button" (click)="CheckExtraordinaryeAppointments()">
-          Choose your own appointment
-        </button>
+        <button class="button" (click)="reserveEquipment()">RESERVE</button>
       </div>
-
-      <div class="extraOrdinary" *ngIf="extraordinaryClicked && !confirmReservationClicked">
-        <input
-          matInput
-          [matDatepicker]="picker"
-          [min]="minDate"
-          [(ngModel)]="selectedDate"
-        />
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-
-        <button class="image-button" (click)="CheckExtraOrdinary()">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Perspective-Button-Search-icon.png"
-            alt="Alt tekst"
-          />
-        </button>
-      </div>
-
-      <div class="button-options" *ngIf="!extraordinaryClickedFinish && !confirmReservationClicked">
-        <button
-          class="button"
-          (click)="CheckFreeAppointments()"
-          *ngIf="!buttonClicked"
-        >
-          See predefined appointments
+      <div class="card-footer" *ngIf="reserveClicked">
+        <p>{{ confirmationText }}</p>
+        <button class="button" (click)="confirmReservation()">
+          Confirm Reservation
         </button>
       </div>
     </div>
-    <div class="equipment-footer" *ngIf="equipmentAdd">
-      <ul class="equipment-list">
-        <li
-          *ngFor="let equipment of equipmentListForReservation"
-          class="equipment-item"
-        >
-          <div class="above-button">
-            <p class="eq-name">{{ equipment.name }}</p>
-            <button (click)="addEquipment(equipment)" class="add-button">
-              +
-            </button>
-          </div>
-          <p class="price-text">
-            <i class="material-icons">&#xe873;</i>{{ equipment.description }}
-          </p>
-          <p class="price-text">
-            <i class="material-icons">&#xe885;</i> {{ equipment.grade }}
-          </p>
-        </li>
-      </ul>
-    </div>
-
-    <div class="button-options" *ngIf="finishedReservation && !reserveClicked ">
-      <button class="button" (click)="reserveEquipment()">RESERVE</button>
-    </div>
-    <div class="card-footer" *ngIf="reserveClicked">
-      <p>{{ confirmationText }}</p>
-      <button class="button" (click)="confirmReservation()">
-        Confirm Reservation
-      </button>
+    <div class="end-footer" *ngIf="confirmReservationClicked">
+      <p>
+        Thank you for choosing our services! Your reservation details and
+        further information have been sent to your email. For any inquiries,
+        feel free to reach us at
+        <a href="mailto:info@example.com">info@example.com</a>. We look forward
+        to serving you again!
+      </p>
     </div>
   </div>
-  <div class="end-footer" *ngIf="confirmReservationClicked">
-    <p>
-      Thank you for choosing our services! Your reservation details and further information
-      have been sent to your email. For any inquiries, feel free to reach us at
-      <a href="mailto:info@example.com">info@example.com</a>. We look forward to serving you again!
-    </p>
-  </div>
-</div>
 </div>

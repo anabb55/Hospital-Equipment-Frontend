@@ -34,6 +34,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
 
 
 
@@ -48,6 +49,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
 
+
     CompanyAdminProfileComponent,
     OneCompanyComponent,
     LoginComponent,
@@ -56,6 +58,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
     CreateSystemAdminComponent,
     SearchEquipmentComponent,
 
+    WorkCalendarComponent
   ],
 
   imports: [
