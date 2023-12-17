@@ -48,7 +48,7 @@ export class CompanyAdminProfileComponent {
   }
 
   getCompanyAdministrator(){
-    this.companyService.getAdministratorById(3).subscribe({
+    this.companyService.getAdminById(3).subscribe({
       next:(response)=>{
         this.companyAdmin=response
         console.log('Admin ', this.companyAdmin)

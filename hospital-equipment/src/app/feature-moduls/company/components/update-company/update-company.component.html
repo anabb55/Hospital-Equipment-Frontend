@@ -61,13 +61,22 @@
                         <li *ngFor="let equipment of resultList" class="equipment-item">
                           <div class="above-button">
                             <p class="eq-name">{{equipment.name}}</p>
+                            <button class="add-button" (click)="delete(equipment.id)"></button>
                            
                           </div>
                           <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
                           <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-              
+                          <ng-container >
+                            <p class="price-text" *ngFor="let ea of equipmentAmounts">
+                                <ng-container *ngIf="ea.equipmentId === equipment.id">
+                                   <p>{{ea.amount}}</p>
+                                </ng-container>
+                            </p>
+                        </ng-container>
                         </li>
                       </ul>
+
+                   
 
                 </div>
                 
