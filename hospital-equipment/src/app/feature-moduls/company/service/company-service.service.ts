@@ -45,8 +45,8 @@ export class CompanyServiceService {
     });
     console.log('Poslata u servis', company);
     return this.http.put<Company>(
-      environment.apiHost + 'companyProfile/update/' + company.id,
-      company,{headers}
+      environment.apiHost + 'companyProfile/update/' + company.id +'/' + company.name + '/' + company.description ,company.address,
+      {headers}
     );
   }
 
@@ -71,9 +71,17 @@ export class CompanyServiceService {
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
+
+    console.log('poslat u servis', companyAdmin)
     return this.http.put<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id,
-      companyAdmin,{headers}
+      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id +'/'
+      + companyAdmin.firstName +'/'
+      + companyAdmin.lastName +'/'
+      + companyAdmin.occupation +'/'
+      + companyAdmin.phoneNumber +'/'
+      + companyAdmin.email +'/'
+      + companyAdmin.password
+      ,{headers}
     );
   }
 
@@ -284,4 +292,6 @@ export class CompanyServiceService {
       environment.apiHost + 'companyAdministrators/getAdminById/' + id,{headers}
     );
   }
+
+
 }

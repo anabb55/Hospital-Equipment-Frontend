@@ -9,4 +9,5 @@ export interface User {
   phoneNumber: String;
   occupation: String;
   address: Address;
+  waslogged:boolean
 }

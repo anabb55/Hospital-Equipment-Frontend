@@ -31,6 +31,7 @@ export class CreateSystemAdminComponent implements OnInit{
       number: ''
     },
     userCategory: UserCategory.Regular,
+    waslogged:false
   }
 
   ngOnInit(): void {

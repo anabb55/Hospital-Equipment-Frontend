@@ -35,7 +35,8 @@ export class CreateCompanyAdminComponent implements OnInit {
       number: ''
     },
     id: 0,
-    company: null
+    company: null,
+    waslogged:false
   };
   createdAdmin : CompanyAdministrator | undefined;
   createAdmin() {

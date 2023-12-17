@@ -26,7 +26,7 @@ export class CompanyAdminProfileComponent {
       country:'',
       number: '',
     },
-
+    waslogged: false
     
 
   }

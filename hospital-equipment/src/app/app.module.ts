@@ -32,6 +32,7 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+import { ChangePasswordComponent } from './feature-moduls/change-password/change-password.component';
 
 
 
@@ -54,6 +55,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
 
     CreateSystemAdminComponent,
     SearchEquipmentComponent,
+    ChangePasswordComponent,
 
   ],
 
