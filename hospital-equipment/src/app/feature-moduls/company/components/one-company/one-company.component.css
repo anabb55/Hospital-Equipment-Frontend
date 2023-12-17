@@ -38,7 +38,7 @@
     flex-direction: row;
     height: 100%;
     width: 100%;
-    background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg');  /* Postavite putanju do vaše slike */
+    background-image: url('https://vilmate.com/wp-content/uploads/2018/08/Medical_Website_Development-1.jpg');  /* Postavite putanju do vaše slike */
     background-size: cover;  
 
   }
@@ -82,7 +82,32 @@
     width: 100%;
     align-items: center;
   }
+
+  .buttonAdmin {
+    align-self: flex-end;
+    font-family: 'Trip', sans-serif;
+    font-weight: medium;
+    font-size: 15px;
+    background-color: #0a83cb;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0;
+    height: 48px;
+    width: 100%;
+    transition: all 0.3s ease;
+  }
   
+  .buttonAdmin:hover {
+    background-color: #221853;
+    box-shadow: 0 2px 5px 1px #333333;
+  }
+
+
+
+
   .results-title {
     font-size: 32px;
     font-family: "Trip", "sans-serif";
@@ -112,7 +137,7 @@
     box-shadow: 0 2px 16px 3px rgba(221, 221, 221, 0.5); 
     transition: box-shadow 0.3s ease;
     width: 80%;
-    height: 60%;
+    height: 70%;
     background-color: rgba(255, 255, 255, 0.9); 
   }
   
@@ -207,6 +232,7 @@
     justify-content: space-between;
     align-items: center;
     overflow-x: auto;
+    padding-top: 20px;
     white-space: nowrap;
   }
 
@@ -224,7 +250,10 @@
     background-size: cover;
   }
   
-  
+  .above-ev{
+    height: 100%;
+    padding-top: 30px;
+  }
   .equipment-list {
     list-style-type: none;
     display: flex;
@@ -233,6 +262,16 @@
     padding: 0;
     overflow-x: auto; 
   }
+
+  .equipment-list::-webkit-scrollbar {
+    width: 0.6em;
+}
+
+.equipment-list::-webkit-scrollbar-thumb {
+    background-color: rgba(var(--clr-background));
+    outline: 1px solid rgb(49, 154, 136);
+    border-radius: 0.3rem;
+}
   
   .equipment-item {
     border: 1px solid #dddddd;
@@ -316,6 +355,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    padding-top: 20px;
 
   }
 
@@ -344,6 +384,7 @@
   display: flex;
   flex-direction: row;
   gap: 10px;
+  justify-content: center;
 }
 
 .extraOrdinary input{
@@ -427,6 +468,7 @@
 
   .desc-container {
     overflow: hidden;
+    height: 100%;
     
   }
   
@@ -434,7 +476,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
-    font-size: 14px;
+    font-size: 20px;
     color: #707070;
     margin: 0 8px 16px 8px;
     text-align: left;
@@ -445,7 +487,7 @@
   .eq-app{
     display: flex;
     flex-direction: row;
-    height: 250px;
+    height: 90%;
   }
 
   .container{
@@ -461,7 +503,7 @@
     background-color: lightgray;
   }
   .end-footer {
-    margin-top: 20px;
+    margin-top: 100px;
     text-align: center;
     padding: 20px;
     background-color: #23968e;

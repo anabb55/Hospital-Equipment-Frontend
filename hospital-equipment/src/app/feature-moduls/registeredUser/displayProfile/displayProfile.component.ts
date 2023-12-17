@@ -6,7 +6,12 @@ import { RegisteredUser } from '../../model/RegisteredUser';
 import { RegisteredUserService } from '../registeredUser.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+
+import { Appointment } from 'src/app/model/appointment.model';
+import { CalendarEvent } from 'angular-calendar';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Component({
   selector: 'app-display-profile', // Adjust the selector as needed
@@ -18,7 +23,11 @@ export class DisplayProfile implements OnInit {
   profileForm: FormGroup;
   isEditing: boolean = false;
   userRole: string = '';
+
+  myAppointments: Appointment[] = [];
+
   userId: number = 1;
+
 
   constructor(
     private service: RegisteredUserService,
@@ -47,7 +56,24 @@ export class DisplayProfile implements OnInit {
 
   ngOnInit(): void {
     this.loadProfileData();
+    this.loadAppointment();
   }
+
+  loadAppointment() {
+    this.service.getFutureAppointments(1).subscribe({
+      next: (data: Appointment[]) => {
+        this.myAppointments = data;
+        console.log("Appointmenti su" + JSON.stringify(this.myAppointments));
+       
+        
+      },
+      error: (error) => {
+        console.error('Error loading appointments:', error);
+      }
+    });
+  }
+  
+  
 
   loadProfileData() {
     console.log('Loading profile data...');

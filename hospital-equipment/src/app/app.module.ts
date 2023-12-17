@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { JwtModule } from '@auth0/angular-jwt';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
@@ -73,7 +75,7 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-
+    CalendarModule,
     MatTableModule,
 
 
@@ -88,7 +90,10 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    },
+    }, {
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }
 
   ],
   bootstrap: [AppComponent],
