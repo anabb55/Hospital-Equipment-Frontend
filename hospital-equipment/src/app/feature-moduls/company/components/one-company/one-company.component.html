@@ -65,8 +65,29 @@
                 [disabled]="buttonDisabled"
                 [ngClass]="{ 'disabled-button': buttonDisabled }"
               >
-                +
+                
               </button>
+            <div class="desc-container">
+                <p class="description"><i class="material-icons">&#xe0c8;</i>
+                    {{company.address.city}},{{company.address.country}} </p>
+                <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
+                <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
+            </div>
+<!--
+
+-->
+           
+       
+<!--
+<h2>Equipment</h2>
+        <div class="card-footer">
+            <div *ngFor="let equipment of company.equipment">
+
+                <p class="price-text">{{equipment.name}}</p>
+                <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+                <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+                <p class="price-text">Amount:{{equipment.amount}}</p>
+
             </div>
             <p class="price-text">🕓:{{ app.startTime }}</p>
             <p class="price-text">⏳:{{ app.endTime }}</p>
@@ -74,6 +95,7 @@
         </ul>
       </div>
 
+<<<<<<< Updated upstream
 
       <div class="card-footer" *ngIf="!extraordinaryClickedFinish">
         <ul class="equipment-list">
@@ -84,13 +106,20 @@
               <button (click)="addEquipment(equipment)" class="add-button">
                 +
               </button>
+            <div>
+-->
+        
+                <button (click)="addAdmin()">Add company admin</button>
             </div>
-            <p class="price-text">
+            <!--
+  <p class="price-text">
               <i class="material-icons">&#xe873;</i>{{ equipment.description }}
             </p>
             <p class="price-text">
               <i class="material-icons">&#xe885;</i> {{ equipment.grade }}
             </p>
+            -->
+          
           </li>
         </ul>
       </div>
