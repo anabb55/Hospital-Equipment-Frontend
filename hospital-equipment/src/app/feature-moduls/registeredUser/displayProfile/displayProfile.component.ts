@@ -12,7 +12,6 @@ import { CalendarEvent } from 'angular-calendar';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-
 @Component({
   selector: 'app-display-profile', // Adjust the selector as needed
   templateUrl: './displayProfile.component.html',
@@ -27,7 +26,6 @@ export class DisplayProfile implements OnInit {
   myAppointments: Appointment[] = [];
 
   userId: number = 1;
-
 
   constructor(
     private service: RegisteredUserService,
@@ -60,20 +58,18 @@ export class DisplayProfile implements OnInit {
   }
 
   loadAppointment() {
-    this.service.getFutureAppointments(1).subscribe({
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
+    this.service.getFutureAppointments(this.userId).subscribe({
       next: (data: Appointment[]) => {
         this.myAppointments = data;
-        console.log("Appointmenti su" + JSON.stringify(this.myAppointments));
-       
-        
+        console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
-      }
+      },
     });
   }
-  
-  
 
   loadProfileData() {
     console.log('Loading profile data...');

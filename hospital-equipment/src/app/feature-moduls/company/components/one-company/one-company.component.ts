@@ -63,13 +63,12 @@ export class OneCompanyComponent implements OnInit {
     grade: 0,
     workStartTime: {
       hours: 0,
-      minutes: 0
+      minutes: 0,
     },
     workEndTime: {
       hours: 0,
-      minutes: 0
-    }
-   
+      minutes: 0,
+    },
   };
 
   constructor(
@@ -83,7 +82,6 @@ export class OneCompanyComponent implements OnInit {
     this.getCompany();
     this.minDate = new Date();
     this.dateAdapter.setLocale('en-US');
-
   }
 
   ngOnInit(): void {
@@ -207,18 +205,22 @@ export class OneCompanyComponent implements OnInit {
       );
   }
   reserveEquipment(): void {
-    this.companyService.makeReservation(this.reservationData, 1).subscribe(
-      (response) => {
-        console.log('Rezervacija je uspesno kreiranaa!', response);
-        this.reserveClicked = true;
-      },
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
+    this.companyService
+      .makeReservation(this.reservationData, this.userId)
+      .subscribe(
+        (response) => {
+          console.log('Rezervacija je uspesno kreiranaa!', response);
+          this.reserveClicked = true;
+        },
 
-      (error) => {
-        this.reserveClicked = true;
+        (error) => {
+          this.reserveClicked = true;
 
-        console.error(error);
-      }
-    );
+          console.error(error);
+        }
+      );
   }
   confirmReservation(): void {
     this.companyService.sendQRCode().subscribe((res) => {
