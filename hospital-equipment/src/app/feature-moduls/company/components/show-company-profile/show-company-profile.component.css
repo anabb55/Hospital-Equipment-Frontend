@@ -35,8 +35,9 @@
 .filter-button{
   width: 20%;
   text-align: center;
-  color: #28a785;
+  color: #e7f1ef;
   border: 3px solid #28a785;
+  background-color: #28a785;
   
 }
 
@@ -109,7 +110,7 @@ font-size: 30px;}
   font-family: 'Trip', sans-serif;
   font-weight: medium;
   font-size: 18px;
-  background-color: #0a83cb;
+  background-color: #208670;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -215,7 +216,7 @@ font-size: 30px;}
   font-size: 12px;
   font-weight: medium;
   color: #FFF;
-  background-color: rgb(30, 119, 183);
+  background-color: rgb(39, 134, 118);
   border-radius: 15px;
   padding: 3px 9px;
 }
