@@ -12,6 +12,44 @@
       }
   }
 
+  .equipment-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0;
+    overflow-x: auto; 
+  }
+  
+  .equipment-item {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    min-width: 200px; 
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+
+  }
+  .eq-name {
+    text-align: center;
+    font-size: 15px;
+    color: #0f6655;
+    margin-bottom: 5px;
+    font-weight: bold; 
+    text-transform: uppercase; 
+  }
+  .card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-top: 1px solid #179a98; 
+    margin-top: 10px; 
+    padding-top: 10px; 
+  }
   .image-adv{
     background: none;
     border: none;

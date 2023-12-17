@@ -21,6 +21,7 @@
                     {{company.address.city}},{{company.address.country}} </p>
                 <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
                 <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
+                  <button class="buttonAdmin" (click)="addAdmin()">Add company admin</button>
             </div>
 
             
@@ -73,16 +74,14 @@
       <p>
         Thank you for choosing our services! Your reservation details and further information
         have been sent to your email. For any inquiries, feel free to reach us at
-        <a href="mailto:info@example.com">info@example.com</a>. We look forward to serving you again!
+        <a href="mailto:info@example.com">{{company.name}}@example.com</a>. We look forward to serving you again!
       </p>
     </div>
     
 
       
 
-            <div>
-                <button (click)="addAdmin()">Add company admin</button>
-            </div>
+           
 
 
   

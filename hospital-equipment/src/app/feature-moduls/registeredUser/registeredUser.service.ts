@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { DisplayProfile } from './displayProfile/displayProfile.component';
 import { RegisteredUser } from '../model/RegisteredUser';
+import { Appointment } from 'src/app/model/appointment.model';
 
 
 @Injectable({
@@ -26,7 +27,9 @@ export class RegisteredUserService {
  /* getProfileForUserWithId5(): Observable<RegisteredUser> {
     return this.getProfile(5);
   }*/
-  
+  getFutureAppointments(idUser: number): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`http://localhost:8081/api/appointments/futureAppointment/${idUser}`);
+  }
   
 
   updateProfile(profile: RegisteredUser, id: number): Observable<RegisteredUser> {
