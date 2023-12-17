@@ -1,9 +1,17 @@
-<div class="container">
+<div class="overload">
+    <div class="first_column">
 
-    <div class="card">
+        <div class="card">
+            <div class="image-content">
+                <span class="overlay">
+                    <p class="tag">Stay safe</p>
+                </span>
+<div class="container">
+  
+    <div class="card" >
         <div class="image-content">
             <span class="overlay">
-                <p class="tag" (click)="editDetails()">Edit CompanyDetails</p>
+                <p class="tag">Stay safe</p>
             </span>
 
             <div class="card-image">
@@ -21,154 +29,235 @@
                     <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
                     <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
                 </div>
-
-                <div *ngFor="let appointment of company.appointments">
+                <!--
+<div *ngFor="let appointment of company.appointments">
 
                     <p>Date: {{appointment.date}}</p>
-                    <p class="price">Duration: {{appointment.endTime}}</p>
+                    <p class="price">Duration: {{appointment.duration}}</p>
+>>>>>>> Stashed changes
 
+                <div class="card-image">
+                    <img src="https://t4.ftcdn.net/jpg/02/51/62/57/360_F_251625725_Rn45uiFslh3l2RCMGXBpLip1ispIM1Re.jpg"
+                        alt="" class="card-img">
                 </div>
+                -->
+                
             </div>
 
+            <div class="card-content">
+                <h2 class="name">{{company.name}} </h2>
+                <div class="eq-app">
+                    <div class="desc-container">
+                        <p class="description"><i class="material-icons">&#xe0c8;</i>
+                            {{company.address.city}},{{company.address.country}} </p>
+                        <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
+                        <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
+                    </div>
             <h2>Equipment</h2>
-            <div class="card-footer">
+            <!--
 
-                <div *ngFor="let equipment of companyEquipment">
-                    <div>
-                        <mat-form-field class="input">
-                            <mat-label>Name</mat-label>
-                            <input matInput [(ngModel)]="equipment.name" type="text">
-                        </mat-form-field>
-                    </div>
-                    <div>
-                        <mat-form-field class="input">
-                            <mat-label>Description</mat-label>
-                            <input matInput [(ngModel)]="equipment.description" type="text">
-                        </mat-form-field>
-                    </div>
+                <div class="card-footer">
+                 <div *ngFor="let equipment of company.equipment">
 
-                    <ng-container *ngIf="equipmentAmounts">
-                        <p class="price-text" *ngFor="let ea of equipmentAmounts">
-                            <ng-container *ngIf="ea.equipmentId === equipment.id">
-                                <mat-form-field class="input">
-                                    <input matInput [(ngModel)]="ea.amount" type="text">
-                                </mat-form-field>
-                                <div class="editEq">
-                                    <p class="tag" (click)="editEquipment(equipment,ea.amount)">Edit</p>
-                                </div>
-                            </ng-container>
-                        </p>
-                    </ng-container>
-                    
+
+
                 </div>
+=======
+                 </div>
+>>>>>>> Stashed changes
+
+            </div>
+            -->
+            
+
+
+            <div class="button-options">
+                <button class="button" (click)="searchClick()">Search equipment</button>
+                <button class="button" (click)="addEquipmentClick()">Add equipment</button>
+                <button class="button" (click)="updateEquipment()">Update equipment</button>
+                <button class="button" (click)="editDetails()">Update CompanyDetails</button>
+                <button class="button" (click)="addAppointment()">Add Appointment</button>
+            </div>
+
+        
+
+
+        </div>
+        
+    </div>
+
+    <div class="second_column">
+
+        <div *ngIf="showSearch">
+            <div class="search-bar">
+                <div class="search">
+                    <input type="text" placeholder="Enter the name of equipment" [(ngModel)]="searchQuery">
+                    <button (click)="searchCompanies()">🔍</button>
+                  </div>
+            </div>
+            <div class="above-card">
+                <div class="card-footer">
+          
+
+                    <ul class="equipment-list">
+                        <li *ngFor="let equipment of resultList" class="equipment-item">
+                          <div class="above-button">
+                            <p class="eq-name">{{equipment.name}}</p>
+                           
+                          </div>
+                          <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+                          <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+              
+                        </li>
+                      </ul>
+
+                </div>
+                
+
+
+
+
             </div>
         </div>
 
-    </div>
-
-    <div class="updateContainer" *ngIf="showEditDetailsTable">
-        <h1>Edit Company Details</h1>
-
-        <form [formGroup]="inputForm">
-            <div>
-                <mat-form-field appearance="fill">
-
-                    <input matInput type="text" placeholder="Name" formControlName="name">
-                </mat-form-field>
-            </div>
-
-            <div>
-                <mat-form-field>
-                    <textarea matInput rows="4" placeholder="Description" formControlName="description"></textarea>
-                </mat-form-field>
+        <div *ngIf="showAdd">
+            <div class="card-footer">
+                <ul class="equipment-list">
+                    <li *ngFor="let equipment of availableEquipment" class="equipment-item">
+                        <div class="above-button">
+                            <p class="eq-name">{{equipment.name}}</p>
+                            <button class="add-button" (click)="addEquipmentToCompany(equipment)">+</button>
+                        </div>
+                        <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+                        <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+                        <input mat-Input type="number" [(ngModel)]="equipment.amount" placeholder="Amount">
+                    </li>
+                </ul>
 
             </div>
-            <div>
-                <div>
-                    <mat-label>Address: </mat-label>
-                </div>
+        </div>
 
-
+        <div class="updateContainer" *ngIf="showUpdateCom">
+            <h1>Edit Company Details</h1>
+    
+            <form [formGroup]="inputForm">
                 <div>
-                    <mat-form-field>
-                        <input matInput type="text" placeholder="city" formControlName="city">
+                    <mat-form-field appearance="fill">
+    
+                        <input matInput type="text" placeholder="Name" formControlName="name">
                     </mat-form-field>
                 </div>
+    
                 <div>
                     <mat-form-field>
-                        <input matInput type="text" placeholder="country" formControlName="country">
+                        <textarea matInput rows="4" placeholder="Description" formControlName="description"></textarea>
                     </mat-form-field>
+    
                 </div>
                 <div>
-                    <mat-form-field>
-                        <input matInput type="text" placeholder="street" formControlName="street">
-                    </mat-form-field>
-
+                    <div>
+                        <mat-label>Address: </mat-label>
+                    </div>
+    
+    
+                    <div>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="city" formControlName="city">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="country" formControlName="country">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="street" formControlName="street">
+                        </mat-form-field>
+    
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput type="text" placeholder="number" formControlName="number">
+                        </mat-form-field>
+                    </div>
                 </div>
-                <div>
-                    <mat-form-field>
-                        <input matInput type="text" placeholder="number" formControlName="number">
-                    </mat-form-field>
+    
+                <div class="buttonClass">
+                    <button class="add-button" (click)="edit(company)">Edit</button>
+    
                 </div>
-            </div>
+    
+    
+            </form>
+        </div>
 
-            <div class="buttonClass">
-                <button mat-raised-button type="submit" color="primary" (click)="edit(company)">Edit</button>
-
-            </div>
-
-
-        </form>
-    </div>
-</div>
-<div class="buttonOptions">
-    <button mat-raised-button type="submit" color="primary" (click)="addEquipmentClick()">AddEquipment</button>
-</div>
-<div *ngIf="showAddTable">
-    <h2>Available Equipment</h2>
-
-
-    <mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let equipment">{{ equipment.name }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-            <mat-cell *matCellDef="let equipment">{{ equipment.description }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="grade">
-            <mat-header-cell *matHeaderCellDef>Grade</mat-header-cell>
-            <mat-cell *matCellDef="let equipment">{{ equipment.grade }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="amount">
-            <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
-            <mat-cell *matCellDef="let equipment">
-                <ng-container *ngIf="equipmentAmounts">
-                    <p class="price-text" *ngFor="let ea of equipmentAmounts">
-                        <ng-container *ngIf="ea.equipmentId === equipment.id">
-                            <mat-form-field>
-                                <input matInput [(ngModel)]="ea.amount" placeholder="Enter amount" type="number">
-                            </mat-form-field>
+        <div *ngIf="showUpdate">
+            <div class="card-footer">
+                <ul class="equipment-list">
+                    <li *ngFor="let equipment of companyEquipment" class="equipment-item">
+                        <div class="above-button">
+                            <p class="eq-name">{{equipment.name}}</p>
+                            
+                        </div>
+                        <ng-container >
+                            <p class="price-text" *ngFor="let ea of equipmentAmounts">
+                                <ng-container *ngIf="ea.equipmentId === equipment.id">
+                                    <mat-form-field class="input">
+                                        <input matInput [(ngModel)]="ea.amount" type="number">
+                                    </mat-form-field>
+                                    <button class="add-button" (click)="editEquipment(equipment,ea.amount)">edit</button>
+                                </ng-container>
+                            </p>
                         </ng-container>
-                    </p>
-                </ng-container>
-            </mat-cell>
-        </ng-container>
+                        
+                    </li>
+                </ul>
 
-        <ng-container matColumnDef="add">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let equipment">
-                <button mat-icon-button (click)="addEquipmentToCompany(equipment)">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </td>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
+            </div>
+        </div>
+        <div *ngIf="showAddAppointment">
+           
+            <div class="form-container">
 
+                <form class="company-form" [formGroup]="appForm">
+                    <h2 class="form-title">Create new appointment</h2>
+                    <div  class="form-group">
+                      <label for="name">Admin Name:</label>
+                      <input matInput type="text"  >
+                    </div>
+                    <div class="form-group">
+                      <label for="description"> Admin LastName:</label>
+                      <input matInput type="text"  >
+                    </div>
+                    <div class="form-group">
+                        <label for="endTime" >Date:</label>
+                        <input type="date" formControlName="date" >
+                      </div>
+            
+                    <div class="form-group">
+                      <label for="startTime" >From:</label>
+                      <input type="time" formControlName="startTime">
+                    </div>
+                    <div class="form-group">
+                      <label for="endTime" >To:</label>
+                      <input type="time" formControlName="endTime">
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="endTime" >Duration:</label>
+                        <input type="time" >
+                      </div>
+                    
+               
+                
+                
+               
+               
+                  </form>
+                 </div>
+                 <button class="add-button" (click)="addApp()">Add app</button>
+        </div>
+
+    </div>
 </div>

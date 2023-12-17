@@ -112,6 +112,7 @@ export class DisplayProfile implements OnInit {
       email: this.registeredUser.email,
       occupation: this.profileForm.value.occupation,
       address: {
+        id: this.profileForm.value.address.id,
         country: this.profileForm.value.country,
         city: this.profileForm.value.city,
         street: this.profileForm.value.street,

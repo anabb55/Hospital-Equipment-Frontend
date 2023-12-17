@@ -61,9 +61,15 @@ export class OneCompanyComponent implements OnInit {
     },
     description: '',
     grade: 0,
-    appointments: [],
-    administrators: [],
-    equipment: [],
+    workStartTime: {
+      hours: 0,
+      minutes: 0
+    },
+    workEndTime: {
+      hours: 0,
+      minutes: 0
+    }
+   
   };
 
   constructor(
@@ -77,6 +83,7 @@ export class OneCompanyComponent implements OnInit {
     this.getCompany();
     this.minDate = new Date();
     this.dateAdapter.setLocale('en-US');
+
   }
 
   ngOnInit(): void {

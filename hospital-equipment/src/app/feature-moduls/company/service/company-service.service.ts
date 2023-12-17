@@ -238,6 +238,7 @@ export class CompanyServiceService {
     );
   }
 
+
   getEquipmentAmountForCompany(
     companyId: number,
     equipmentId: number
@@ -254,5 +255,14 @@ export class CompanyServiceService {
   updateAmount(companyId: number, equipmentId: number, amount: number) {
     const url = `${environment.apiHost}equipmentStocks/update/${equipmentId}/${companyId}?amount=${amount}`;
     return this.http.post(url, {});
+  }
+  deleteEquipmentStock(companyId:number,equipmentId:number){
+  
+    return this.http.delete(environment.apiHost+ 'equipmentStocks/update/'+ companyId +'/' + equipmentId );
+  }
+
+  addApp(appointment:Appointment):Observable<Appointment>{
+    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp',appointment);
+
   }
 }
