@@ -6,6 +6,7 @@ import { Equipment } from 'src/app/model/equipment.model';
 import { DateAdapter } from '@angular/material/core';
 import { Appointment } from 'src/app/model/appointment.model';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-one-company',
@@ -22,12 +23,21 @@ export class OneCompanyComponent implements OnInit {
   equipmentList: Equipment[] = []; //prikaz unutar firme tj eqStock
   equipmentListForReservation: Equipment[] = []; //kada dodajemon opremu ide u ovu listu kako bismo prebacili na bek kasnije
   extraordinaryAppointments: Appointment[] = [];
+
   buttonClicked: boolean = false;
   finishedReservation: boolean = false;
   equipmentAdd: boolean = false;
   extraordinaryClicked: boolean = false;
   extraordinaryClickedFinish: boolean = false;
   reserveClicked: boolean = false;
+
+  //ana
+  predefinedAppointmentsFlag: boolean = false;
+  equipmentFlag: boolean = false;
+  extraordinary: boolean = false;
+  predefinedAppointments: Appointment[] = [];
+  userId: number = 0;
+
   userRole: string = '';
   isLogged: boolean = false;
   minDate: Date;
@@ -52,7 +62,8 @@ export class OneCompanyComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private companyService: CompanyServiceService,
     private dateAdapter: DateAdapter<Date>,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private jwtHelper: JwtHelperService
   ) {
     this.getId();
     this.getCompany();
@@ -116,6 +127,24 @@ export class OneCompanyComponent implements OnInit {
     console.log('Dodaj opremu:', equipment);
   }
 
+  createReservation(appointment: Appointment) {
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
+
+    // this.companyService
+    //   .updateStatus(appointment.id, appointment)
+    //   .subscribe((res) => {
+    //     console.log(res);
+    //   });
+    this.companyService
+      .createReservationPredefined(appointment, this.userId)
+      .subscribe((res) => {
+        console.log(res);
+        this.buttonDisabled = true;
+        this.reserveClicked = true;
+        this.extraordinaryClickedFinish = false;
+      });
+  }
   addAppointment(appointment: Appointment): void {
     this.companyService.saveAppointment(this.id, appointment).subscribe(
       (response) => {
@@ -130,16 +159,25 @@ export class OneCompanyComponent implements OnInit {
   }
   CheckFreeAppointments(): void {
     this.buttonClicked = true;
+    this.predefinedAppointmentsFlag = true;
+    this.extraordinaryClickedFinish = true;
+    this.equipmentFlag = true;
+
+    this.companyService.getAppointmentsByCompany(this.id).subscribe((res) => {
+      this.predefinedAppointments = res;
+    });
   }
 
   CheckExtraordinaryeAppointments(): void {
     console.log('first khm');
     this.extraordinaryClicked = true;
+    this.extraordinaryClickedFinish = false;
   }
 
   CheckExtraOrdinary(): void {
     console.log('khm');
-    this.extraordinaryClickedFinish = true;
+    this.extraordinary = true;
+    this.predefinedAppointmentsFlag = false;
 
     this.companyService
       .generateRandomAppointments(this.id, this.selectedDate)

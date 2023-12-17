@@ -99,6 +99,17 @@ export class CompanyServiceService {
     );
   }
 
+  getAppointmentsByCompany(id: number): Observable<Appointment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    const apiUrl = `${environment.apiHost}appointments/getAppointmentsForCompany/${id}`;
+    return this.http.get<Appointment[]>(apiUrl, { headers });
+  }
+
   generateRandomAppointments(
     companyId: number,
     date: Date
@@ -118,6 +129,37 @@ export class CompanyServiceService {
   saveAppointment(companyId: number, appointmentDTO: any): Observable<any> {
     const url = `${environment.apiHost}appointments/create/${companyId}`;
     return this.http.post(url, appointmentDTO);
+  }
+
+  createReservationPredefined(
+    appointment: Appointment,
+    userId: number
+  ): Observable<Reservation> {
+    const token = this.jwtHelper.tokenGetter();
+
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<Reservation>(
+      `http://localhost:8081/api/reservation/createReservationPredefined/${userId}`,
+      appointment,
+      { headers }
+    );
+  }
+
+  updateStatus(id: number, appointment: Appointment): Observable<Appointment> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(this.jwtHelper.decodeToken());
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<Appointment>(
+      `http://localhost:8081/api/appointments/update/${id}`,
+      appointment,
+      { headers }
+    );
   }
 
   makeReservation(

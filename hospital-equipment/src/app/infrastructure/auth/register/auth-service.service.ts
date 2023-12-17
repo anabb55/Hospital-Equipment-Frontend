@@ -53,6 +53,10 @@ export class AuthServiceService {
     return true;
   }
 
+  getUserId(): string {
+    return this.userClaims.id;
+  }
+
   getUserRole(): string {
     return this.userClaims.role;
   }
