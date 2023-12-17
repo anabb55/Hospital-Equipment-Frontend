@@ -11,13 +11,31 @@ import { ActivatedRoute } from '@angular/router';
 import { Appointment, AppointmentStatus } from 'src/app/model/appointment.model';
 import { Time } from '@angular/common';
 
-
 @Component({
   selector: 'app-update-company',
   templateUrl: './update-company.component.html',
-  styleUrls: ['./update-company.component.css']
+  styleUrls: ['./update-company.component.css'],
 })
 export class UpdateCompanyComponent {
+
+  showEditDetailsTable: boolean = false;
+  showAddTable: boolean = false;
+  enteredAmount: number = 0;
+  amount: number | undefined;
+  displayedColumns: string[] = [
+    'name',
+    'description',
+    'grade',
+    'amount',
+    'add',
+  ];
+  equipmentAmounts: EquipmentAmount[] = [];
+  equipmentAmount: EquipmentAmount = {
+    equipmentId: 0,
+    amount: 0,
+  };
+  companyEquipment: Equipment[] = [];
+
 
   appointments: Appointment[] = []
   showAddAppointment: boolean = false
@@ -39,6 +57,7 @@ export class UpdateCompanyComponent {
     amount: 0
   }
   companyEquipment: Equipment[] = []
+
   equipmentStock: EquipmentStock = {
     equipment: {
       id: 0,
@@ -46,7 +65,8 @@ export class UpdateCompanyComponent {
       description: '',
       grade: 0,
       companies: [],
-      amount: 0
+      type: '',
+
     },
     company: {
       id: 0,
@@ -64,8 +84,10 @@ export class UpdateCompanyComponent {
       administrators: [],
       equipment: [],
     },
-    amount: 0
-  }
+
+    amount: 0,
+  };
+
   dataSource!: MatTableDataSource<any>;
   dataSource2!: MatTableDataSource<any>;
   company: Company = {
@@ -83,13 +105,16 @@ export class UpdateCompanyComponent {
     appointments: [],
     administrators: [],
     equipment: [],
-  }
+
+  };
+
   inputForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     country: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required]),
+
     number: new FormControl('', [Validators.required])
   })
 
@@ -114,10 +139,12 @@ export class UpdateCompanyComponent {
       console.log('ID komponente:', this.id);
     });
   }
+
   getCompanyByAdmin() {
     //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
     this.companyService.getCompanyByAdmin(3).subscribe({
       next: (response) => {
+
         this.companies = response
         this.company = this.companies[0]
         this.getEquipmentByCompany();
@@ -131,6 +158,7 @@ export class UpdateCompanyComponent {
         console.log(error);
       }
     })
+
   }
 
   fillInputForm() {
@@ -142,6 +170,7 @@ export class UpdateCompanyComponent {
       street: this.company.address.street,
       number: this.company.address.number,
     });
+
 
   }
 
@@ -201,6 +230,7 @@ export class UpdateCompanyComponent {
     })
 
 
+
   }
 
   getEquipmentByCompany() {
@@ -211,6 +241,7 @@ export class UpdateCompanyComponent {
         this.findAmountForEachEquipment();
       },
       error: (err) => {
+
         console.log(err)
       },
     })
@@ -383,5 +414,6 @@ export class UpdateCompanyComponent {
       }
       
     })
+
   }
 }

@@ -28,6 +28,7 @@ export class RegisterComponent implements OnChanges {
 
   userForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     reenterPassword: new FormControl('', [Validators.required]),
     firstname: new FormControl('', [Validators.required]),
@@ -52,6 +53,7 @@ export class RegisterComponent implements OnChanges {
     const user: User = {
       firstname: this.userForm.value.firstname || '',
       lastname: this.userForm.value.lastname || '',
+      username: this.userForm.value.username || '',
       email: this.userForm.value.email || '',
       password: this.userForm.value.password || '',
       phoneNumber: this.userForm.value.phoneNumber || '',

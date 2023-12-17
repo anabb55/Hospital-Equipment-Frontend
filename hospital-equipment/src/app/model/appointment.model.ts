@@ -9,6 +9,7 @@ export enum AppointmentStatus {
 export interface Appointment{
     "id":   number,
     "date": Date,
+    "endTime": Time,
     "startTime": Time,
     "appointmentStatus": AppointmentStatus,
     "administrator": CompanyAdministrator

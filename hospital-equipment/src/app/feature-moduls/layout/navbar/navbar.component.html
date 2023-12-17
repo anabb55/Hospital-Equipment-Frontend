@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <div class="inner-wrap">
+    <p raised-button [routerLink]="['showCompanyProfile']" class="link">Home</p>
+    <div class="spacer"></div>
+    <div class="buttons">
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_REGISTERED_USER'"
+        routerLinkActive="active"
+        [routerLink]="['displayProfile']"
+        class="link"
+      >
+        My Profile
+      </a>
+      <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
+        Login
+      </button>
+      <button *ngIf="isLogged" class="nbutton" (click)="onLogout()">
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

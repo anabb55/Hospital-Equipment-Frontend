@@ -1,6 +1,8 @@
 export interface Address {
-  street: String;
+ 
   city: String;
-  number: String;
   country: String;
+  number: String;
+  street: String;
+  
 }
