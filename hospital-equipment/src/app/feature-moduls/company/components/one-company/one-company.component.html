@@ -1,5 +1,6 @@
 <div class="overload">
   <div class="first_column">
+
     <div class="card">
       <div class="image-content">
         <span class="overlay">
@@ -7,15 +8,18 @@
         </span>
 
         <div class="card-image">
+
           <img
             src="https://t4.ftcdn.net/jpg/02/51/62/57/360_F_251625725_Rn45uiFslh3l2RCMGXBpLip1ispIM1Re.jpg"
             alt=""
             class="card-img"
           />
+
         </div>
       </div>
 
       <div class="card-content">
+
         <h2 class="name">{{ company.name }}</h2>
         <div class="eq-app">
           <div class="desc-container">
@@ -70,10 +74,12 @@
         </ul>
       </div>
 
+
       <div class="card-footer" *ngIf="!extraordinaryClickedFinish">
         <ul class="equipment-list">
           <li *ngFor="let equipment of equipmentList" class="equipment-item">
             <div class="above-button">
+
               <p class="eq-name">{{ equipment.name }}</p>
               <button (click)="addEquipment(equipment)" class="add-button">
                 +
@@ -163,3 +169,4 @@
     </div>
   </div>
 </div>
+

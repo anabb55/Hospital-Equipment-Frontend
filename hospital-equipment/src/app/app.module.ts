@@ -46,6 +46,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
 
+
     CompanyAdminProfileComponent,
     OneCompanyComponent,
     LoginComponent,
