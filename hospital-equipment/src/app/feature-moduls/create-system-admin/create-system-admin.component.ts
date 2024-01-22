@@ -13,7 +13,6 @@ export class CreateSystemAdminComponent implements OnInit{
 
   constructor(private service:RegisterCompanyService){}
 
-  addresses:Address[] =[] 
 
   adminData:SystemAdmin={
     id: 0,
@@ -49,11 +48,7 @@ export class CreateSystemAdminComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.service.getAllAddresses().subscribe({
-      next:(result:Address[])=>{
-        this.addresses = result;
-      }
-    })
+   
   }
 
   createdAdmin : SystemAdmin | undefined;

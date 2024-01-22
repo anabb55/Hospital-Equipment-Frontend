@@ -97,6 +97,8 @@ export class RegisterCompanyProfileComponent implements OnInit {
       next:(result:CompanyAdministrator[])=>{
         this.admins = result;
         this.admins.forEach(a => {
+          console.log("Ime: " +a.username);
+          console.log("Id: " +a.company?.id);
         });
       }
     })

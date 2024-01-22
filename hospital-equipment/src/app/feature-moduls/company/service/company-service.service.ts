@@ -103,16 +103,12 @@ export class CompanyServiceService {
   }
 
   getAppointmentsByCompany(id: number): Observable<Appointment[]> {
-    const token = this.jwtHelper.tokenGetter();
-    console.log(token);
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + token,
-      'Content-Type': 'application/json',
-    });
-    const apiUrl = `${environment.apiHost}appointments/getAppointmentsForCompany/${id}`;
-    return this.http.get<Appointment[]>(apiUrl, { headers });
+    return this.http.get<Appointment[]>(environment.apiHost+'appointments/getAppointmentsForCompany/'+id);
   }
 
+  getAllAppointment(): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(environment.apiHost+'appointments/getAll');
+  }
   generateRandomAppointments(
     companyId: number,
     date: Date

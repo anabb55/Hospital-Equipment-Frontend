@@ -29,7 +29,9 @@ export class RegisterCompanyService {
   updateCompanyAdmin(admin:CompanyAdministrator): Observable<CompanyAdministrator> {
     return this.http.put<CompanyAdministrator>( 'http://localhost:8081/api/companyAdministrators/update/'+ admin.id,admin);
   }
-
+  getAllCompanyAdminsByCompanyId(id:number): Observable<CompanyAdministrator[]> {
+    return this.http.get<CompanyAdministrator[]>( 'http://localhost:8081/api/companyAdministrators/getAllByCompany/'+id);
+  }
   createAddress(address:Address): Observable<Address> {
     return this.http.post<Address>( 'http://localhost:8081/api/addresses/save',address);
   }
