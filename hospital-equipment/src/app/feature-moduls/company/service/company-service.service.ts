@@ -14,9 +14,7 @@ import { EquipmentStock } from '../../model/equipmentStock.model';
 
 import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
 
-
 import { JwtHelperService } from '@auth0/angular-jwt';
-
 
 @Injectable({
   providedIn: 'root',
@@ -163,6 +161,21 @@ export class CompanyServiceService {
     );
   }
 
+  sendQRCode(): Observable<any> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(this.jwtHelper.decodeToken());
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get<any>(
+      `http://localhost:8081/api/reservation/sendEmailWithQRCode`,
+
+      { headers }
+    );
+  }
+
   makeReservation(
     reservationDTO: Reservation,
     id: number
@@ -186,23 +199,23 @@ export class CompanyServiceService {
     );
   }
 
-  processReservation(reservationEquipmentStockDTO: ReservationEquipmentStock, stocks: Equipment[],companyId:number): Observable<any> {
+  processReservation(
+    reservationEquipmentStockDTO: ReservationEquipmentStock,
+    stocks: Equipment[],
+    companyId: number
+  ): Observable<any> {
     const requestData = {
       reservationEquipmentStockDTO: reservationEquipmentStockDTO,
       stocks: stocks,
-      companyId: companyId
-
+      companyId: companyId,
     };
-    console.log(requestData)
-  
+    console.log(requestData);
+
     const url = `${environment.apiHost}reservationEquipment/processReservation`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
     return this.http.post<any>(url, requestData, { headers });
   }
-  
-  
-  
 
   addEquipmentToCompany(
     equipmentStock: EquipmentStock
@@ -213,7 +226,6 @@ export class CompanyServiceService {
       equipmentStock
     );
   }
-
 
   //returns equipment that Company does possess
   getEquipmentForCompany(companyId: number): Observable<Equipment[]> {
