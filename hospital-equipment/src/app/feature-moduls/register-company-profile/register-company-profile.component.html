@@ -14,20 +14,41 @@
       <label for="grade">Grade:</label>
       <input type="number" id="grade" name="grade" [(ngModel)]="company.grade" required>
     </div>
-
-    <p>Adresa:</p>
-    <div class="select-wrapper">
-      <select id="street" name="address" [(ngModel)]="company.address" required>
-        <option value="" disabled selected>Select Address</option>
-        <option *ngFor="let address of addresses" [value]="address">{{address.street}} {{address.number}}, {{address.city}} {{address.country}}</option>
-      </select>
+    <div class="form-group">
+      <label for="startTime">Star time:</label>
+      <input type="time" id="startTime" name="startTime" [(ngModel)]="company.workStartTime" required>
     </div>
+    <div class="form-group">
+      <label for="endTime">Star time:</label>
+      <input type="time" id="endTime" name="endTime" [(ngModel)]="company.workEndTime" required>
+    </div>
+    <div>
+      <p>Adresa</p>
+    </div>
+    <div class="form-group">
+      <label for="street">Street:</label>
+      <input type="text" id="street" name="street" [(ngModel)]="address.street" required>
+    </div>
+    <div class="form-group">
+      <label for="number">Number:</label>
+      <input type="number" id="number" name="street" [(ngModel)]="address.number" required>
+    </div>
+    <div class="form-group">
+      <label for="street">City:</label>
+      <input type="text" id="city" name="city" [(ngModel)]="address.city" required>
+    </div>
+    <div class="form-group">
+      <label for="street">Country:</label>
+      <input type="text" id="country" name="country" [(ngModel)]="address.country" required>
+    </div>
+
+   
     
 <br>
     <div>
       <h3>Add company admin:</h3>
       <div *ngFor="let admin of admins">
-        <span>{{ admin.firstName }}  {{admin.lastName}} </span>
+        <span>{{ admin.firstname }}  {{admin.lastname}} </span>
         <button (click)="addAdmin(admin)" class="button">Add</button><br><br>
       </div>
     </div>

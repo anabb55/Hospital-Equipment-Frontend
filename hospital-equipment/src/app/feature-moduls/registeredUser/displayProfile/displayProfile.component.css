@@ -1,6 +1,7 @@
 
 .profile-container {
     margin: 20px auto;
+    width: 50%;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -12,6 +13,45 @@
       }
   }
 
+  .equipment-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0;
+    max-width: 98%;
+    overflow-x: auto; 
+  }
+  
+  .equipment-item {
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    min-width: 200px; 
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+
+  }
+  .eq-name {
+    text-align: center;
+    font-size: 15px;
+    color: #0f6655;
+    margin-bottom: 5px;
+    font-weight: bold; 
+    text-transform: uppercase; 
+  }
+  .card-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-top: 1px solid #179a98; 
+    margin-top: 10px; 
+    padding-top: 10px; 
+  }
   .image-adv{
     background: none;
     border: none;
@@ -45,7 +85,7 @@ padding-top: 20px;  }
   
   
 .wrapper {
-    background: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg') center center/cover no-repeat;
+    background: url('https://vilmate.com/wp-content/uploads/2018/08/Medical_Website_Development-1.jpg') center center/cover no-repeat;
     min-height: 100vh; 
     display: flex;
     flex-direction: column;

@@ -1,3 +1,4 @@
+import { Time } from "@angular/common";
 import { Address } from "./address.model";
 import { Appointment } from "./appointment.model";
 import { CompanyAdministrator } from "./companyAdministrator.model";
@@ -9,9 +10,6 @@ export interface Company{
     address : Address,
     description: string,
     grade:number,
-    appointments: Appointment[],
-    administrators: CompanyAdministrator[],
-    equipment: Equipment[]
-
-
+    workStartTime:Time,
+    workEndTime: Time
 }

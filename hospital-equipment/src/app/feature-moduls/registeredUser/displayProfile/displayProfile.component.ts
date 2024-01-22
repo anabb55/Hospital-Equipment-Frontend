@@ -7,6 +7,11 @@ import { RegisteredUserService } from '../registeredUser.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
 
+import { Appointment } from 'src/app/model/appointment.model';
+import { CalendarEvent } from 'angular-calendar';
+
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 @Component({
   selector: 'app-display-profile', // Adjust the selector as needed
   templateUrl: './displayProfile.component.html',
@@ -18,12 +23,17 @@ export class DisplayProfile implements OnInit {
   isEditing: boolean = false;
   userRole: string = '';
 
+  myAppointments: Appointment[] = [];
+
+  userId: number = 1;
+
   constructor(
     private service: RegisteredUserService,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
     private toastr: ToastrService,
-    private authService: AuthServiceService
+    private authService: AuthServiceService,
+    private jwtHelper: JwtHelperService
   ) {
     this.profileForm = this.fb.group({
       id: [''],
@@ -44,12 +54,29 @@ export class DisplayProfile implements OnInit {
 
   ngOnInit(): void {
     this.loadProfileData();
+    this.loadAppointment();
+  }
+
+  loadAppointment() {
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
+    this.service.getFutureAppointments(this.userId).subscribe({
+      next: (data: Appointment[]) => {
+        this.myAppointments = data;
+        console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
+      },
+      error: (error) => {
+        console.error('Error loading appointments:', error);
+      },
+    });
   }
 
   loadProfileData() {
     console.log('Loading profile data...');
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
 
-    this.service.getProfile(1).subscribe({
+    this.service.getProfile(this.userId).subscribe({
       next: (data: RegisteredUser) => {
         console.log('data je' + data);
         this.registeredUser.id = data.id;
@@ -107,6 +134,7 @@ export class DisplayProfile implements OnInit {
       email: this.registeredUser.email,
       occupation: this.profileForm.value.occupation,
       address: {
+        id: this.profileForm.value.address.id,
         country: this.profileForm.value.country,
         city: this.profileForm.value.city,
         street: this.profileForm.value.street,
@@ -132,12 +160,16 @@ export class DisplayProfile implements OnInit {
     // });
   }
   loyaltyProgramAdvantages() {
-
-    this.toastr.success('You have ' + this.registeredUser.loyaltyProgram.discountPercentage + ' % discount on all...', 'Success', {
-      positionClass: 'toast-top-right',
-      toastClass: 'toast-custom-style', 
-      titleClass: 'toast-custom-title', 
-    });
-
+    this.toastr.success(
+      'You have ' +
+        this.registeredUser.loyaltyProgram.discountPercentage +
+        ' % discount on all...',
+      'Success',
+      {
+        positionClass: 'toast-top-right',
+        toastClass: 'toast-custom-style',
+        titleClass: 'toast-custom-title',
+      }
+    );
   }
 }

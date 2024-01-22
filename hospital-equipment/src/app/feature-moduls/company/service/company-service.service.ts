@@ -11,6 +11,9 @@ import { Appointment } from 'src/app/model/appointment.model';
 import { Reservation } from 'src/app/model/reservation,model';
 
 import { EquipmentStock } from '../../model/equipmentStock.model';
+
+import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
+
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Time } from '@angular/common';
 
@@ -151,6 +154,17 @@ export class CompanyServiceService {
     );
   }
 
+  getAppointmentsByCompany(id: number): Observable<Appointment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    const apiUrl = `${environment.apiHost}appointments/getAppointmentsForCompany/${id}`;
+    return this.http.get<Appointment[]>(apiUrl, { headers });
+  }
+
   generateRandomAppointments(
     companyId: number,
     date: Date
@@ -170,6 +184,52 @@ export class CompanyServiceService {
   saveAppointment(companyId: number, appointmentDTO: any): Observable<any> {
     const url = `${environment.apiHost}appointments/create/${companyId}`;
     return this.http.post(url, appointmentDTO);
+  }
+
+  createReservationPredefined(
+    appointment: Appointment,
+    userId: number
+  ): Observable<Reservation> {
+    const token = this.jwtHelper.tokenGetter();
+
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<Reservation>(
+      `http://localhost:8081/api/reservation/createReservationPredefined/${userId}`,
+      appointment,
+      { headers }
+    );
+  }
+
+  updateStatus(id: number, appointment: Appointment): Observable<Appointment> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(this.jwtHelper.decodeToken());
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<Appointment>(
+      `http://localhost:8081/api/appointments/update/${id}`,
+      appointment,
+      { headers }
+    );
+  }
+
+  sendQRCode(): Observable<any> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(this.jwtHelper.decodeToken());
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get<any>(
+      `http://localhost:8081/api/reservation/sendEmailWithQRCode`,
+
+      { headers }
+    );
   }
 
   makeReservation(
@@ -199,6 +259,24 @@ export class CompanyServiceService {
     return this.http.get<Equipment[]>(
       environment.apiHost + 'equipments/findAvailable/' + companyId,{headers}
     );
+  }
+
+  processReservation(
+    reservationEquipmentStockDTO: ReservationEquipmentStock,
+    stocks: Equipment[],
+    companyId: number
+  ): Observable<any> {
+    const requestData = {
+      reservationEquipmentStockDTO: reservationEquipmentStockDTO,
+      stocks: stocks,
+      companyId: companyId,
+    };
+    console.log(requestData);
+
+    const url = `${environment.apiHost}reservationEquipment/processReservation`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<any>(url, requestData, { headers });
   }
 
   addEquipmentToCompany(

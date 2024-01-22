@@ -54,6 +54,10 @@ export class AuthServiceService {
     return true;
   }
 
+  getUserId(): string {
+    return this.userClaims.id;
+  }
+
   getUserRole(): string {
     return this.userClaims.role;
   }
@@ -64,6 +68,7 @@ export class AuthServiceService {
   getToken() {
     return this.access_token;
   }
+
   getUserId(): number {
     return this.userClaims.id;
   }
@@ -77,4 +82,7 @@ export class AuthServiceService {
     });
     return this.http.put<number>(environment.apiHost + 'users/update/' + id +'/' +  password, {headers})
   }
+
+
 }
+

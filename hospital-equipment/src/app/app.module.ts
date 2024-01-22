@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule, DatePipe } from '@angular/common';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { JwtModule } from '@auth0/angular-jwt';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './infrastructure/router/app-routing.module';
@@ -32,7 +34,11 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+
 import { ChangePasswordComponent } from './feature-moduls/change-password/change-password.component';
+
+import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
+
 
 
 
@@ -57,6 +63,7 @@ import { ChangePasswordComponent } from './feature-moduls/change-password/change
     SearchEquipmentComponent,
     ChangePasswordComponent,
 
+    WorkCalendarComponent
   ],
 
   imports: [
@@ -73,7 +80,7 @@ import { ChangePasswordComponent } from './feature-moduls/change-password/change
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-
+    CalendarModule,
     MatTableModule,
 
 
@@ -88,7 +95,10 @@ import { ChangePasswordComponent } from './feature-moduls/change-password/change
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    },
+    }, {
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }
 
   ],
   bootstrap: [AppComponent],
