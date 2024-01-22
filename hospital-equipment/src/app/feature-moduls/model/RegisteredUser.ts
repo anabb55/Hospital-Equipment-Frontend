@@ -1,3 +1,4 @@
+import { Address } from './Address';
 import { LoyaltyProgram } from './LoyaltyProgram';
 import { User } from './User';
 

@@ -16,11 +16,11 @@ export class CreateSystemAdminComponent implements OnInit{
   addresses:Address[] =[] 
 
   adminData:SystemAdmin={
-    id: 0,
+    id:0,
     email: '',
     password: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -31,25 +31,7 @@ export class CreateSystemAdminComponent implements OnInit{
       number: ''
     },
     userCategory: UserCategory.Regular,
-
-    waslogged:false,
-
-    username: ''
-  }
-  address:Address={
-    id: 0,
-    city: '',
-    country: '',
-    street: '',
-    number: ''
-  }
-  savedAddress:Address={
-    id: 0,
-    city: '',
-    country: '',
-    street: '',
-    number: ''
-
+    waslogged:false
   }
 
   ngOnInit(): void {
@@ -62,22 +44,11 @@ export class CreateSystemAdminComponent implements OnInit{
 
   createdAdmin : SystemAdmin | undefined;
   createAdmin() {
-    this.service.createAddress(this.address).subscribe({
-      next:(result:Address)=>{
-        this.savedAddress = result;
-        this.adminData.address = this.savedAddress;
-        console.log(this.savedAddress.city + "  " + this.savedAddress.country);
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    })
-          console.log("adesa: "+ this.adminData.address.id);
+    console.log(this.adminData.userCategory);
           this.service.createSystemAdmin(this.adminData).subscribe({
             next:(result:SystemAdmin)=>{
                 this.createdAdmin =result;
-                
-          
+                console.log("admin: "+ this.createdAdmin.firstName);
             }
           })
 }

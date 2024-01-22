@@ -32,7 +32,6 @@ export class UpdateCompanyComponent {
   equipmentAmounts: EquipmentAmount[] = [];
   equipmentAmount: EquipmentAmount = {
     equipmentId: 0,
-
     amount: 0,
   };
   companyEquipment: Equipment[] = [];
@@ -44,23 +43,23 @@ export class UpdateCompanyComponent {
   searchQuery: string = ''
   availableEquipment: Equipment[] = []
   showSearch: boolean = false
+  
   showAdd: boolean = false
   showUpdate: boolean = false
   showDelete: boolean = false
   showUpdateCom = false
  
-
+  
 
   equipmentStock: EquipmentStock = {
     equipment: {
-
       id: 0,
       name: '',
       description: '',
       grade: 0,
       companies: [],
       type: '',
-      amount: 0
+      amount:0
     },
     company: {
       id: 0,
@@ -74,14 +73,9 @@ export class UpdateCompanyComponent {
       },
       description: '',
       grade: 0,
-      workStartTime: {
-        hours: 0,
-        minutes: 0
-      },
-      workEndTime: {
-        hours: 0,
-        minutes: 0
-      }
+      appointments: [],
+      administrators: [],
+      equipment: [],
     },
 
     amount: 0,
@@ -101,14 +95,10 @@ export class UpdateCompanyComponent {
     },
     description: '',
     grade: 0,
-    workStartTime: {
-      hours: 0,
-      minutes: 0
-    },
-    workEndTime: {
-      hours: 0,
-      minutes: 0
-    }
+    appointments: [],
+    administrators: [],
+    equipment: [],
+
   };
 
   inputForm = new FormGroup({
@@ -119,9 +109,8 @@ export class UpdateCompanyComponent {
     street: new FormControl('', [Validators.required]),
 
     number: new FormControl('', [Validators.required])
-
   })
-    
+
   appForm = new FormGroup({
     date: new FormControl('', [Validators.required]),
     startTime: new FormControl('', [Validators.required]),

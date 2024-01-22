@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { CompanyProfile } from '../model/companyProfile.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Address } from 'src/app/model/address.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Company } from 'src/app/model/company.model';
 import { Router } from '@angular/router';
-import { Address } from 'src/app/model/address.model';
 
 @Component({
   selector: 'app-register-company-profile',
@@ -13,32 +14,12 @@ import { Address } from 'src/app/model/address.model';
 })
 export class RegisterCompanyProfileComponent implements OnInit {
 
-  createdCompany: Company ={
-    id: 0,
-    name: '',
-    address: {
-      id: 0,
-      city: '',
-      country: '',
-      street: '',
-      number: ''
-    },
-    description: '',
-    grade: 0,
-    workStartTime: {
-      hours: 0,
-      minutes: 0
-    },
-    workEndTime: {
-      hours: 0,
-      minutes: 0
-    }
-  }
+  createdCompany: CompanyProfile | undefined 
   street: string = ''
   city: string = ''
   number: string = ''
   country: string = ''
-  addedAdmin: CompanyAdministrator[]=[]
+  
   addresses:Address[] =[] 
   address: Address = {
     id : 0,
@@ -60,44 +41,20 @@ export class RegisterCompanyProfileComponent implements OnInit {
       country: ''
     },
     id: 0,
-    workStartTime: {
-      hours: 0,
-      minutes: 0
-    },
-    workEndTime: {
-      hours: 0,
-      minutes: 0
-    }
+    appointments: [],
+    administrators: [],
+    equipment: []
   };
   admins: CompanyAdministrator[] = []
-  updatedAdmin :CompanyAdministrator={
-    id: 0,
-    email: '',
-    password: '',
-    firstname: '',
-    lastname: '',
-    phoneNumber: '',
-    occupation: '',
-    address: {
-      id: 0,
-      city: '',
-      country: '',
-      street: '',
-      number: ''
-    },
-    company: undefined,
-    username: ''
-  }
+
   savedAddress:Address | undefined
-  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){
+  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar){
     
   }
   ngOnInit(): void {
     this.service.getAllCompanyAdmins().subscribe({
       next:(result:CompanyAdministrator[])=>{
         this.admins = result;
-        this.admins.forEach(a => {
-        });
       }
     })
     this.service.getAllAddresses().subscribe({
@@ -109,18 +66,23 @@ export class RegisterCompanyProfileComponent implements OnInit {
  
 
   onSubmit() {
-        this.service.createAddress(this.address).subscribe({
+    this.address.city = this.city
+    this.address.country = this.country
+    this.address.number = this.number
+    this.address.street = this.street
+
+    this.service.createAddress(this.address).subscribe({
       next:(result:Address)=>{
         this.savedAddress = result;
         this.company.address = this.savedAddress;
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
+        
       },
       error: (err: any) => {
         console.log(err);
       },
     })
     this.service.createCompany(this.company).subscribe({
-    
       next:(result:Company)=>{
         this.createdCompany = result;
         this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
@@ -130,36 +92,16 @@ export class RegisterCompanyProfileComponent implements OnInit {
         
       }
     })
-    this.addedAdmin.forEach(admin => {
-        this.service.updateCompanyAdmin(admin).subscribe({
-        next:(result:CompanyAdministrator)=>{
-          this.updatedAdmin = result;
-          console.log(this.updatedAdmin.company?.name);
-        }
-      })
-    });
-    
-  
-    
+
   }
 
 
   addAdmin(admin: CompanyAdministrator) {
-    this.addedAdmin.push(admin);
-    admin.company = this.createdCompany;
-    console.log(admin.firstname);
-    console.log("Id: " +admin.id);
-    console.log("Lastname:" + admin.lastname);
-    console.log("email:" + admin.email);
-    console.log("phone:" + admin.phoneNumber);
-    console.log("ocupp:" + admin.occupation);
-    console.log("companyId:" + admin.company.description);
-    console.log("pass:" + admin.password);
-    console.log("Adresa: " +admin.address.city);  
+    this.company.administrators.push(admin);
+    console.log("Admini: "+ this.company.administrators);
   }
   createAdmin(){
     console.log("Usaoooo")
     this.router.navigate(['registerCompanyAdmin']);
-    
   }
 }

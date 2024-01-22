@@ -1,12 +1,11 @@
 import { Address } from "./address.model";
 
 export interface User {
-  id: number;
+  id?: number;
   email: String;
   password: String;
-  firstname: String;
-  lastname: String;
-  username:String;
+  firstName: String;
+  lastName: String;
   phoneNumber: String;
   occupation: String;
   address: Address;

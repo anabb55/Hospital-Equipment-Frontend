@@ -12,16 +12,12 @@
     </div>
     <div class="form-group">
     <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" [(ngModel)]="adminData.firstname"><br>
+    <input type="text" id="firstName" name="firstName" [(ngModel)]="adminData.firstName"><br>
     </div>
     <div class="form-group">
     <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" [(ngModel)]="adminData.lastname"><br>
+    <input type="text" id="lastName" name="lastName" [(ngModel)]="adminData.lastName"><br>
     </div>
-    <div class="form-group">
-      <label for="lastName">Username:</label>
-      <input type="text" id="lastName" name="username" [(ngModel)]="adminData.username"><br>
-      </div>
     <div class="form-group">
     <label for="phoneNumber">Phone Number:</label>
     <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="adminData.phoneNumber"><br>
@@ -30,24 +26,12 @@
     <label for="occupation">Occupation:</label>
     <input type="text" id="occupation" name="occupation" [(ngModel)]="adminData.occupation"><br>
     </div>
-    <div>
-      <p>Adresa</p>
-    </div>
+    <p>Adresa:</p>
     <div class="form-group">
-      <label for="street">Street:</label>
-      <input type="text" id="street" name="street" [(ngModel)]="address.street" required>
-    </div>
-    <div class="form-group">
-      <label for="number">Number:</label>
-      <input type="number" id="number" name="street" [(ngModel)]="address.number" required>
-    </div>
-    <div class="form-group">
-      <label for="street">City:</label>
-      <input type="text" id="city" name="city" [(ngModel)]="address.city" required>
-    </div>
-    <div class="form-group">
-      <label for="street">Country:</label>
-      <input type="text" id="country" name="country" [(ngModel)]="address.country" required>
+      <select id="street" name="address" [(ngModel)]="adminData.address" required>
+        <option value="" disabled selected>Select Address</option>
+        <option *ngFor="let address of addresses" [value]="address">{{address.street}}{{address.number}},{{ address.city}} {{address.country}}</option>
+      </select>
     </div>
 
     <button type="submit">Create Admin</button>

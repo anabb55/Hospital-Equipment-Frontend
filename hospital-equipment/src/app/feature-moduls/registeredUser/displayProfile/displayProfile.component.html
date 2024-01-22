@@ -53,18 +53,7 @@
           <p><strong>Penalty Points:</strong> {{ registeredUser.penaltyPoints }}</p>
           <p class="category"> {{ registeredUser.userCategory }}</p>
         </div>
-        <div class="card-footer" >
-          <ul class="equipment-list">
-              <li *ngFor="let app of myAppointments" class="equipment-item">
-                  <div class="above-button">
-                <p class="eq-name">📅{{app.date}}</p>
-              </div>
-                <p class="price-text">🕓:{{app.startTime}}</p>
-                <p class="price-text">⏳:{{app.endTime}} </p>
-              </li>
-            </ul>
-            
-      </div>
+       
         </div>
       </div>
     </div>

@@ -35,9 +35,8 @@
 .filter-button{
   width: 20%;
   text-align: center;
-  color: #e7f1ef;
+  color: #28a785;
   border: 3px solid #28a785;
-  background-color: #28a785;
   
 }
 
@@ -110,7 +109,7 @@ font-size: 30px;}
   font-family: 'Trip', sans-serif;
   font-weight: medium;
   font-size: 18px;
-  background-color: #208670;
+  background-color: #0a83cb;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -130,7 +129,7 @@ font-size: 30px;}
 .companies-view {
   width: 100%;
   align-items: center;
-  background-image: url('https://vilmate.com/wp-content/uploads/2018/08/Medical_Website_Development-1.jpg');  /* Postavite putanju do vaše slike */
+  background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg');  /* Postavite putanju do vaše slike */
   background-size: cover;  
   height: 120vh;
 }
@@ -216,7 +215,7 @@ font-size: 30px;}
   font-size: 12px;
   font-weight: medium;
   color: #FFF;
-  background-color: rgb(39, 134, 118);
+  background-color: rgb(30, 119, 183);
   border-radius: 15px;
   padding: 3px 9px;
 }
