@@ -31,6 +31,9 @@ export class CreateSystemAdminComponent implements OnInit{
       number: ''
     },
     userCategory: UserCategory.Regular,
+
+    waslogged:false,
+
     username: ''
   }
   address:Address={
@@ -46,6 +49,7 @@ export class CreateSystemAdminComponent implements OnInit{
     country: '',
     street: '',
     number: ''
+
   }
 
   ngOnInit(): void {

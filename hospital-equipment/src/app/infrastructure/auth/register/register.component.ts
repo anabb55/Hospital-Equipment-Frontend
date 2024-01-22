@@ -41,6 +41,7 @@ export class RegisterComponent implements OnChanges {
       city: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
     }),
+
   });
 
   checkPasswordMatch() {
@@ -64,6 +65,7 @@ export class RegisterComponent implements OnChanges {
         city: this.userForm.value.address?.city || '',
         country: this.userForm.value.address?.country || '',
       },
+      waslogged: false
     };
 
     if (!this.userForm.valid) {

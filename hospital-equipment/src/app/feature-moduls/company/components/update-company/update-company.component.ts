@@ -50,6 +50,7 @@ export class UpdateCompanyComponent {
   showUpdateCom = false
  
 
+
   equipmentStock: EquipmentStock = {
     equipment: {
 
@@ -58,9 +59,7 @@ export class UpdateCompanyComponent {
       description: '',
       grade: 0,
       companies: [],
-
       type: '',
-
       amount: 0
     },
     company: {
@@ -396,29 +395,24 @@ export class UpdateCompanyComponent {
   addApp() {
     const dateValue: string | null | undefined = this.appForm.value.date;
     const startTimeValue: string | null | undefined = this.appForm.value.startTime;
-    
+    const endTimeValue:string | null | undefined = this.appForm.value.endTime;
+    console.log(dateValue,startTimeValue, '-',endTimeValue);
+    if (dateValue !== null && dateValue !== undefined &&
+      startTimeValue !== null && startTimeValue !== undefined &&
+      endTimeValue !== null && endTimeValue !== undefined){
+        console.log('Kreirani app', this.appointments[0])
 
-    if (dateValue !== null && dateValue !== undefined) {
-      this.appointments[0].date = new Date(dateValue);
-    }
-
-
-    if (startTimeValue !== null && startTimeValue !== undefined) {
-      const parsedTime: Time = JSON.parse(startTimeValue);
-      this.appointments[0].startTime = parsedTime; 
-    }
-
-    console.log('Kreirani app', this.appointments[0])
-
-    this.companyService.addApp(this.appointments[0]).subscribe({
+    this.companyService.addApp(dateValue,startTimeValue,endTimeValue).subscribe({
       next:(response)=>{
-        console.log(response)
+        console.log('Response',response)
       },
       error:(err)=>{
         console.log(err)
       }
       
     })
+    }
+   
 
   }
 }

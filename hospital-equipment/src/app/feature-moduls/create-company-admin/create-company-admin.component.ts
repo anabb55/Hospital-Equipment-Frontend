@@ -35,8 +35,11 @@ export class CreateCompanyAdminComponent implements OnInit {
       number: ''
     },
     id: 0,
+    waslogged:false
+
     company: undefined,
     username: ''
+
   };
 
   address:Address={
