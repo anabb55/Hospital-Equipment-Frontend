@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Appointment, AppointmentStatus } from 'src/app/model/appointment.model';
 import { Time } from '@angular/common';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { CalendarMomentDateFormatter, MOMENT } from 'angular-calendar';
 
 @Component({
   selector: 'app-update-company',
@@ -18,6 +19,7 @@ import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-se
   styleUrls: ['./update-company.component.css'],
 })
 export class UpdateCompanyComponent {
+  
   loggedInUser: number=0;
   showEditDetailsTable: boolean = false;
   showAddTable: boolean = false;
@@ -398,12 +400,22 @@ export class UpdateCompanyComponent {
     const startTimeValue: string | null | undefined = this.appForm.value.startTime;
     const endTimeValue:string | null | undefined = this.appForm.value.endTime;
     console.log(dateValue,startTimeValue, '-',endTimeValue);
+
+    const parsedEndTime = this.parseTimeString(endTimeValue as string);
+    const parsedStartTime = this.parseTimeString(startTimeValue as string);
+    const date= new Date(dateValue as string);
+   
+
+
     if (dateValue !== null && dateValue !== undefined &&
       startTimeValue !== null && startTimeValue !== undefined &&
       endTimeValue !== null && endTimeValue !== undefined){
-        console.log('Kreirani app', this.appointments[0])
+        
+    
+   
 
-    this.companyService.addApp(dateValue,startTimeValue,endTimeValue).subscribe({
+    
+    this.companyService.addApp(dateValue,startTimeValue,endTimeValue,this.loggedInUser).subscribe({
       next:(response)=>{
         console.log('Response',response)
       },
@@ -412,8 +424,29 @@ export class UpdateCompanyComponent {
       }
       
     })
+    
+   
     }
    
 
   }
+   parseTimeString(timeString: string): Time | null {
+  const match = timeString.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (!match) {
+    console.error('Invalid time format');
+    return null;
+  }
+
+  const hours = parseInt(match[1], 10);
+  const minutes = parseInt(match[2], 10);
+
+  if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+    console.error('Invalid time values');
+    return null;
+  }
+
+  return { hours, minutes };
+}
+
 }

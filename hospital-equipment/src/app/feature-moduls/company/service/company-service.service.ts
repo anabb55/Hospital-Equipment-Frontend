@@ -342,16 +342,19 @@ export class CompanyServiceService {
     return this.http.delete<number>(environment.apiHost+ 'equipmentStocks/delete/'+ companyId +'/' + equipmentId ,{headers});
   }
 
-  addApp(date:string,startTime:string,endTime:string):Observable<Appointment>{
+  addApp(date:string,startTime:string,endTime:string,adminId:number):Observable<Appointment>{
+    
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp'+ '/'+date+'/'+ startTime +'/'+endTime,{headers});
+    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp'+ '/'+date+'/'+ startTime +'/'+endTime+'/'+adminId,{headers});
 
-  }
+
+ }
+ 
 
   getAdminById(id: number): Observable<CompanyAdministrator> {
     const token = this.jwtHelper.tokenGetter();
