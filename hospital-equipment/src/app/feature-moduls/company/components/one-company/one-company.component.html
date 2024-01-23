@@ -22,7 +22,11 @@
             <p class="description">
               <i class="material-icons">&#xe0c8;</i>
               {{ company.address.city }},{{ company.address.country }}
+              
+              <span class="icon-container"><img src="../assets/direction.png" (click)=" initializeMap()"></span>
             </p>
+            
+            
             <p class="description">
               <i class="material-icons">&#xe873;</i>{{ company.description }}
             </p>
@@ -32,6 +36,7 @@
             <button class="buttonAdmin" (click)="addAdmin()">
               Add company admin
             </button>
+           
           </div>
         </div>
       </div>
@@ -215,5 +220,8 @@
         to serving you again!
       </p>
     </div>
+  </div>
+  <div id="map" class="mapClass">
+    
   </div>
 </div>

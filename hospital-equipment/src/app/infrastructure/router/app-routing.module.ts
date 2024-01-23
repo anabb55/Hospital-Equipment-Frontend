@@ -21,7 +21,11 @@ import { RoleGuard } from 'src/app/interceptor/role.guard';
 
 import { CreateSystemAdminComponent } from 'src/app/feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from 'src/app/feature-moduls/search-equipment/search-equipment.component';
+
+import { ChangePasswordComponent } from 'src/app/feature-moduls/change-password/change-password.component';
+
 import { WorkCalendarComponent } from 'src/app/feature-moduls/work-calendar/work-calendar.component';
+
 
 const routes: Routes = [
   { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
@@ -36,10 +40,10 @@ const routes: Routes = [
     component: DisplayProfile,
     // canActivate: [AuthGuard, RoleGuard],
     // data: { roles: ['ROLE_REGISTERED_USER'] },
-  },
+},
 
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
-  { path: 'registerSystemAdmin', component: CreateSystemAdminComponent },
+{ path: 'registerSystemAdmin', component: CreateSystemAdminComponent },
   { path: 'searchEquipment', component: SearchEquipmentComponent },
 
   {
@@ -58,6 +62,7 @@ const routes: Routes = [
     component: OneCompanyComponent,
   },
   { path: 'login', component: LoginComponent },
+  { path: 'changePassword/:id', component: ChangePasswordComponent },
 ];
 
 @NgModule({

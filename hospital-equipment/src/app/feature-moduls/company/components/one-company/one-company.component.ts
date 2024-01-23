@@ -11,7 +11,7 @@ import { EquipmentStock } from 'src/app/model/equipment_stock.model';
 
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import * as L from 'leaflet';
 @Component({
   selector: 'app-one-company',
   templateUrl: './one-company.component.html',
@@ -19,7 +19,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class OneCompanyComponent implements OnInit {
   reservationData: any = {};
-
+  
   reservationEqStock: any = {};
   id: number = 0;
   confirmationText: string = 'Confirm your reservation!!';
@@ -58,6 +58,8 @@ export class OneCompanyComponent implements OnInit {
       city: '',
       country: '',
       number: '',
+      longitude:0,
+      latitude:0
     },
     description: '',
     grade: 0,
@@ -71,6 +73,7 @@ export class OneCompanyComponent implements OnInit {
     },
   };
 
+  public isMapVisible:boolean=false;
   constructor(
     private activedRoute: ActivatedRoute,
     private companyService: CompanyServiceService,
@@ -82,6 +85,7 @@ export class OneCompanyComponent implements OnInit {
     this.getCompany();
     this.minDate = new Date();
     this.dateAdapter.setLocale('en-US');
+
   }
 
   ngOnInit(): void {
@@ -90,6 +94,18 @@ export class OneCompanyComponent implements OnInit {
       if (this.isLogged) this.userRole = this.authService.getUserRole();
     });
     this.loadEquipment();
+    //this.initializeMap();
+    /*
+    const map=L.map('map',{
+      center: [this.company.address.latitude,this.company.address.longitude],
+      zoom:15,
+      renderer:L.canvas()
+    })
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+*/
+
   }
 
   getId() {
@@ -260,4 +276,35 @@ export class OneCompanyComponent implements OnInit {
     });
   }
   addAdmin() {}
+
+  initializeMap(){
+    this.isMapVisible=true;
+    console.log('adresaa')
+    console.log(this.company.address);
+    const map=L.map('map',{
+      center: [this.company.address.latitude,this.company.address.longitude],
+      zoom:15,
+      renderer:L.canvas()
+    })
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    
+  const customIcon = L.icon({
+    iconUrl: '../assets/location.png',
+    iconSize: [32, 52],  
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+
+  const marker = L.marker([this.company.address.latitude, this.company.address.longitude], {
+    icon: customIcon
+  }).addTo(map);
+
+ 
+  marker.bindPopup('<b>' + this.company.address.street + ' '+this.company.address.number+'</b>').openPopup();
+
+}
+  
 }

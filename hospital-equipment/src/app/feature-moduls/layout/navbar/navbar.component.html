@@ -11,7 +11,25 @@
         class="link"
       >
         My Profile
-      </a>
+     </a>
+     <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN'"
+        routerLinkActive="active"
+        [routerLink]="['updateCompany']"
+        class="link"
+      >
+        Update Company
+     </a>
+     <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN'"
+        routerLinkActive="active"
+        [routerLink]="['companyAdminProfile']"
+        class="link"
+      >
+        Your Profile
+     </a>
       <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
         Login
       </button>

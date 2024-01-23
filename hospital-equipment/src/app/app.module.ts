@@ -34,7 +34,12 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+
+import { ChangePasswordComponent } from './feature-moduls/change-password/change-password.component';
+
 import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 
 
 
@@ -57,6 +62,7 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
 
     CreateSystemAdminComponent,
     SearchEquipmentComponent,
+    ChangePasswordComponent,
 
     WorkCalendarComponent
   ],
@@ -78,12 +84,12 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
     CalendarModule,
     MatTableModule,
 
-
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
       },
     }),
+    LeafletModule,
   ],
   providers: [
     {
