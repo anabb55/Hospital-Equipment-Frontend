@@ -10,6 +10,7 @@ import { EquipmentAmount } from 'src/app/feature-moduls/model/equipmentAmount.mo
 import { ActivatedRoute } from '@angular/router';
 import { Appointment, AppointmentStatus } from 'src/app/model/appointment.model';
 import { Time } from '@angular/common';
+import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
 
 @Component({
   selector: 'app-update-company',
@@ -17,7 +18,7 @@ import { Time } from '@angular/common';
   styleUrls: ['./update-company.component.css'],
 })
 export class UpdateCompanyComponent {
-
+  loggedInUser: number=0;
   showEditDetailsTable: boolean = false;
   showAddTable: boolean = false;
   enteredAmount: number = 0;
@@ -131,22 +132,18 @@ export class UpdateCompanyComponent {
   companies: Company[] = []
 
   id: number = 0
-  constructor(private companyService: CompanyServiceService, private activedRoute: ActivatedRoute) {
-    this.getId()
+  constructor(private companyService: CompanyServiceService, private activedRoute: ActivatedRoute, private authService: AuthServiceService) {
+    this.loggedInUser=this.getLoggedInUser();
     this.getCompanyByAdmin()
     this.showSearch = false
   }
 
-  getId() {
-    this.activedRoute.params.subscribe(params => {
-      this.id = +params['id']
-      console.log('ID komponente:', this.id);
-    });
+  getLoggedInUser():number{
+    return this.authService.getUserIdd();
   }
-
+ 
   getCompanyByAdmin() {
-    //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
-    this.companyService.getCompanyByAdmin(3).subscribe({
+    this.companyService.getCompanyByAdmin(this.loggedInUser).subscribe({
       next: (response) => {
 
         this.companies = response

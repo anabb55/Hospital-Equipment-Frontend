@@ -69,18 +69,21 @@ export class AuthServiceService {
     return this.access_token;
   }
 
-  getUserId(): number {
+  getUserIdd(): number {
     return this.userClaims.id;
   }
 
   changePassword(password:String,id:number): Observable<number>{
+    console.log('poslato u servis')
+    console.log(id)
+    console.log(password)
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.put<number>(environment.apiHost + 'users/update/' + id +'/' +  password, {headers})
+    return this.http.put<number>(environment.apiHost + 'users/update/' + id , password, {headers})
   }
 
 

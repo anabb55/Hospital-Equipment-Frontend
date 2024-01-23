@@ -32,7 +32,6 @@ export class CreateSystemAdminComponent implements OnInit{
     },
     userCategory: UserCategory.Regular,
 
-    waslogged:false,
 
     username: ''
   }

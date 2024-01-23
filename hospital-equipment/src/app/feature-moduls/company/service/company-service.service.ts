@@ -77,15 +77,9 @@ export class CompanyServiceService {
 
     console.log('poslat u servis', companyAdmin)
     return this.http.put<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id +'/'
-      + companyAdmin.firstName +'/'
-      + companyAdmin.lastName +'/'
-      + companyAdmin.occupation +'/'
-      + companyAdmin.phoneNumber +'/'
-      + companyAdmin.email +'/'
-      + companyAdmin.password
-      ,{headers}
+      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id  ,companyAdmin,{headers}
     );
+
   }
 
   getCompanyById(id: number): Observable<Company> {
@@ -367,7 +361,7 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/getAdminById/' + id,{headers}
+      environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
     );
   }
 

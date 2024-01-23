@@ -6,11 +6,12 @@ export interface CompanyAdministrator{
     id: number;
     email: String;
     password: String;
-    firstname: String;
-    lastname: String;
-    username: String;
+    firstName: String;
+    lastName: String;
+    userName: String;
     phoneNumber: String;
     occupation: String;
     address: Address;
-    company: Company | undefined
+    company: Company | undefined,
+    waslogged: boolean
 }

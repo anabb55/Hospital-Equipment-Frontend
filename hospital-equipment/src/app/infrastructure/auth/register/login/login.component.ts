@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
   companyAdmin: CompanyAdministrator={
     id:0,
-    company:null,
+    company:undefined,
     email:'',
     password:'',
     firstName:'',
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
       country:'',
       number: '',
     },
-    waslogged: false
+    waslogged: false,
+    userName: ''
     
 
   }
@@ -70,7 +71,7 @@ export class LoginComponent implements OnInit {
     const id= this.authService.getUserId();
   
 
-    this.getAdmin(id);
+    this.getAdmin(parseInt(id,10));
    
 
   }

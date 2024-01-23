@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { CompanyServiceService } from '../../company/service/company-service.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-admin-profile',
@@ -35,8 +37,8 @@ export class CompanyAdminProfileComponent {
     },
     email: '',
     password: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -47,11 +49,8 @@ export class CompanyAdminProfileComponent {
       number: '',
     },
 
-    waslogged: false
-    
-
-
-    username: ''
+    waslogged: false,
+    userName: '',
 
   }
 
@@ -67,12 +66,22 @@ export class CompanyAdminProfileComponent {
     phoneNumber: new FormControl('',[Validators.required]),
     occupation: new FormControl('',[Validators.required]),
   })
-  constructor(private companyService: CompanyServiceService){
+
+  passForm= new FormGroup({
+    password: new FormControl('',[Validators.required])
+  })
+
+  loggedInUser:number=0;
+  constructor(private companyService: CompanyServiceService, private authService: AuthServiceService,private router:Router){
+    this.loggedInUser=this.getLoggedIn();
     this.getCompanyAdministrator();
   }
 
+  getLoggedIn():number{
+    return this.authService.getUserIdd();
+  }
   getCompanyAdministrator(){
-    this.companyService.getAdminById(3).subscribe({
+    this.companyService.getAdminById(this.loggedInUser).subscribe({
       next:(response)=>{
         this.companyAdmin=response
         console.log('Admin ', this.companyAdmin)
@@ -93,8 +102,8 @@ export class CompanyAdminProfileComponent {
      country:this.companyAdmin.address.country as string ,
      street:this.companyAdmin.address.street as string,
      number: this.companyAdmin.address.number as string ,
-     firstname: this.companyAdmin.firstname as string,
-     lastname: this.companyAdmin.lastname as string,
+     firstname: this.companyAdmin.firstName as string,
+     lastname: this.companyAdmin.lastName as string,
      phoneNumber:this.companyAdmin.phoneNumber as string,
      occupation: this.companyAdmin.occupation as string,
    });
@@ -115,16 +124,21 @@ export class CompanyAdminProfileComponent {
    }
 
    setUpdatedFields(){
+    this.companyAdmin.id=this.loggedInUser;
     this.companyAdmin.email= this.inputForm.value.email as string;
     this.companyAdmin.password= this.inputForm.value.password as string;
     this.companyAdmin.address.city= this.inputForm.value.city as string;
     this.companyAdmin.address.country= this.inputForm.value.country as string;
     this.companyAdmin.address.street= this.inputForm.value.street as string;
     this.companyAdmin.address.number= this.inputForm.value.number as string;
-    this.companyAdmin.firstname= this.inputForm.value.firstname as string;
-    this.companyAdmin.lastname= this.inputForm.value.lastname as string;
+    this.companyAdmin.firstName= this.inputForm.value.firstname as string;
+    this.companyAdmin.lastName= this.inputForm.value.lastname as string;
     this.companyAdmin.phoneNumber= this.inputForm.value.phoneNumber as string;
     this.companyAdmin.occupation= this.inputForm.value.occupation as string;
 
+   }
+
+   changePassword(){
+    this.router.navigate(['changePassword/'+this.loggedInUser]);
    }
 }

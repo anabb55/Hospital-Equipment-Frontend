@@ -23,8 +23,8 @@ export class CreateCompanyAdminComponent implements OnInit {
   adminData: CompanyAdministrator = {
     email: '',
     password: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -35,10 +35,10 @@ export class CreateCompanyAdminComponent implements OnInit {
       number: ''
     },
     id: 0,
-    waslogged:false
+    waslogged:false,
 
     company: undefined,
-    username: ''
+    userName: ''
 
   };
 
@@ -76,7 +76,7 @@ export class CreateCompanyAdminComponent implements OnInit {
           this.service.createCompanyAdmin(this.adminData).subscribe({
             next:(result:CompanyAdministrator)=>{
                 this.createdAdmin =result;
-                console.log("admin: "+ this.createdAdmin.firstname);
+                console.log("admin: "+ this.createdAdmin.firstName);
             }
           })
 }

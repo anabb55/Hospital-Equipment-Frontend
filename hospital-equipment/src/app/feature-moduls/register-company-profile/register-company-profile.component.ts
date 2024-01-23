@@ -74,8 +74,8 @@ export class RegisterCompanyProfileComponent implements OnInit {
     id: 0,
     email: '',
     password: '',
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -86,7 +86,8 @@ export class RegisterCompanyProfileComponent implements OnInit {
       number: ''
     },
     company: undefined,
-    username: ''
+    userName: '',
+    waslogged:false
   }
   savedAddress:Address | undefined
   constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){
@@ -147,9 +148,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
     admin.company = this.createdCompany;
-    console.log(admin.firstname);
+    console.log(admin.firstName);
     console.log("Id: " +admin.id);
-    console.log("Lastname:" + admin.lastname);
+    console.log("Lastname:" + admin.lastName);
     console.log("email:" + admin.email);
     console.log("phone:" + admin.phoneNumber);
     console.log("ocupp:" + admin.occupation);
