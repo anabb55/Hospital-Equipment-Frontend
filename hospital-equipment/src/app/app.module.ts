@@ -38,6 +38,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
 import { ChangePasswordComponent } from './feature-moduls/change-password/change-password.component';
 
 import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 
 
@@ -83,12 +84,12 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
     CalendarModule,
     MatTableModule,
 
-
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
       },
     }),
+    LeafletModule,
   ],
   providers: [
     {

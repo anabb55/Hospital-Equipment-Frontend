@@ -23,8 +23,8 @@ export class CreateCompanyAdminComponent implements OnInit {
   adminData: CompanyAdministrator = {
     email: '',
     password: '',
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -32,13 +32,15 @@ export class CreateCompanyAdminComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     id: 0,
     waslogged:false,
 
     company: undefined,
-    userName: ''
+    username: ''
 
   };
 
@@ -47,14 +49,18 @@ export class CreateCompanyAdminComponent implements OnInit {
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
   savedAddress:Address={
     id: 0,
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
 
   createdAdmin : CompanyAdministrator | undefined;
@@ -76,7 +82,7 @@ export class CreateCompanyAdminComponent implements OnInit {
           this.service.createCompanyAdmin(this.adminData).subscribe({
             next:(result:CompanyAdministrator)=>{
                 this.createdAdmin =result;
-                console.log("admin: "+ this.createdAdmin.firstName);
+                console.log("admin: "+ this.createdAdmin.firstname);
             }
           })
 }

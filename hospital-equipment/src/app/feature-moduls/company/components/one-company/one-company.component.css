@@ -492,3 +492,21 @@
 .end-footer a {
   color: #fff;
 }
+
+.mapClass{
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  
+  width: 600px;
+  height: 380px;
+  
+}
+
+.icon-container img{
+  margin-left: 10px;
+  margin-top: 5px;
+  width: 30px; /* Postavite željenu širinu */
+  height: 30px; /* Postavite željenu visinu */
+ 
+}

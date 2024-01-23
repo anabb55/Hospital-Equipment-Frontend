@@ -4,4 +4,6 @@ export interface Address {
   country: string;
   street: string;
   number: string;
+  latitude: number;
+  longitude:number;
 }

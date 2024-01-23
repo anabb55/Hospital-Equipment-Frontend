@@ -6,9 +6,9 @@ export interface CompanyAdministrator{
     id: number;
     email: String;
     password: String;
-    firstName: String;
-    lastName: String;
-    userName: String;
+    firstname: String;
+    lastname: String;
+    username: String;
     phoneNumber: String;
     occupation: String;
     address: Address;

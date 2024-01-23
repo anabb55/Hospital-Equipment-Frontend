@@ -21,7 +21,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     description: '',
     grade: 0,
@@ -45,7 +47,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
     city: '',
     country: '',
     number: '',
-    street: ''
+    street: '',
+    longitude:0,
+    latitude:0
   }
 
   company: Company = {
@@ -57,7 +61,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
       street: '',
       city: '',
       number: '',
-      country: ''
+      country: '',
+      longitude:0,
+      latitude:0
     },
     id: 0,
     workStartTime: {
@@ -74,8 +80,8 @@ export class RegisterCompanyProfileComponent implements OnInit {
     id: 0,
     email: '',
     password: '',
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -83,10 +89,12 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     company: undefined,
-    userName: '',
+    username: '',
     waslogged:false
   }
   savedAddress:Address | undefined
@@ -148,9 +156,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
     admin.company = this.createdCompany;
-    console.log(admin.firstName);
+    console.log(admin.firstname);
     console.log("Id: " +admin.id);
-    console.log("Lastname:" + admin.lastName);
+    console.log("Lastname:" + admin.lastname);
     console.log("email:" + admin.email);
     console.log("phone:" + admin.phoneNumber);
     console.log("ocupp:" + admin.occupation);

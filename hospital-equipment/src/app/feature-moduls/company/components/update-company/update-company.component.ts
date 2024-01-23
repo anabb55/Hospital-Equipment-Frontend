@@ -72,6 +72,8 @@ export class UpdateCompanyComponent {
         city: '',
         country: '',
         number: '',
+        longitude:0,
+        latitude:0
       },
       description: '',
       grade: 0,
@@ -99,6 +101,8 @@ export class UpdateCompanyComponent {
       city: '',
       country: '',
       number: '',
+      longitude:0,
+      latitude:0
     },
     description: '',
     grade: 0,

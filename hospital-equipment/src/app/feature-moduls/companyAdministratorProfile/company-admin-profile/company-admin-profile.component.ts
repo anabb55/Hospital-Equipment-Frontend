@@ -22,7 +22,9 @@ export class CompanyAdminProfileComponent {
         city: '',
         country: '',
         street: '',
-        number: ''
+        number: '',
+        longitude:0,
+        latitude:0
       },
       description: '',
       grade: 0,
@@ -37,8 +39,8 @@ export class CompanyAdminProfileComponent {
     },
     email: '',
     password: '',
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     phoneNumber: '',
     occupation: '',
     address: {
@@ -47,10 +49,12 @@ export class CompanyAdminProfileComponent {
       city: '',
       country: '',
       number: '',
+      longitude:0,
+      latitude:0
     },
 
     waslogged: false,
-    userName: '',
+    username: '',
 
   }
 
@@ -102,8 +106,8 @@ export class CompanyAdminProfileComponent {
      country:this.companyAdmin.address.country as string ,
      street:this.companyAdmin.address.street as string,
      number: this.companyAdmin.address.number as string ,
-     firstname: this.companyAdmin.firstName as string,
-     lastname: this.companyAdmin.lastName as string,
+     firstname: this.companyAdmin.firstname as string,
+     lastname: this.companyAdmin.lastname as string,
      phoneNumber:this.companyAdmin.phoneNumber as string,
      occupation: this.companyAdmin.occupation as string,
    });
@@ -131,8 +135,8 @@ export class CompanyAdminProfileComponent {
     this.companyAdmin.address.country= this.inputForm.value.country as string;
     this.companyAdmin.address.street= this.inputForm.value.street as string;
     this.companyAdmin.address.number= this.inputForm.value.number as string;
-    this.companyAdmin.firstName= this.inputForm.value.firstname as string;
-    this.companyAdmin.lastName= this.inputForm.value.lastname as string;
+    this.companyAdmin.firstname= this.inputForm.value.firstname as string;
+    this.companyAdmin.lastname= this.inputForm.value.lastname as string;
     this.companyAdmin.phoneNumber= this.inputForm.value.phoneNumber as string;
     this.companyAdmin.occupation= this.inputForm.value.occupation as string;
 

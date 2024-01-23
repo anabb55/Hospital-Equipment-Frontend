@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
     company:undefined,
     email:'',
     password:'',
-    firstName:'',
-    lastName:'',
+    firstname:'',
+    lastname:'',
     phoneNumber:'',
     occupation:'',
     address: {
@@ -27,9 +27,11 @@ export class LoginComponent implements OnInit {
       city: '',
       country:'',
       number: '',
+      longitude:0,
+      latitude:0
     },
     waslogged: false,
-    userName: ''
+    username: ''
     
 
   }
