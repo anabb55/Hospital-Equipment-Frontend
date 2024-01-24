@@ -38,6 +38,10 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
 import { ChangePasswordComponent } from './feature-moduls/change-password/change-password.component';
 
 import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 
@@ -83,6 +87,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     MatButtonModule,
     CalendarModule,
     MatTableModule,
+    FullCalendarModule,
+
 
     JwtModule.forRoot({
       config: {
