@@ -7,18 +7,15 @@ import { RegisterCompanyService } from '../register-company-admin-service.servic
 import { Appointment } from 'src/app/model/appointment.model';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
-
-
 @Component({
   selector: 'app-work-calendar',
   templateUrl: './work-calendar.component.html',
-  styleUrls: ['./work-calendar.component.css']
+  styleUrls: ['./work-calendar.component.css'],
 })
-export class WorkCalendarComponent implements OnInit{
- 
-  loggedInUser:number =3
+export class WorkCalendarComponent implements OnInit {
+  loggedInUser: number = 3;
 
-  company:Company={
+  company: Company = {
     id: 0,
     name: '',
     address: {
@@ -26,79 +23,74 @@ export class WorkCalendarComponent implements OnInit{
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      latitude: 0,
+      longitude: 0,
     },
     description: '',
     grade: 0,
     workStartTime: {
       hours: 0,
-      minutes: 0
+      minutes: 0,
     },
     workEndTime: {
       hours: 0,
-      minutes: 0
-    }
+      minutes: 0,
+    },
   };
-  
-  companyAdmins:CompanyAdministrator[]=[]
-  companyAdminstrators:CompanyAdministrator[]=[]
-  appointments: Appointment[]=[]
+
+  companyAdmins: CompanyAdministrator[] = [];
+  companyAdminstrators: CompanyAdministrator[] = [];
+  appointments: Appointment[] = [];
 
   Appointments: EventInput[] = [];
 
-  constructor(private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService){
-   
-  }
+  constructor(
+    private companyService: CompanyServiceService,
+    private elementRef: ElementRef,
+    private adminService: RegisterCompanyService
+  ) {}
   ngOnInit(): void {
-   
     this.companyService.getCompanyByAdmin(this.loggedInUser).subscribe({
-      next:(result:Company[])=>{
+      next: (result: Company[]) => {
         this.company = result[0];
-        console.log("Kompanija: " + this.company.description);
-        this.companyService.getTakenAppointmentsByCompany(this.company.id).subscribe({
-          next:(result:Appointment[])=>{
-            this.Appointments = result.map(appointment => ({
-              title: appointment.appointmentStatus.toString(),
-              start: appointment.date + 'T' + appointment.startTime,
-              end: appointment.date + 'T' + appointment.endTime,
-
-            }));
-            this.calendarOptions = { ...this.calendarOptions }; // Force Angular change detection
-            this.appointments = result;
-            console.log("Ukupno appoint: "+ this.appointments.length)
-            this.appointments.forEach(a => {
-                console.log("Status appoinitmenta: "+a.appointmentStatus.toString()), // Naziv događaja (možete koristiti polje koje odgovara nazivu termina)
-                console.log("start time: "+a.date+  'T' + a.startTime), // Početno vrijeme termina (format: 'YYYY-MM-DDTHH:mm:ss')
-                console.log("End time: "+a.date+  'T' + a.endTime) })
-          }
-        }),
-         (error: any) => {
-          console.log("Greska: ");
-          console.error(error);
-        }
-      }
+        console.log('Kompanija: ' + this.company.description);
+        this.companyService
+          .getTakenAppointmentsByCompany(this.company.id)
+          .subscribe({
+            next: (result: Appointment[]) => {
+              this.Appointments = result.map((appointment) => ({
+                title: appointment.appointmentStatus.toString(),
+                start: appointment.date + 'T' + appointment.startTime,
+                end: appointment.date + 'T' + appointment.endTime,
+              }));
+              this.calendarOptions = { ...this.calendarOptions }; // Force Angular change detection
+              this.appointments = result;
+              console.log('Ukupno appoint: ' + this.appointments.length);
+              this.appointments.forEach((a) => {
+                console.log(
+                  'Status appoinitmenta: ' + a.appointmentStatus.toString()
+                ), // Naziv događaja (možete koristiti polje koje odgovara nazivu termina)
+                  console.log('start time: ' + a.date + 'T' + a.startTime), // Početno vrijeme termina (format: 'YYYY-MM-DDTHH:mm:ss')
+                  console.log('End time: ' + a.date + 'T' + a.endTime);
+              });
+            },
+          }),
+          (error: any) => {
+            console.log('Greska: ');
+            console.error(error);
+          };
+      },
     }),
-     (error: any) => {
-      console.log("Greska: ");
-      console.error(error);
-    }
-
-
-   
-  
+      (error: any) => {
+        console.log('Greska: ');
+        console.error(error);
+      };
   }
-
-
-
- 
-
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth', // Prikazivanje mjesečnog prikaza
     plugins: [dayGridPlugin],
-    events: this.Appointments
+    events: this.Appointments,
   };
-
-  
-
 }
