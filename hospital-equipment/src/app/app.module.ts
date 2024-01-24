@@ -43,7 +43,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-
+//import 'leaflet/dist/leaflet.css';
 
 
 
@@ -87,8 +87,6 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     MatButtonModule,
     CalendarModule,
     MatTableModule,
-    FullCalendarModule,
-
 
     JwtModule.forRoot({
       config: {
@@ -96,6 +94,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
       },
     }),
     LeafletModule,
+    FullCalendarModule
   ],
   providers: [
     {
