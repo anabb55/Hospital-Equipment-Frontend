@@ -12,5 +12,6 @@ export interface CompanyAdministrator{
     occupation: String;
     address: Address;
     phoneNumber: String;
-    company: Company | undefined
+    company: Company | undefined,
+    waslogged: boolean
 }

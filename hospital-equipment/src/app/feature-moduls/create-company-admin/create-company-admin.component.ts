@@ -32,11 +32,16 @@ export class CreateCompanyAdminComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     id: 0,
+    waslogged:false,
+
     company: undefined,
     username: ''
+
   };
 
   address:Address={
@@ -44,14 +49,18 @@ export class CreateCompanyAdminComponent implements OnInit {
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
   savedAddress:Address={
     id: 0,
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
 
   createdAdmin : CompanyAdministrator | undefined;

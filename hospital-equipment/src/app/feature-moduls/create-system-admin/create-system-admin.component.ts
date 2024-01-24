@@ -28,9 +28,13 @@ export class CreateSystemAdminComponent implements OnInit{
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     userCategory: UserCategory.Regular,
+
+
     username: ''
   }
   address:Address={
@@ -38,14 +42,19 @@ export class CreateSystemAdminComponent implements OnInit{
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
   savedAddress:Address={
     id: 0,
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
+
   }
 
   ngOnInit(): void {

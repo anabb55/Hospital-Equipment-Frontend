@@ -21,7 +21,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     description: '',
     grade: 0,
@@ -46,7 +48,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
     city: '',
     country: '',
     number: '',
-    street: ''
+    street: '',
+    longitude:0,
+    latitude:0
   }
 
   company: Company = {
@@ -58,7 +62,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
       street: '',
       city: '',
       number: '',
-      country: ''
+      country: '',
+      longitude:0,
+      latitude:0
     },
     id: 0,
     workStartTime: {
@@ -84,10 +90,13 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     company: undefined,
-    username: ''
+    username: '',
+    waslogged:false
   }
   savedAddress:Address | undefined
   constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){

@@ -6,42 +6,11 @@
                 <span class="overlay">
                     <p class="tag">Stay safe</p>
                 </span>
-<div class="container">
-  
-    <div class="card" >
-        <div class="image-content">
-            <span class="overlay">
-                <p class="tag">Stay safe</p>
-            </span>
-
-            <div class="card-image">
-                <img src="https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg"
-                    alt="" class="card-img">
-            </div>
-        </div>
-
-        <div class="card-content">
-            <h2 class="name">{{company.name}} </h2>
-            <div class="eq-app">
-                <div class="desc-container">
-                    <p class="description"><i class="material-icons">&#xe0c8;</i>
-                        {{company.address.city}},{{company.address.country}} </p>
-                    <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
-                    <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
-                </div>
-                <!--
-<div *ngFor="let appointment of company.appointments">
-
-                    <p>Date: {{appointment.date}}</p>
-                    <p class="price">Duration: {{appointment.duration}}</p>
->>>>>>> Stashed changes
 
                 <div class="card-image">
                     <img src="https://t4.ftcdn.net/jpg/02/51/62/57/360_F_251625725_Rn45uiFslh3l2RCMGXBpLip1ispIM1Re.jpg"
                         alt="" class="card-img">
                 </div>
-                -->
-                
             </div>
 
             <div class="card-content">
@@ -53,22 +22,11 @@
                         <p class="description"><i class="material-icons">&#xe873;</i>{{company.description}} </p>
                         <p class="description"><i class="material-icons">&#xe885;</i> {{company.grade}} </p>
                     </div>
-            <h2>Equipment</h2>
-            <!--
-
-                <div class="card-footer">
-                 <div *ngFor="let equipment of company.equipment">
-
 
 
                 </div>
-=======
-                 </div>
->>>>>>> Stashed changes
 
             </div>
-            -->
-            
 
 
             <div class="button-options">
@@ -79,40 +37,49 @@
                 <button class="button" (click)="addAppointment()">Add Appointment</button>
             </div>
 
-        
+
 
 
         </div>
-        
+
     </div>
 
     <div class="second_column">
 
-        <div *ngIf="showSearch">
+        <div *ngIf="showSearch" class="searchClass">
             <div class="search-bar">
                 <div class="search">
                     <input type="text" placeholder="Enter the name of equipment" [(ngModel)]="searchQuery">
                     <button (click)="searchCompanies()">🔍</button>
-                  </div>
+                </div>
             </div>
             <div class="above-card">
                 <div class="card-footer">
-          
+
 
                     <ul class="equipment-list">
                         <li *ngFor="let equipment of resultList" class="equipment-item">
-                          <div class="above-button">
-                            <p class="eq-name">{{equipment.name}}</p>
-                           
-                          </div>
-                          <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
-                          <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
-              
+                            <div class="above-button">
+                                <p class="eq-name">{{equipment.name}}</p>
+                                <button class="add-button" (click)="delete(equipment.id)"></button>
+
+                            </div>
+                            <p class="price-text"><i class="material-icons">&#xe873;</i>{{equipment.description}}</p>
+                            <p class="price-text"><i class="material-icons">&#xe885;</i> {{equipment.grade}}</p>
+                            <ng-container>
+                                <p class="price-text" *ngFor="let ea of equipmentAmounts">
+                                    <ng-container *ngIf="ea.equipmentId === equipment.id">
+                                        <p>{{ea.amount}}</p>
+                                    </ng-container>
+                                </p>
+                            </ng-container>
                         </li>
-                      </ul>
+                    </ul>
+
+
 
                 </div>
-                
+
 
 
 
@@ -120,7 +87,7 @@
             </div>
         </div>
 
-        <div *ngIf="showAdd">
+        <div *ngIf="showAdd" class="AddEquipment">
             <div class="card-footer">
                 <ul class="equipment-list">
                     <li *ngFor="let equipment of availableEquipment" class="equipment-item">
@@ -139,27 +106,27 @@
 
         <div class="updateContainer" *ngIf="showUpdateCom">
             <h1>Edit Company Details</h1>
-    
+
             <form [formGroup]="inputForm">
                 <div>
                     <mat-form-field appearance="fill">
-    
+
                         <input matInput type="text" placeholder="Name" formControlName="name">
                     </mat-form-field>
                 </div>
-    
+
                 <div>
                     <mat-form-field>
-                        <textarea matInput rows="4" placeholder="Description" formControlName="description"></textarea>
+                        <textarea matInput rows="2" placeholder="Description" formControlName="description"></textarea>
                     </mat-form-field>
-    
+
                 </div>
                 <div>
                     <div>
                         <mat-label>Address: </mat-label>
                     </div>
-    
-    
+
+
                     <div>
                         <mat-form-field>
                             <input matInput type="text" placeholder="city" formControlName="city">
@@ -174,7 +141,7 @@
                         <mat-form-field>
                             <input matInput type="text" placeholder="street" formControlName="street">
                         </mat-form-field>
-    
+
                     </div>
                     <div>
                         <mat-form-field>
@@ -182,82 +149,83 @@
                         </mat-form-field>
                     </div>
                 </div>
-    
-                <div class="buttonClass">
-                    <button class="add-button" (click)="edit(company)">Edit</button>
-    
+
+                <div>
+                    <button class="button" (click)="edit(company)">EDIT</button>
+
                 </div>
-    
-    
+
+
             </form>
         </div>
 
-        <div *ngIf="showUpdate">
+        <div *ngIf="showUpdate" class="updateEquipment">
             <div class="card-footer">
                 <ul class="equipment-list">
                     <li *ngFor="let equipment of companyEquipment" class="equipment-item">
                         <div class="above-button">
                             <p class="eq-name">{{equipment.name}}</p>
-                            
+
                         </div>
-                        <ng-container >
+                        <ng-container>
                             <p class="price-text" *ngFor="let ea of equipmentAmounts">
                                 <ng-container *ngIf="ea.equipmentId === equipment.id">
                                     <mat-form-field class="input">
                                         <input matInput [(ngModel)]="ea.amount" type="number">
                                     </mat-form-field>
-                                    <button class="add-button" (click)="editEquipment(equipment,ea.amount)">edit</button>
+                                    <button class="add-button"
+                                        (click)="editEquipment(equipment,ea.amount)">edit</button>
                                 </ng-container>
                             </p>
                         </ng-container>
-                        
+
                     </li>
                 </ul>
 
             </div>
         </div>
         <div *ngIf="showAddAppointment">
-           
+
             <div class="form-container">
 
                 <form class="company-form" [formGroup]="appForm">
                     <h2 class="form-title">Create new appointment</h2>
-                    <div  class="form-group">
-                      <label for="name">Admin Name:</label>
-                      <input matInput type="text"  >
+                    <div class="form-group">
+                        <label for="name">Admin Name:</label>
+                        <input matInput type="text">
                     </div>
                     <div class="form-group">
-                      <label for="description"> Admin LastName:</label>
-                      <input matInput type="text"  >
+                        <label for="description"> Admin LastName:</label>
+                        <input matInput type="text">
                     </div>
                     <div class="form-group">
-                        <label for="endTime" >Date:</label>
-                        <input type="date" formControlName="date" >
-                      </div>
-            
+                        <label >Date:</label>
+                        <input type="date" formControlName="date">
+                    </div>
+
                     <div class="form-group">
-                      <label for="startTime" >From:</label>
-                      <input type="time" formControlName="startTime">
+                        <label>From:</label>
+                        <input type="time" formControlName="startTime">
                     </div>
                     <div class="form-group">
-                      <label for="endTime" >To:</label>
-                      <input type="time" formControlName="endTime">
+                        <label>To:</label>
+                        <input type="time" formControlName="endTime">
                     </div>
-                
+
                     <div class="form-group">
-                        <label for="endTime" >Duration:</label>
-                        <input type="time" >
-                      </div>
-                    
-               
-                
-                
-               
-               
-                  </form>
-                 </div>
-                 <button class="add-button" (click)="addApp()">Add app</button>
-        </div>
+                        <label >Duration:</label>
+                        <input type="time">
+                    </div>
+
+
+
+
+
+
+                </form>
+            </div>
+            <button class="appointmentButton" (click)="addApp()">Add appointment</button>
+            </div>
 
     </div>
 </div>

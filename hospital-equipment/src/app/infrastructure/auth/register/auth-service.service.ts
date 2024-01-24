@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 import { User } from 'src/app/feature-moduls/model/User';
+import { environment } from 'src/env/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -67,4 +68,24 @@ export class AuthServiceService {
   getToken() {
     return this.access_token;
   }
+
+  getUserIdd(): number {
+    return this.userClaims.id;
+  }
+
+  changePassword(password:String,id:number): Observable<number>{
+    console.log('poslato u servis')
+    console.log(id)
+    console.log(password)
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<number>(environment.apiHost + 'users/update/' + id , password, {headers})
+  }
+
+
 }
+

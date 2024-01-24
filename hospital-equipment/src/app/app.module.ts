@@ -34,10 +34,16 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 
 import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
+
+import { ChangePasswordComponent } from './feature-moduls/change-password/change-password.component';
+
 import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
+
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 
 
 
@@ -60,6 +66,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
     CreateSystemAdminComponent,
     SearchEquipmentComponent,
+    ChangePasswordComponent,
 
     WorkCalendarComponent
   ],
@@ -82,11 +89,13 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
     MatTableModule,
     FullCalendarModule,
 
+
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
       },
     }),
+    LeafletModule,
   ],
   providers: [
     {
