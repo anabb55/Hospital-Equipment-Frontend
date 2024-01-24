@@ -22,6 +22,7 @@ import { RoleGuard } from 'src/app/interceptor/role.guard';
 import { CreateSystemAdminComponent } from 'src/app/feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from 'src/app/feature-moduls/search-equipment/search-equipment.component';
 import { WorkCalendarComponent } from 'src/app/feature-moduls/work-calendar/work-calendar.component';
+import { SystemAdminProfileComponent } from 'src/app/feature-moduls/system-admin-profile/system-admin-profile.component';
 
 const routes: Routes = [
   { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
     component: SuccessfullRegistrationComponent,
   },
   { path: 'companyAdminProfile', component: CompanyAdminProfileComponent },
+  { path: 'systemAdminProfile', component: SystemAdminProfileComponent },
   {
     path: 'oneCompany/:id',
     component: OneCompanyComponent,

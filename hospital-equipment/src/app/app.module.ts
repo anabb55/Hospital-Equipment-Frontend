@@ -35,6 +35,10 @@ import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { CreateSystemAdminComponent } from './feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from './feature-moduls/search-equipment/search-equipment.component';
 import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction';
+import { SystemAdminProfileComponent } from './feature-moduls/system-admin-profile/system-admin-profile.component'; // a plugin!
 
 
 
@@ -58,7 +62,8 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
     CreateSystemAdminComponent,
     SearchEquipmentComponent,
 
-    WorkCalendarComponent
+    WorkCalendarComponent,
+      SystemAdminProfileComponent
   ],
 
   imports: [
@@ -77,7 +82,7 @@ import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calen
     MatButtonModule,
     CalendarModule,
     MatTableModule,
-
+    FullCalendarModule,
 
     JwtModule.forRoot({
       config: {
