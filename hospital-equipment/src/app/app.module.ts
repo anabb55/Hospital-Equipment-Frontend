@@ -37,8 +37,7 @@ import { SearchEquipmentComponent } from './feature-moduls/search-equipment/sear
 import { WorkCalendarComponent } from './feature-moduls/work-calendar/work-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
-import interactionPlugin from '@fullcalendar/interaction';
-import { SystemAdminProfileComponent } from './feature-moduls/system-admin-profile/system-admin-profile.component'; // a plugin!
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 
 
@@ -62,8 +61,7 @@ import { SystemAdminProfileComponent } from './feature-moduls/system-admin-profi
     CreateSystemAdminComponent,
     SearchEquipmentComponent,
 
-    WorkCalendarComponent,
-      SystemAdminProfileComponent
+    WorkCalendarComponent
   ],
 
   imports: [
