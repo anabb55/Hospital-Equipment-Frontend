@@ -27,6 +27,7 @@ export class CreateCompanyAdminComponent implements OnInit {
     lastname: '',
     phoneNumber: '',
     occupation: '',
+    username: '',
     address: {
       id: 0,
       city: '',
@@ -40,7 +41,7 @@ export class CreateCompanyAdminComponent implements OnInit {
     waslogged:false,
 
     company: undefined,
-    username: ''
+    
 
   };
 
@@ -70,6 +71,12 @@ export class CreateCompanyAdminComponent implements OnInit {
       next:(result:Address)=>{
         this.savedAddress = result;
         this.adminData.address = this.savedAddress;
+        this.service.createCompanyAdmin(this.adminData).subscribe({
+          next:(result:CompanyAdministrator)=>{
+              this.createdAdmin =result;
+              console.log("admin: "+ this.createdAdmin.firstname);
+          }
+        })
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
       },
       error: (err: any) => {
@@ -77,14 +84,8 @@ export class CreateCompanyAdminComponent implements OnInit {
       },
     })
 
-    console.log("adesa: "+ this.adminData.address.id);
 
-          this.service.createCompanyAdmin(this.adminData).subscribe({
-            next:(result:CompanyAdministrator)=>{
-                this.createdAdmin =result;
-                console.log("admin: "+ this.createdAdmin.firstname);
-            }
-          })
+          
 }
 
 
