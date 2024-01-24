@@ -69,6 +69,7 @@ export class CompanyAdminProfileComponent {
     lastname: new FormControl('',[Validators.required]),
     phoneNumber: new FormControl('',[Validators.required]),
     occupation: new FormControl('',[Validators.required]),
+    username: new FormControl('',[Validators.required]),
   })
 
   passForm= new FormGroup({
@@ -87,8 +88,8 @@ export class CompanyAdminProfileComponent {
   getCompanyAdministrator(){
     this.companyService.getAdminById(this.loggedInUser).subscribe({
       next:(response)=>{
-        this.companyAdmin=response
-        console.log('Admin ', this.companyAdmin)
+       this.companyAdmin=response
+        console.log('Admin ', response)
         this.fillInputForm();
       },
       error:(error)=>{
@@ -108,6 +109,7 @@ export class CompanyAdminProfileComponent {
      number: this.companyAdmin.address.number as string ,
      firstname: this.companyAdmin.firstname as string,
      lastname: this.companyAdmin.lastname as string,
+     username: this.companyAdmin.username as string,
      phoneNumber:this.companyAdmin.phoneNumber as string,
      occupation: this.companyAdmin.occupation as string,
    });
@@ -139,7 +141,8 @@ export class CompanyAdminProfileComponent {
     this.companyAdmin.lastname= this.inputForm.value.lastname as string;
     this.companyAdmin.phoneNumber= this.inputForm.value.phoneNumber as string;
     this.companyAdmin.occupation= this.inputForm.value.occupation as string;
-
+    this.companyAdmin.username= this.inputForm.value.username as string;
+   
    }
 
    changePassword(){

@@ -16,6 +16,7 @@ import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_s
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Time } from '@angular/common';
+import { User } from 'src/app/model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,19 @@ export class CompanyServiceService {
       environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
     );
   }
+
+  getUserById(id: number): Observable<User> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<User>(
+      environment.apiHost + 'users/getById/' + id,{headers}
+    );
+  }
+
 
   updateCompanyAdmin(
     companyAdmin: CompanyAdministrator
@@ -157,6 +171,22 @@ export class CompanyServiceService {
     });
     const apiUrl = `${environment.apiHost}appointments/getAppointmentsForCompany/${id}`;
     return this.http.get<Appointment[]>(apiUrl, { headers });
+  }
+
+  getTakenAppointmentsByCompany(id: number): Observable<Appointment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    const apiUrl = `${environment.apiHost}appointments/getTakenAppointmentsForCompany/${id}`;
+    console.log("Vraceni: "+  this.http.get<Appointment[]>(apiUrl, { headers }))
+    return this.http.get<Appointment[]>(apiUrl, { headers })
+  }
+
+  getAllAppointment(): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(environment.apiHost+'appointments/getAll');
   }
 
   generateRandomAppointments(
@@ -367,6 +397,8 @@ export class CompanyServiceService {
       environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
     );
   }
+
+
 
 
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from '../auth-service.service';
 import { CompanyServiceService } from 'src/app/feature-moduls/company/service/company-service.service';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
+import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,10 @@ import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 })
 export class LoginComponent implements OnInit {
   ngOnInit(): void {}
-  companyAdmin: CompanyAdministrator={
+ 
+
+  user :User={
     id:0,
-    company:undefined,
     email:'',
     password:'',
     firstname:'',
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
     username: ''
     
 
+
   }
   constructor(
     private authService: AuthServiceService,
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
+
   LogIn() {
     const user: any = {
       username: this.userForm.value.username || '',
@@ -56,8 +60,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(user).subscribe((data) => {
       console.log(data);
       this.userForm.reset();
-      this.getLoggedIn();
-      //this.router.navigate(['showCompanyProfile']);
+      const rola = this.authService.getUserRole();
+     
+      if(rola=="ROLE_COMPANY_ADMIN" || rola=="ROLE_SYSTEM_ADMIN"){
+        this.changePassword();
+      }else{
+        this.router.navigate(['showCompanyProfile']);
+      }
+    
     });
 
 
@@ -68,28 +78,24 @@ export class LoginComponent implements OnInit {
     console.log(rola);
   }
 
-  getLoggedIn(){
-   
+ 
+
+ 
+
+  changePassword(){
     const id= this.authService.getUserId();
   
-
-    this.getAdmin(parseInt(id,10));
-   
-
-  }
-
-  getAdmin(id:number){
-    this.companyService.getAdminById(id).subscribe({
+    this.companyService.getUserById(parseInt(id,10)).subscribe({
       next:(response)=>{
-        this.companyAdmin=response
-        if(this.companyAdmin.waslogged==false){
-          this.router.navigate(['/changePassword/'+ id]);
+        this.user=response;
+        console.log(response);
+        if(this.user.waslogged==false){
+          this.router.navigate(['/changePassword/'+ this.user.id]);
         }else{
           this.router.navigate(['showCompanyProfile']);
         }
       }
     })
   }
-
  
 }

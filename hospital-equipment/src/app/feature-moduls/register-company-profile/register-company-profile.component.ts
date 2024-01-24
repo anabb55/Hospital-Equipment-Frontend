@@ -36,6 +36,7 @@ export class RegisterCompanyProfileComponent implements OnInit {
       minutes: 0
     }
   }
+
   street: string = ''
   city: string = ''
   number: string = ''
@@ -105,8 +106,22 @@ export class RegisterCompanyProfileComponent implements OnInit {
     this.service.getAllCompanyAdmins().subscribe({
       next:(result:CompanyAdministrator[])=>{
         this.admins = result;
-        this.admins.forEach(a => {
-        });
+        /*this.admins.forEach(admin => {
+          console.log(admin.firstname);
+          console.log("Id: " +admin.id);
+          console.log("Lastname:" + admin.lastname);
+          console.log("Firstname:" + admin.firstname);
+          console.log("Email:" + admin.email);
+          console.log("Phone:" + admin.phoneNumber);
+          console.log("ocupp:" + admin.occupation);
+          if(admin.company != undefined){
+            console.log("company description:" + admin.company.description);
+          }
+          
+          console.log("pass:" + admin.password);
+          console.log("Adresa: " +admin.address.city);  
+          
+        });*/
       }
     })
     this.service.getAllAddresses().subscribe({
@@ -128,6 +143,17 @@ export class RegisterCompanyProfileComponent implements OnInit {
         console.log(err);
       },
     })
+
+    this.addedAdmin.forEach(admin => {
+      this.service.updateCompanyAdmin(admin).subscribe({
+      next:(result:CompanyAdministrator)=>{
+        this.updatedAdmin = result;
+        console.log('Ime kompanije od updatovanog admina: '+this.updatedAdmin.company?.name);
+      }
+    })
+  });
+  
+
     this.service.createCompany(this.company).subscribe({
     
       next:(result:Company)=>{
@@ -139,14 +165,6 @@ export class RegisterCompanyProfileComponent implements OnInit {
         
       }
     })
-    this.addedAdmin.forEach(admin => {
-        this.service.updateCompanyAdmin(admin).subscribe({
-        next:(result:CompanyAdministrator)=>{
-          this.updatedAdmin = result;
-          console.log(this.updatedAdmin.company?.name);
-        }
-      })
-    });
     
   
     
@@ -155,17 +173,12 @@ export class RegisterCompanyProfileComponent implements OnInit {
 
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
+    console.log("Dodato amdina: "+ this.addedAdmin.length);
     admin.company = this.createdCompany;
-    console.log(admin.firstname);
-    console.log("Id: " +admin.id);
-    console.log("Lastname:" + admin.lastname);
-    console.log("email:" + admin.email);
-    console.log("phone:" + admin.phoneNumber);
-    console.log("ocupp:" + admin.occupation);
-    console.log("companyId:" + admin.company.description);
-    console.log("pass:" + admin.password);
-    console.log("Adresa: " +admin.address.city);  
+    
   }
+
+
   createAdmin(){
     console.log("Usaoooo")
     this.router.navigate(['registerCompanyAdmin']);

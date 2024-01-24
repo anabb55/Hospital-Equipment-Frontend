@@ -4,14 +4,14 @@ import { User } from "./user.model";
 
 export interface CompanyAdministrator{
     id: number;
-    email: String;
-    password: String;
     firstname: String;
     lastname: String;
     username: String;
-    phoneNumber: String;
+    password: String;
+    email: String;
     occupation: String;
     address: Address;
+    phoneNumber: String;
     company: Company | undefined,
     waslogged: boolean
 }
