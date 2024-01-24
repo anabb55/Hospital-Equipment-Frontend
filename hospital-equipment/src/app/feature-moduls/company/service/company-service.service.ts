@@ -16,6 +16,7 @@ import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_s
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Time } from '@angular/common';
+import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,8 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<Company[]>(
-      environment.apiHost + 'companyProfile/byAdmin/' + id,{headers}
+      environment.apiHost + 'companyProfile/byAdmin/' + id,
+      { headers }
     );
   }
 
@@ -48,8 +50,15 @@ export class CompanyServiceService {
     });
     console.log('Poslata u servis', company);
     return this.http.put<Company>(
-      environment.apiHost + 'companyProfile/update/' + company.id +'/' + company.name + '/' + company.description ,company.address,
-      {headers}
+      environment.apiHost +
+        'companyProfile/update/' +
+        company.id +
+        '/' +
+        company.name +
+        '/' +
+        company.description,
+      company.address,
+      { headers }
     );
   }
 
@@ -61,7 +70,8 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
+      environment.apiHost + 'companyAdministrators/getById/' + id,
+      { headers }
     );
   }
 
@@ -75,11 +85,12 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
 
-    console.log('poslat u servis', companyAdmin)
+    console.log('poslat u servis', companyAdmin);
     return this.http.put<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id  ,companyAdmin,{headers}
+      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id,
+      companyAdmin,
+      { headers }
     );
-
   }
 
   getCompanyById(id: number): Observable<Company> {
@@ -96,12 +107,12 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<Equipment[]>(
-      `${environment.apiHost}companyProfile/company/${companyId}/equipment`,{headers}
+      `${environment.apiHost}companyProfile/company/${companyId}/equipment`,
+      { headers }
     );
   }
 
   searchCompanies(name: string, city: string): Observable<Company[]> {
-    
     const params = new HttpParams().set('name', name).set('city', city);
 
     return this.http.get<Company[]>(
@@ -144,7 +155,8 @@ export class CompanyServiceService {
     });
     return this.http.put<Company>(
       environment.apiHost + 'companyProfile/updateAdministrators',
-      company,{headers}
+      company,
+      { headers }
     );
   }
 
@@ -167,12 +179,16 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     const apiUrl = `${environment.apiHost}appointments/getTakenAppointmentsForCompany/${id}`;
-    console.log("Vraceni: "+  this.http.get<Appointment[]>(apiUrl, { headers }))
-    return this.http.get<Appointment[]>(apiUrl, { headers })
+    console.log(
+      'Vraceni: ' + this.http.get<Appointment[]>(apiUrl, { headers })
+    );
+    return this.http.get<Appointment[]>(apiUrl, { headers });
   }
 
   getAllAppointment(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(environment.apiHost+'appointments/getAll');
+    return this.http.get<Appointment[]>(
+      environment.apiHost + 'appointments/getAll'
+    );
   }
 
   generateRandomAppointments(
@@ -213,7 +229,11 @@ export class CompanyServiceService {
     );
   }
 
-  updateStatus(id: number, appointment: Appointment): Observable<Appointment> {
+  updateStatus(
+    id: number,
+    appointment: Appointment,
+    userId: number
+  ): Observable<Appointment> {
     const token = this.jwtHelper.tokenGetter();
     console.log(this.jwtHelper.decodeToken());
     const headers = new HttpHeaders({
@@ -221,7 +241,7 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.put<Appointment>(
-      `http://localhost:8081/api/appointments/update/${id}`,
+      `http://localhost:8081/api/appointments/update/${id}/${userId}`,
       appointment,
       { headers }
     );
@@ -267,7 +287,8 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<Equipment[]>(
-      environment.apiHost + 'equipments/findAvailable/' + companyId,{headers}
+      environment.apiHost + 'equipments/findAvailable/' + companyId,
+      { headers }
     );
   }
 
@@ -301,7 +322,8 @@ export class CompanyServiceService {
     console.log('poslato', equipmentStock);
     return this.http.post<EquipmentStock[]>(
       environment.apiHost + 'equipmentStocks/create',
-      equipmentStock,{headers}
+      equipmentStock,
+      { headers }
     );
   }
 
@@ -314,10 +336,10 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<Equipment[]>(
-      environment.apiHost + 'equipmentStocks/equipmentByCompany/' + companyId,{headers}
+      environment.apiHost + 'equipmentStocks/equipmentByCompany/' + companyId,
+      { headers }
     );
   }
-
 
   getEquipmentAmountForCompany(
     companyId: number,
@@ -334,7 +356,8 @@ export class CompanyServiceService {
         'equipmentStocks/equipmentAmount/' +
         companyId +
         '/' +
-        equipmentId,{headers}
+        equipmentId,
+      { headers }
     );
   }
 
@@ -346,31 +369,54 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     const url = `${environment.apiHost}equipmentStocks/update/${equipmentId}/${companyId}?amount=${amount}`;
-    return this.http.post(url, {headers});
+    return this.http.post(url, { headers });
   }
-  deleteEquipmentStock(companyId:number,equipmentId:number):Observable<number>{
+  deleteEquipmentStock(
+    companyId: number,
+    equipmentId: number
+  ): Observable<number> {
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.delete<number>(environment.apiHost+ 'equipmentStocks/delete/'+ companyId +'/' + equipmentId ,{headers});
+    return this.http.delete<number>(
+      environment.apiHost +
+        'equipmentStocks/delete/' +
+        companyId +
+        '/' +
+        equipmentId,
+      { headers }
+    );
   }
 
-  addApp(date:string,startTime:string,endTime:string,adminId:number):Observable<Appointment>{
-    
+  addApp(
+    date: string,
+    startTime: string,
+    endTime: string,
+    adminId: number
+  ): Observable<Appointment> {
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp'+ '/'+date+'/'+ startTime +'/'+endTime+'/'+adminId,{headers});
-
-
- }
- 
+    return this.http.post<Appointment>(
+      environment.apiHost +
+        'appointments/createApp' +
+        '/' +
+        date +
+        '/' +
+        startTime +
+        '/' +
+        endTime +
+        '/' +
+        adminId,
+      { headers }
+    );
+  }
 
   getAdminById(id: number): Observable<CompanyAdministrator> {
     const token = this.jwtHelper.tokenGetter();
@@ -380,9 +426,14 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
+      environment.apiHost + 'companyAdministrators/getById/' + id,
+      { headers }
     );
   }
 
-
+  getCanceledAppointments(): Observable<CanceledAppointment[]> {
+    return this.http.get<CanceledAppointment[]>(
+      `http://localhost:8081/api/canceledAppointments/`
+    );
+  }
 }
