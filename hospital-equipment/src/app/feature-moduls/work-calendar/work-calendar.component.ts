@@ -45,6 +45,8 @@ export class WorkCalendarComponent implements OnInit{
     }
   };
   
+  selectedRange: String = 'month'
+
   companyAdmins:CompanyAdministrator[]=[]
   companyAdminstrators:CompanyAdministrator[]=[]
   appointments: Appointment[]=[]
@@ -58,12 +60,12 @@ export class WorkCalendarComponent implements OnInit{
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent; //prvo
   
 
-  selectedOption: string = "dayGridWeek"; 
-  view = 'dayGridMonth';
+  //selectedOption: string = "dayGridMonth"; 
+  //view = 'dayGridMonth';
   //dayGridMonth
   //dayGridWeek
   calendarOptions: CalendarOptions = {
-    initialView: this.selectedOption, // Prikazivanje mjesečnog prikaza
+    initialView: "dayGridMonth", // Prikazivanje mjesečnog prikaza
     plugins: [dayGridPlugin],
     events: this.Appointments
   };
@@ -98,7 +100,7 @@ export class WorkCalendarComponent implements OnInit{
 
                   
 
-                  //const name = this.reservations.filter(res=>res.appointmentDTO === app)[0].registeredUserDTO.firstname + ' '+ this.reservations.filter(res=>res.appointmentDTO === app)[0].registeredUserDTO.lastname;
+                  //const name = this.reservations.filter(res=>res.appointmentDTO.id === app.id)[0].registeredUserDTO.firstname + ' '+ this.reservations.filter(res=>res.appointmentDTO === app)[0].registeredUserDTO.lastname;
                   //const startTime = new Date(app.date+'T'+app.startTime);
                   //const endTime = new Date(app.date+'T'+app.endTime);
     
@@ -141,17 +143,46 @@ export class WorkCalendarComponent implements OnInit{
       console.log("Greska: ");
       console.error(error);
     }
-
-
-   
-  
   }
-
+  /*
   updateCalendarView() {
-    this.calendarOptions.initialView = 'dayGridMonth';
+    this.calendarOptions.initialView = this.selectedOption;
     this.cdr.detectChanges(); 
   }
+  */
 
+  changeCalendarPerspective(): void {
+    if(this.selectedRange === 'week') {
+      this.calendarOptions = {
+        ...this.calendarOptions,
+        initialView: 'dayGridWeek'
+      }
+      
+      if(this.fullCalendar) {
+        this.fullCalendar.getApi().changeView('dayGridWeek');
+      }
+    }
+    else if(this.selectedRange === 'month') {
+      this.calendarOptions = {
+        ...this.calendarOptions,
+        initialView: 'dayGridMonth'
+      }
+
+      if(this.fullCalendar) {
+        this.fullCalendar.getApi().changeView('dayGridMonth');
+      }
+    }
+    else {
+      this.calendarOptions = {
+        ...this.calendarOptions,
+        initialView: 'dayGridYear'
+      }
+
+      if(this.fullCalendar) {
+        this.fullCalendar.getApi().changeView('dayGridYear');
+      }
+    }
+  }
   
 
   

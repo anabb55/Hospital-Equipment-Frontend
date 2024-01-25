@@ -1,8 +1,13 @@
 <p>Company name:</p>
 <p>{{company.name}}</p>
 <p>Choose type of calendar</p>
-<select [(ngModel)]="selectedOption"  (change)="updateCalendarView()">
-    <option value="dayGridWeek">Weeks</option>
-    <option value="dayGridMonth">Months</option>
-  </select>
+<label for="calendarRange">Select display range:</label>
+<select id="calendarRange" name="calendarRange" [(ngModel)]="selectedRange">
+  <option value="week">Week</option>
+  <option value="month">Month</option>
+  <option value="year">Year</option>
+</select>
+<div>
+    <button class="button" color="primary" (click)="changeCalendarPerspective()" mat-raised-button>Select</button>
+</div>
 <full-calendar [options]="calendarOptions"></full-calendar>
