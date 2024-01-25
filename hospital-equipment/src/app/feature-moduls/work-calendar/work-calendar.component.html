@@ -1,3 +1,8 @@
 <p>Company name:</p>
 <p>{{company.name}}</p>
+<p>Choose type of calendar</p>
+<select [(ngModel)]="selectedOption"  (change)="updateCalendarView()">
+    <option value="dayGridWeek">Weeks</option>
+    <option value="dayGridMonth">Months</option>
+  </select>
 <full-calendar [options]="calendarOptions"></full-calendar>

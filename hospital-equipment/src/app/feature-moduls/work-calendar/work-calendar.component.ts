@@ -1,19 +1,21 @@
 import { CompanyServiceService } from '../company/service/company-service.service';
 import { Company } from 'src/app/model/company.model';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Calendar, CalendarOptions, EventInput } from '@fullcalendar/core';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { Appointment } from 'src/app/model/appointment.model';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { Reservation } from 'src/app/model/reservation,model';
 
 
 
 @Component({
   selector: 'app-work-calendar',
   templateUrl: './work-calendar.component.html',
-  styleUrls: ['./work-calendar.component.css']
+  styleUrls: ['./work-calendar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkCalendarComponent implements OnInit{
  
@@ -46,17 +48,22 @@ export class WorkCalendarComponent implements OnInit{
   companyAdmins:CompanyAdministrator[]=[]
   companyAdminstrators:CompanyAdministrator[]=[]
   appointments: Appointment[]=[]
-
+  reservations:Reservation[]=[];
   Appointments: EventInput[] = [];
 
-  constructor(private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService){
+  constructor(private cdr: ChangeDetectorRef,private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService){
    
   }
 
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent; //prvo
   
+
+  selectedOption: string = "dayGridWeek"; 
+  view = 'dayGridMonth';
+  //dayGridMonth
+  //dayGridWeek
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth', // Prikazivanje mjesečnog prikaza
+    initialView: this.selectedOption, // Prikazivanje mjesečnog prikaza
     plugins: [dayGridPlugin],
     events: this.Appointments
   };
@@ -70,26 +77,55 @@ export class WorkCalendarComponent implements OnInit{
           next:(result:Appointment[])=>{
 
             result.forEach(app => {
-              const startTime = new Date(app.date+'T'+app.startTime);
-              const endTime = new Date(app.date+'T'+app.endTime);
+              this.companyService.getAllReservations().subscribe({
+                next:(result:Reservation[])=>{
+                  this.reservations = result;
+                  console.log("UKupno res: " + this.reservations.length);
+                  let name = "";
+                  let startTime = new Date();
+                  let endTime = new Date();
+                  let duration = 0;
+                  this.reservations.forEach(res => {
+                    if(res.appointmentDTO.id === app.id) {
+                      duration = app.endTime.hours - app.startTime.hours;
+                      name = res.registeredUserDTO.firstname + " " + res.registeredUserDTO.lastname+" ,Duration: "+ duration
+                      startTime = new Date(app.date+'T'+app.startTime);
+                      endTime = new Date(app.date+'T'+app.endTime);
+                    }
 
-              const newEvent: EventInput = {
-                title: 'Sastanak',
-                start: startTime,
-                end: endTime
-              };
+                    console.log(res.registeredUserDTO.firstname + " " + res.registeredUserDTO.lastname);
+                  });
 
-              this.Appointments.push(newEvent);
+                  
 
-              this.calendarOptions = {
-                ...this.calendarOptions,
-                events: this.Appointments
-              };
+                  //const name = this.reservations.filter(res=>res.appointmentDTO === app)[0].registeredUserDTO.firstname + ' '+ this.reservations.filter(res=>res.appointmentDTO === app)[0].registeredUserDTO.lastname;
+                  //const startTime = new Date(app.date+'T'+app.startTime);
+                  //const endTime = new Date(app.date+'T'+app.endTime);
+    
+                  const newEvent: EventInput = {
+                    title: name,
+                    start: startTime,
+                    end: endTime
+                  };
+    
+                  this.Appointments.push(newEvent);
+    
+                  this.calendarOptions = {
+                    ...this.calendarOptions,
+                    events: this.Appointments
+                  };
+    
+                  // Explicitly add the new event to FullCalendar
+                  if (this.fullCalendar) {
+                    this.fullCalendar.getApi().addEvent(newEvent);
+                  }
 
-              // Explicitly add the new event to FullCalendar
-              if (this.fullCalendar) {
-                this.fullCalendar.getApi().addEvent(newEvent);
-              }
+                  
+                }
+              })
+              
+
+             
             });
            
    
@@ -111,10 +147,10 @@ export class WorkCalendarComponent implements OnInit{
   
   }
 
-
-
- 
-
+  updateCalendarView() {
+    this.calendarOptions.initialView = 'dayGridMonth';
+    this.cdr.detectChanges(); 
+  }
 
   
 

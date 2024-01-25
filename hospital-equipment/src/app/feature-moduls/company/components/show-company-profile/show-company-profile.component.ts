@@ -121,7 +121,10 @@ toggleFilterVisibility(){
 }
   
 
-
+Rola() {
+  const rola = this.authService.getUserRole();
+  console.log(rola);
+}
   
   
 }
