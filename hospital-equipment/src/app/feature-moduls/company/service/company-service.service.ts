@@ -49,7 +49,7 @@ export class CompanyServiceService {
     });
     console.log('Poslata u servis', company);
     return this.http.put<Company>(
-      environment.apiHost + 'companyProfile/update/' + company.id +'/' + company.name + '/' + company.description ,company.address,
+      environment.apiHost + 'companyProfile/update/' + company.id , company,
       {headers}
     );
   }
