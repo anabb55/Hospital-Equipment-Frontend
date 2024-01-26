@@ -1,6 +1,7 @@
 import { Address } from "./address.model";
 import { Company } from "./company.model";
 import { User } from "./user.model";
+import { Role } from "./userRole.model";
 
 export interface CompanyAdministrator{
     id: number;
@@ -13,5 +14,6 @@ export interface CompanyAdministrator{
     address: Address;
     phoneNumber: String;
     company: Company | undefined,
-    waslogged: boolean
+    waslogged: boolean,
+    roles:Role[]
 }

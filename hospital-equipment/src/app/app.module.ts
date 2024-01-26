@@ -47,6 +47,8 @@ import { ShowReservationsComponent } from './feature-moduls/reservations/compone
 import { SuccessfullReservationComponent } from './feature-moduls/reservations/components/successfull-reservation/successfull-reservation.component';
 import { ReservationsUsersComponent } from './feature-moduls/reservations/components/reservations-users/reservations-users.component';
 //import 'leaflet/dist/leaflet.css';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
 
 
 
@@ -74,7 +76,9 @@ import { ReservationsUsersComponent } from './feature-moduls/reservations/compon
     WorkCalendarComponent,
   ShowReservationsComponent,
   SuccessfullReservationComponent,
-  ReservationsUsersComponent
+  ReservationsUsersComponent,
+    UploadQrCodeComponent
+
   ],
 
   imports: [
@@ -93,7 +97,7 @@ import { ReservationsUsersComponent } from './feature-moduls/reservations/compon
     MatButtonModule,
     CalendarModule,
     MatTableModule,
-
+    ZXingScannerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),
