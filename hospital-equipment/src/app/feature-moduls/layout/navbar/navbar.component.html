@@ -31,7 +31,6 @@
         Your Profile
      </a>
 
-
      <a
      raised-button
      *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
@@ -63,43 +62,6 @@ class="link"
 >
 WorkCalendar
 </a>
-
-     <div class="buttons">
-      <a
-        raised-button
-        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'"
-        routerLinkActive="active"
-        [routerLink]="['registerCompanyProfile']"
-        class="link"
-      >
-        Create company
-     </a>
-     <div class="buttons">
-      <a
-        raised-button
-        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'"
-        routerLinkActive="active"
-        [routerLink]="['registerCompanyAdmin']"
-        class="link"
-      >
-        Create company admin
-     </a>
-     <div class="buttons">
-      <a
-        raised-button
-        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'"
-        routerLinkActive="active"
-        [routerLink]="['registerSystemAdmin']"
-        class="link"
-      >
-        Create system admin
-     </a>
-    
-     <button  *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'" class="nbutton" [routerLink]="['login']">
-      Work calendar
-    </button>
-
-
       <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
         Login
       </button>
