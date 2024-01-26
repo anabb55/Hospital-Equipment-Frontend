@@ -16,6 +16,9 @@ export class AuthServiceService {
   private loginSource = new BehaviorSubject<boolean>(false);
   public loginObserver = this.loginSource.asObservable();
 
+  public passChangeSource = new BehaviorSubject<boolean>(false);
+  public passChangeObserver = this.passChangeSource.asObservable();
+
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
     this.userClaims = this.jwtHelper.decodeToken();
     if (this.userClaims) this.loginSource.next(true);
@@ -74,6 +77,7 @@ export class AuthServiceService {
   }
 
   changePassword(password:String,id:number): Observable<number>{
+    this.passChangeSource.next(true);
     console.log('poslato u servis')
     console.log(id)
     console.log(password)
@@ -85,6 +89,18 @@ export class AuthServiceService {
     });
     return this.http.put<number>(environment.apiHost + 'users/update/' + id , password, {headers})
   }
+
+  WasUserLogged(userId:number):Observable<boolean>{
+    
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<boolean>(environment.apiHost + 'users/WasLogged/' + userId ,{headers})
+  }
+ 
 
 
 }

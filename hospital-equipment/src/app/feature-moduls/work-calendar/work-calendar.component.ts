@@ -7,6 +7,7 @@ import { RegisterCompanyService } from '../register-company-admin-service.servic
 import { Appointment } from 'src/app/model/appointment.model';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
 
 
 
@@ -49,8 +50,8 @@ export class WorkCalendarComponent implements OnInit{
 
   Appointments: EventInput[] = [];
 
-  constructor(private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService){
-   
+  constructor(private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService,private authService:AuthServiceService){
+    this.authService.passChangeSource.next(true);
   }
 
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent; //prvo

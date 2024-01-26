@@ -47,6 +47,7 @@ export class ShowCompanyProfileComponent {
     this.loggedInUser=this.getLoggedInUser();
     this.getAllCompanies();
       this.getUser();
+      this.authService.passChangeSource.next(true);
   }
 
   

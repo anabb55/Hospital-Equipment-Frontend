@@ -80,6 +80,7 @@ export class CompanyAdminProfileComponent {
   constructor(private companyService: CompanyServiceService, private authService: AuthServiceService,private router:Router){
     this.loggedInUser=this.getLoggedIn();
     this.getCompanyAdministrator();
+    this.authService.passChangeSource.next(true);
   }
 
   getLoggedIn():number{
