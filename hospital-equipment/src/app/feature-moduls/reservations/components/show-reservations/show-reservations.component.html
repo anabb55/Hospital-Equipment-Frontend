@@ -1,0 +1,88 @@
+<div class="tableClass">
+<table mat-table [dataSource]="reservations" >
+
+    <!-- Column Definitions -->
+    <ng-container matColumnDef="ReservationID">
+        <th mat-header-cell *matHeaderCellDef> 
+            Reservation ID
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.reservationDTO.id}} 
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Equipment">
+        <th mat-header-cell *matHeaderCellDef> 
+            Equipment
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.equipmentStockDTO.equipmentDTO.name}} 
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Appointment">
+        <th mat-header-cell *matHeaderCellDef> 
+            Appointment
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.reservationDTO.appointmentDTO.date}} From {{element.reservationDTO.appointmentDTO.startTime}} To {{element.reservationDTO.appointmentDTO.endTime}}
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="User">
+        <th mat-header-cell *matHeaderCellDef> 
+            User
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.reservationDTO.registeredUserDTO.username}} 
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Amount">
+        <th mat-header-cell *matHeaderCellDef> 
+            Amount
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.amount}} 
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="TotalAmount">
+        <th mat-header-cell *matHeaderCellDef> 
+            Total Amount in Company
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.equipmentStockDTO.amount}} 
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="ReservationStatus">
+        <th mat-header-cell *matHeaderCellDef> 
+            Reservation Status
+        </th>
+        <td mat-cell *matCellDef="let element"> 
+            {{element.reservationDTO.reservationStatus}} 
+        </td>
+    </ng-container>
+
+    <!-- Checkbox column -->
+<ng-container matColumnDef="Select">
+    <th mat-header-cell *matHeaderCellDef>
+      
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button  (click)="selectRow(element)" class="button">
+        Delivered
+      </button>
+    </td>
+  </ng-container>
+  
+   
+
+   
+
+    
+    <!-- Header and Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>

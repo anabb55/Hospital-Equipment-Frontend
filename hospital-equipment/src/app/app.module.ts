@@ -43,6 +43,9 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ShowReservationsComponent } from './feature-moduls/reservations/components/show-reservations/show-reservations.component';
+import { SuccessfullReservationComponent } from './feature-moduls/reservations/components/successfull-reservation/successfull-reservation.component';
+import { ReservationsUsersComponent } from './feature-moduls/reservations/components/reservations-users/reservations-users.component';
 //import 'leaflet/dist/leaflet.css';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
@@ -71,7 +74,11 @@ import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr
     ChangePasswordComponent,
 
     WorkCalendarComponent,
+  ShowReservationsComponent,
+  SuccessfullReservationComponent,
+  ReservationsUsersComponent,
     UploadQrCodeComponent
+
   ],
 
   imports: [

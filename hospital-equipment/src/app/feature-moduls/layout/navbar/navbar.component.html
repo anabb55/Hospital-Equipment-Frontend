@@ -14,7 +14,7 @@
      </a>
      <a
         raised-button
-        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN'"
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
         routerLinkActive="active"
         [routerLink]="['updateCompany']"
         class="link"
@@ -23,13 +23,46 @@
      </a>
      <a
         raised-button
-        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN'"
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
         routerLinkActive="active"
         [routerLink]="['companyAdminProfile']"
         class="link"
       >
         Your Profile
      </a>
+
+
+     <a
+     raised-button
+     *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+     routerLinkActive="active"
+     [routerLink]="['usersReserved']"
+     class="link"
+   >
+     UsersReserved
+  </a>
+
+  <a
+  raised-button
+  *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+  routerLinkActive="active"
+  [routerLink]="['showReservations']"
+  class="link"
+>
+  Reservation Approve
+</a>
+
+
+
+<a
+raised-button
+*ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+routerLinkActive="active"
+[routerLink]="['workCalendar']"
+class="link"
+>
+WorkCalendar
+</a>
 
      <div class="buttons">
       <a
@@ -65,6 +98,7 @@
      <button  *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'" class="nbutton" [routerLink]="['login']">
       Work calendar
     </button>
+
 
       <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
         Login
