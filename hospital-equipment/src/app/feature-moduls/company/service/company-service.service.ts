@@ -66,18 +66,6 @@ export class CompanyServiceService {
     );
   }
 
-  getUserById(id: number): Observable<User> {
-    const token = this.jwtHelper.tokenGetter();
-    console.log(token);
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + token,
-      'Content-Type': 'application/json',
-    });
-    return this.http.get<User>(
-      environment.apiHost + 'users/getById/' + id,{headers}
-    );
-  }
-
 
   updateCompanyAdmin(
     companyAdmin: CompanyAdministrator
@@ -398,7 +386,30 @@ export class CompanyServiceService {
     );
   }
 
+  getUserById(id: number): Observable<User> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<User>(
+      environment.apiHost + 'users/getById/' + id,{headers}
+    );
+  }
 
 
+  getAllReservations(): Observable<Reservation[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Reservation[]>(
+      environment.apiHost + 'reservation/getAll',{headers}
+    );
+  }
 
 }
