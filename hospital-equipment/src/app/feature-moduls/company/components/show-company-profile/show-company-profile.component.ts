@@ -38,7 +38,8 @@ export class ShowCompanyProfileComponent {
       latitude: 0,
       longitude: 0
     },
-    waslogged: false
+    waslogged: false,
+    roles: []
   }
   constructor(private companyService: CompanyServiceService, private router: Router,private activedRoute: ActivatedRoute,
     private authService: AuthServiceService,

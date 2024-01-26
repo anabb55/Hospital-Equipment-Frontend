@@ -25,6 +25,7 @@ import { SearchEquipmentComponent } from 'src/app/feature-moduls/search-equipmen
 import { ChangePasswordComponent } from 'src/app/feature-moduls/change-password/change-password.component';
 
 import { WorkCalendarComponent } from 'src/app/feature-moduls/work-calendar/work-calendar.component';
+import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upload-qr-code.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   { path: 'workCalendar', component: WorkCalendarComponent },
+  { path: 'uploadQRcode', component: UploadQrCodeComponent },
 
   { path: 'displayProfile', component: DisplayProfile },
 

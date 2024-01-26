@@ -44,6 +44,8 @@ import interactionPlugin from '@fullcalendar/interaction'; // a plugin!
 
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 //import 'leaflet/dist/leaflet.css';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
 
 
 
@@ -68,7 +70,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     SearchEquipmentComponent,
     ChangePasswordComponent,
 
-    WorkCalendarComponent
+    WorkCalendarComponent,
+    UploadQrCodeComponent
   ],
 
   imports: [
@@ -87,7 +90,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     MatButtonModule,
     CalendarModule,
     MatTableModule,
-
+    ZXingScannerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('token'),

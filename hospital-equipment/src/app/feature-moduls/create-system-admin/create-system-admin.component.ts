@@ -3,6 +3,7 @@ import { Address } from 'src/app/model/address.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { SystemAdmin } from 'src/app/model/systemAdmin.model';
 import { UserCategory } from '../model/RegisteredUser';
+import { Role } from 'src/app/model/userRole.model';
 
 @Component({
   selector: 'app-create-system-admin',
@@ -29,13 +30,14 @@ export class CreateSystemAdminComponent implements OnInit{
       country: '',
       street: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0
     },
     userCategory: UserCategory.Regular,
 
-
-    username: ''
+    username: '',
+    waslogged: false,
+    roles: [] = []
   }
   address:Address={
     id: 0,
@@ -57,6 +59,10 @@ export class CreateSystemAdminComponent implements OnInit{
 
   }
 
+  role:Role= {
+    id: 3,
+    name: 'ROLE_SYSTEM_ADMIN'
+  }
   ngOnInit(): void {
     this.service.getAllAddresses().subscribe({
       next:(result:Address[])=>{
@@ -72,12 +78,8 @@ export class CreateSystemAdminComponent implements OnInit{
         this.savedAddress = result;
         this.adminData.address = this.savedAddress;
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    })
-          console.log("adesa: "+ this.adminData.address.id);
+        console.log("adesa: "+ this.adminData.address.id);
+        this.adminData.roles.push(this.role);
           this.service.createSystemAdmin(this.adminData).subscribe({
             next:(result:SystemAdmin)=>{
                 this.createdAdmin =result;
@@ -85,6 +87,12 @@ export class CreateSystemAdminComponent implements OnInit{
           
             }
           })
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    })
+          
 }
 
 }
