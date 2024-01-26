@@ -1,0 +1,38 @@
+.updateContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjg3MC10YW5nLTM2XzEuanBn.jpg');  /* Postavite putanju do vaše slike */
+    background-size: cover;  
+  
+  }
+
+.edit{
+    margin-left: 50%;
+}
+.image img {
+    max-width: 50px;
+    max-height: 50px;
+  }
+  .password-button {
+    margin-top: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .password-button img {
+    width: 50px; /* Podesite širinu slike prema vašim potrebama */
+    height: auto; /* Automatsko prilagođavanje visine prema širini */
+  }
+
+  
+  .password-button span {
+    margin-top: 5px;
+    
+   
+  }
+  
+  

@@ -5,6 +5,7 @@ import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Company } from 'src/app/model/company.model';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/model/address.model';
+import { CompanyServiceService } from '../company/service/company-service.service';
 
 @Component({
   selector: 'app-register-company-profile',
@@ -21,7 +22,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude:0,
+      latitude:0
     },
     description: '',
     grade: 0,
@@ -34,6 +37,7 @@ export class RegisterCompanyProfileComponent implements OnInit {
       minutes: 0
     }
   }
+
   street: string = ''
   city: string = ''
   number: string = ''
@@ -45,7 +49,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
     city: '',
     country: '',
     number: '',
-    street: ''
+    street: '',
+    longitude:0,
+    latitude:0
   }
 
   company: Company = {
@@ -57,7 +63,9 @@ export class RegisterCompanyProfileComponent implements OnInit {
       street: '',
       city: '',
       number: '',
-      country: ''
+      country: '',
+      longitude:0,
+      latitude:0
     },
     id: 0,
     workStartTime: {
@@ -83,21 +91,39 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude: 0,
+      latitude: 0
     },
     company: undefined,
-    username: ''
+    username: '',
+    waslogged: false,
+    roles: []
   }
   savedAddress:Address | undefined
-  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){
+  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,private companyService :CompanyServiceService){
     
   }
   ngOnInit(): void {
     this.service.getAllCompanyAdmins().subscribe({
       next:(result:CompanyAdministrator[])=>{
         this.admins = result;
-        this.admins.forEach(a => {
-        });
+        /*this.admins.forEach(admin => {
+          console.log(admin.firstname);
+          console.log("Id: " +admin.id);
+          console.log("Lastname:" + admin.lastname);
+          console.log("Firstname:" + admin.firstname);
+          console.log("Email:" + admin.email);
+          console.log("Phone:" + admin.phoneNumber);
+          console.log("ocupp:" + admin.occupation);
+          if(admin.company != undefined){
+            console.log("company description:" + admin.company.description);
+          }
+          
+          console.log("pass:" + admin.password);
+          console.log("Adresa: " +admin.address.city);  
+          
+        });*/
       }
     })
     this.service.getAllAddresses().subscribe({
@@ -119,10 +145,22 @@ export class RegisterCompanyProfileComponent implements OnInit {
         console.log(err);
       },
     })
+
+    
+  
+
     this.service.createCompany(this.company).subscribe({
     
       next:(result:Company)=>{
         this.createdCompany = result;
+        this.addedAdmin.forEach(admin => {
+          this.companyService.updateCompanyAdmin(admin).subscribe({
+          next:(result:CompanyAdministrator)=>{
+            this.updatedAdmin = result;
+            console.log('Ime kompanije od updatovanog admina: '+this.updatedAdmin.company?.name);
+          }
+        })
+      });
         this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
           duration: 6000, // Vreme prikazivanja obaveštenja u milisekundama
           panelClass: ['success-snackbar'] // Opciona klasa za stilizovanje obaveštenja
@@ -130,14 +168,6 @@ export class RegisterCompanyProfileComponent implements OnInit {
         
       }
     })
-    this.addedAdmin.forEach(admin => {
-        this.service.updateCompanyAdmin(admin).subscribe({
-        next:(result:CompanyAdministrator)=>{
-          this.updatedAdmin = result;
-          console.log(this.updatedAdmin.company?.name);
-        }
-      })
-    });
     
   
     
@@ -146,17 +176,12 @@ export class RegisterCompanyProfileComponent implements OnInit {
 
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
+    console.log("Dodato amdina: "+ this.addedAdmin.length);
     admin.company = this.createdCompany;
-    console.log(admin.firstname);
-    console.log("Id: " +admin.id);
-    console.log("Lastname:" + admin.lastname);
-    console.log("email:" + admin.email);
-    console.log("phone:" + admin.phoneNumber);
-    console.log("ocupp:" + admin.occupation);
-    console.log("companyId:" + admin.company.description);
-    console.log("pass:" + admin.password);
-    console.log("Adresa: " +admin.address.city);  
+    
   }
+
+
   createAdmin(){
     console.log("Usaoooo")
     this.router.navigate(['registerCompanyAdmin']);

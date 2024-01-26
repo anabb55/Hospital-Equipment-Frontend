@@ -10,6 +10,8 @@ import { EquipmentAmount } from 'src/app/feature-moduls/model/equipmentAmount.mo
 import { ActivatedRoute } from '@angular/router';
 import { Appointment, AppointmentStatus } from 'src/app/model/appointment.model';
 import { Time } from '@angular/common';
+import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { CalendarMomentDateFormatter, MOMENT } from 'angular-calendar';
 
 @Component({
   selector: 'app-update-company',
@@ -17,7 +19,8 @@ import { Time } from '@angular/common';
   styleUrls: ['./update-company.component.css'],
 })
 export class UpdateCompanyComponent {
-
+  
+  loggedInUser: number=0;
   showEditDetailsTable: boolean = false;
   showAddTable: boolean = false;
   enteredAmount: number = 0;
@@ -50,6 +53,7 @@ export class UpdateCompanyComponent {
   showUpdateCom = false
  
 
+
   equipmentStock: EquipmentStock = {
     equipment: {
 
@@ -58,9 +62,7 @@ export class UpdateCompanyComponent {
       description: '',
       grade: 0,
       companies: [],
-
       type: '',
-
       amount: 0
     },
     company: {
@@ -72,6 +74,8 @@ export class UpdateCompanyComponent {
         city: '',
         country: '',
         number: '',
+        longitude:0,
+        latitude:0
       },
       description: '',
       grade: 0,
@@ -99,6 +103,8 @@ export class UpdateCompanyComponent {
       city: '',
       country: '',
       number: '',
+      longitude:0,
+      latitude:0
     },
     description: '',
     grade: 0,
@@ -132,22 +138,18 @@ export class UpdateCompanyComponent {
   companies: Company[] = []
 
   id: number = 0
-  constructor(private companyService: CompanyServiceService, private activedRoute: ActivatedRoute) {
-    this.getId()
+  constructor(private companyService: CompanyServiceService, private activedRoute: ActivatedRoute, private authService: AuthServiceService) {
+    this.loggedInUser=this.getLoggedInUser();
     this.getCompanyByAdmin()
     this.showSearch = false
   }
 
-  getId() {
-    this.activedRoute.params.subscribe(params => {
-      this.id = +params['id']
-      console.log('ID komponente:', this.id);
-    });
+  getLoggedInUser():number{
+    return this.authService.getUserIdd();
   }
-
+ 
   getCompanyByAdmin() {
-    //*********** NE ZABORAVI LOGOVANOG USERA PROSLIJEDITI!!!
-    this.companyService.getCompanyByAdmin(3).subscribe({
+    this.companyService.getCompanyByAdmin(this.loggedInUser).subscribe({
       next: (response) => {
 
         this.companies = response
@@ -396,29 +398,55 @@ export class UpdateCompanyComponent {
   addApp() {
     const dateValue: string | null | undefined = this.appForm.value.date;
     const startTimeValue: string | null | undefined = this.appForm.value.startTime;
+    const endTimeValue:string | null | undefined = this.appForm.value.endTime;
+    console.log(dateValue,startTimeValue, '-',endTimeValue);
+
+    const parsedEndTime = this.parseTimeString(endTimeValue as string);
+    const parsedStartTime = this.parseTimeString(startTimeValue as string);
+    const date= new Date(dateValue as string);
+   
+
+
+    if (dateValue !== null && dateValue !== undefined &&
+      startTimeValue !== null && startTimeValue !== undefined &&
+      endTimeValue !== null && endTimeValue !== undefined){
+        
     
+   
 
-    if (dateValue !== null && dateValue !== undefined) {
-      this.appointments[0].date = new Date(dateValue);
-    }
-
-
-    if (startTimeValue !== null && startTimeValue !== undefined) {
-      const parsedTime: Time = JSON.parse(startTimeValue);
-      this.appointments[0].startTime = parsedTime; 
-    }
-
-    console.log('Kreirani app', this.appointments[0])
-
-    this.companyService.addApp(this.appointments[0]).subscribe({
+    
+    this.companyService.addApp(dateValue,startTimeValue,endTimeValue,this.loggedInUser).subscribe({
       next:(response)=>{
-        console.log(response)
+        console.log('Response',response)
       },
       error:(err)=>{
         console.log(err)
       }
       
     })
+    
+   
+    }
+   
 
   }
+   parseTimeString(timeString: string): Time | null {
+  const match = timeString.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (!match) {
+    console.error('Invalid time format');
+    return null;
+  }
+
+  const hours = parseInt(match[1], 10);
+  const minutes = parseInt(match[2], 10);
+
+  if (isNaN(hours) || isNaN(minutes) || hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+    console.error('Invalid time values');
+    return null;
+  }
+
+  return { hours, minutes };
+}
+
 }

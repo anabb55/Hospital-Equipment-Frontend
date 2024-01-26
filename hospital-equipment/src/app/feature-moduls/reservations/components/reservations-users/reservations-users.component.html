@@ -1,0 +1,72 @@
+<div class="tableClass">
+    <table mat-table [dataSource]="users" >
+    
+        <!-- Column Definitions -->
+        <ng-container matColumnDef="firstname">
+            <th mat-header-cell *matHeaderCellDef> 
+                FirstName
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.firstname}} 
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="lastname">
+            <th mat-header-cell *matHeaderCellDef> 
+                LastName
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.lastname}} 
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="penaltyPoints">
+            <th mat-header-cell *matHeaderCellDef> 
+                Penalty Points
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.penaltyPoints}}
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="pointsPerEquipment">
+            <th mat-header-cell *matHeaderCellDef> 
+                PointsPerEquipment
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.loyaltyProgram.pointsPerEquipment}} 
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="penaltyThreshold">
+            <th mat-header-cell *matHeaderCellDef> 
+                PenaltyThreshlod
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.loyaltyProgram.penaltyThreshold}} 
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="discountPercentage">
+            <th mat-header-cell *matHeaderCellDef> 
+                Discount Percentage
+            </th>
+            <td mat-cell *matCellDef="let element"> 
+                {{element.loyaltyProgram.discountPercentage}} 
+            </td>
+        </ng-container>
+       
+    
+        <!-- Checkbox column -->
+   
+      
+       
+    
+       
+    
+        
+        <!-- Header and Rows -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    </div>

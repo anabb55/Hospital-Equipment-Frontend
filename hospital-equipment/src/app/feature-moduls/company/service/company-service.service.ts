@@ -15,6 +15,8 @@ import { EquipmentStock } from '../../model/equipmentStock.model';
 import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Time } from '@angular/common';
+import { User } from 'src/app/model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,32 +29,59 @@ export class CompanyServiceService {
   }
 
   getCompanyByAdmin(id: number): Observable<Company[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.get<Company[]>(
-      environment.apiHost + 'companyProfile/byAdmin/' + id
+      environment.apiHost + 'companyProfile/byAdmin/' + id,{headers}
     );
   }
 
   updateCompany(company: Company): Observable<Company> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     console.log('Poslata u servis', company);
     return this.http.put<Company>(
-      environment.apiHost + 'companyProfile/update/' + company.id,
-      company
+      environment.apiHost + 'companyProfile/update/' + company.id , company,
+      {headers}
     );
   }
 
   getAdministratorById(id: number): Observable<CompanyAdministrator> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.get<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/getById/' + id
+      environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
     );
   }
+
 
   updateCompanyAdmin(
     companyAdmin: CompanyAdministrator
   ): Observable<CompanyAdministrator> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+
+    console.log('poslat u servis', companyAdmin)
     return this.http.put<CompanyAdministrator>(
-      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id,
-      companyAdmin
+      environment.apiHost + 'companyAdministrators/update/' + companyAdmin.id  ,companyAdmin,{headers}
     );
+
   }
 
   getCompanyById(id: number): Observable<Company> {
@@ -62,12 +91,19 @@ export class CompanyServiceService {
   }
 
   getEquipmentByCompanyId(companyId: number): Observable<Equipment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.get<Equipment[]>(
-      `${environment.apiHost}companyProfile/company/${companyId}/equipment`
+      `${environment.apiHost}companyProfile/company/${companyId}/equipment`,{headers}
     );
   }
 
   searchCompanies(name: string, city: string): Observable<Company[]> {
+    
     const params = new HttpParams().set('name', name).set('city', city);
 
     return this.http.get<Company[]>(
@@ -80,6 +116,12 @@ export class CompanyServiceService {
     name: string,
     companyId: number
   ): Observable<Equipment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     const url = `${environment.apiHost}companyProfile/equipment/${companyId}/search`;
     const params = { name: name };
     return this.http.get<Equipment[]>(url, { params: params });
@@ -96,9 +138,15 @@ export class CompanyServiceService {
   }
 
   updateCompanyAdministrators(company: Company): Observable<Company> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.put<Company>(
       environment.apiHost + 'companyProfile/updateAdministrators',
-      company
+      company,{headers}
     );
   }
 
@@ -111,6 +159,22 @@ export class CompanyServiceService {
     });
     const apiUrl = `${environment.apiHost}appointments/getAppointmentsForCompany/${id}`;
     return this.http.get<Appointment[]>(apiUrl, { headers });
+  }
+
+  getTakenAppointmentsByCompany(id: number): Observable<Appointment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    const apiUrl = `${environment.apiHost}appointments/getTakenAppointmentsForCompany/${id}`;
+    console.log("Vraceni: "+  this.http.get<Appointment[]>(apiUrl, { headers }))
+    return this.http.get<Appointment[]>(apiUrl, { headers })
+  }
+
+  getAllAppointment(): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(environment.apiHost+'appointments/getAll');
   }
 
   generateRandomAppointments(
@@ -198,8 +262,14 @@ export class CompanyServiceService {
   }
   //returns all equipment that Company doesn't possess
   getAvailableEquipmentForCompany(companyId: number): Observable<Equipment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.get<Equipment[]>(
-      environment.apiHost + 'equipments/findAvailable/' + companyId
+      environment.apiHost + 'equipments/findAvailable/' + companyId,{headers}
     );
   }
 
@@ -224,17 +294,29 @@ export class CompanyServiceService {
   addEquipmentToCompany(
     equipmentStock: EquipmentStock
   ): Observable<EquipmentStock[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     console.log('poslato', equipmentStock);
     return this.http.post<EquipmentStock[]>(
       environment.apiHost + 'equipmentStocks/create',
-      equipmentStock
+      equipmentStock,{headers}
     );
   }
 
   //returns equipment that Company does possess
   getEquipmentForCompany(companyId: number): Observable<Equipment[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.get<Equipment[]>(
-      environment.apiHost + 'equipmentStocks/equipmentByCompany/' + companyId
+      environment.apiHost + 'equipmentStocks/equipmentByCompany/' + companyId,{headers}
     );
   }
 
@@ -243,26 +325,91 @@ export class CompanyServiceService {
     companyId: number,
     equipmentId: number
   ): Observable<number> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     return this.http.get<number>(
       environment.apiHost +
         'equipmentStocks/equipmentAmount/' +
         companyId +
         '/' +
-        equipmentId
+        equipmentId,{headers}
     );
   }
 
   updateAmount(companyId: number, equipmentId: number, amount: number) {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
     const url = `${environment.apiHost}equipmentStocks/update/${equipmentId}/${companyId}?amount=${amount}`;
-    return this.http.post(url, {});
+    return this.http.post(url, {headers});
   }
-  deleteEquipmentStock(companyId:number,equipmentId:number){
-  
-    return this.http.delete(environment.apiHost+ 'equipmentStocks/update/'+ companyId +'/' + equipmentId );
+  deleteEquipmentStock(companyId:number,equipmentId:number):Observable<number>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.delete<number>(environment.apiHost+ 'equipmentStocks/delete/'+ companyId +'/' + equipmentId ,{headers});
   }
 
-  addApp(appointment:Appointment):Observable<Appointment>{
-    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp',appointment);
+  addApp(date:string,startTime:string,endTime:string,adminId:number):Observable<Appointment>{
+    
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<Appointment>(environment.apiHost+ 'appointments/createApp'+ '/'+date+'/'+ startTime +'/'+endTime+'/'+adminId,{headers});
 
+
+ }
+ 
+
+  getAdminById(id: number): Observable<CompanyAdministrator> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<CompanyAdministrator>(
+      environment.apiHost + 'companyAdministrators/getById/' + id,{headers}
+    );
   }
+
+  getUserById(id: number): Observable<User> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<User>(
+      environment.apiHost + 'users/getById/' + id,{headers}
+    );
+  }
+
+
+  getAllReservations(): Observable<Reservation[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Reservation[]>(
+      environment.apiHost + 'reservation/getAll',{headers}
+    );
+  }
+
 }

@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="inner-wrap">
-    <p raised-button [routerLink]="['showCompanyProfile']" class="link">Home</p>
+    <p ><a  raised-button [routerLink]="['showCompanyProfile']" class="link">Home</a></p>
     <div class="spacer"></div>
     <div class="buttons">
       <a
@@ -11,7 +11,95 @@
         class="link"
       >
         My Profile
-      </a>
+     </a>
+     <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['updateCompany']"
+        class="link"
+      >
+        Update Company
+     </a>
+     <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['companyAdminProfile']"
+        class="link"
+      >
+        Your Profile
+     </a>
+
+
+     <a
+     raised-button
+     *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+     routerLinkActive="active"
+     [routerLink]="['usersReserved']"
+     class="link"
+   >
+     UsersReserved
+  </a>
+
+  <a
+  raised-button
+  *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+  routerLinkActive="active"
+  [routerLink]="['showReservations']"
+  class="link"
+>
+  Reservation Approve
+</a>
+
+
+
+<a
+raised-button
+*ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+routerLinkActive="active"
+[routerLink]="['workCalendar']"
+class="link"
+>
+WorkCalendar
+</a>
+
+     <div class="buttons">
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'"
+        routerLinkActive="active"
+        [routerLink]="['registerCompanyProfile']"
+        class="link"
+      >
+        Create company
+     </a>
+     <div class="buttons">
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'"
+        routerLinkActive="active"
+        [routerLink]="['registerCompanyAdmin']"
+        class="link"
+      >
+        Create company admin
+     </a>
+     <div class="buttons">
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'"
+        routerLinkActive="active"
+        [routerLink]="['registerSystemAdmin']"
+        class="link"
+      >
+        Create system admin
+     </a>
+    
+     <button  *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN'" class="nbutton" [routerLink]="['login']">
+      Work calendar
+    </button>
+
+
       <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
         Login
       </button>

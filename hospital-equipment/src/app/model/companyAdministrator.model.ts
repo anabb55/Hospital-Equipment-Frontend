@@ -1,16 +1,19 @@
 import { Address } from "./address.model";
 import { Company } from "./company.model";
 import { User } from "./user.model";
+import { Role } from "./userRole.model";
 
 export interface CompanyAdministrator{
     id: number;
-    email: String;
-    password: String;
     firstname: String;
     lastname: String;
     username: String;
-    phoneNumber: String;
+    password: String;
+    email: String;
     occupation: String;
     address: Address;
-    company: Company | undefined
+    phoneNumber: String;
+    company: Company | undefined,
+    waslogged: boolean,
+    roles:Role[]
 }

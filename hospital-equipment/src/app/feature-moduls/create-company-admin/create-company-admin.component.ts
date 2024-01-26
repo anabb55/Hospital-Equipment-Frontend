@@ -3,6 +3,7 @@ import { CompanyAdmin } from '../model/companyAdmin.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { Address } from 'src/app/model/address.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
+import { Role } from 'src/app/model/userRole.model';
 
 @Component({
   selector: 'app-create-company-admin',
@@ -27,16 +28,21 @@ export class CreateCompanyAdminComponent implements OnInit {
     lastname: '',
     phoneNumber: '',
     occupation: '',
+    username: '',
     address: {
       id: 0,
       city: '',
       country: '',
       street: '',
-      number: ''
+      number: '',
+      longitude: 0,
+      latitude: 0
     },
     id: 0,
+    waslogged: false,
+
     company: undefined,
-    username: ''
+    roles: []
   };
 
   address:Address={
@@ -44,16 +50,23 @@ export class CreateCompanyAdminComponent implements OnInit {
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
   savedAddress:Address={
     id: 0,
     city: '',
     country: '',
     street: '',
-    number: ''
+    number: '',
+    longitude:0,
+    latitude:0
   }
-
+role:Role={
+  id: 2,
+  name: 'ROLE_COMPANY_ADMIN'
+}
   createdAdmin : CompanyAdministrator | undefined;
 
   createAdmin() {
@@ -61,6 +74,13 @@ export class CreateCompanyAdminComponent implements OnInit {
       next:(result:Address)=>{
         this.savedAddress = result;
         this.adminData.address = this.savedAddress;
+        this.adminData.roles.push(this.role);
+        this.service.createCompanyAdmin(this.adminData).subscribe({
+          next:(result:CompanyAdministrator)=>{
+              this.createdAdmin =result;
+              console.log("admin: "+ this.createdAdmin.firstname);
+          }
+        })
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
       },
       error: (err: any) => {
@@ -68,14 +88,8 @@ export class CreateCompanyAdminComponent implements OnInit {
       },
     })
 
-    console.log("adesa: "+ this.adminData.address.id);
 
-          this.service.createCompanyAdmin(this.adminData).subscribe({
-            next:(result:CompanyAdministrator)=>{
-                this.createdAdmin =result;
-                console.log("admin: "+ this.createdAdmin.firstname);
-            }
-          })
+          
 }
 
 

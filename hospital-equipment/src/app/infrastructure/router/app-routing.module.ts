@@ -21,13 +21,25 @@ import { RoleGuard } from 'src/app/interceptor/role.guard';
 
 import { CreateSystemAdminComponent } from 'src/app/feature-moduls/create-system-admin/create-system-admin.component';
 import { SearchEquipmentComponent } from 'src/app/feature-moduls/search-equipment/search-equipment.component';
+
+import { ChangePasswordComponent } from 'src/app/feature-moduls/change-password/change-password.component';
+
 import { WorkCalendarComponent } from 'src/app/feature-moduls/work-calendar/work-calendar.component';
+
+import { ShowReservationsComponent } from 'src/app/feature-moduls/reservations/components/show-reservations/show-reservations.component';
+import { SuccessfullReservationComponent } from 'src/app/feature-moduls/reservations/components/successfull-reservation/successfull-reservation.component';
+import { ReservationsUsersComponent } from 'src/app/feature-moduls/reservations/components/reservations-users/reservations-users.component';
+
+import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upload-qr-code.component';
+
+
 
 const routes: Routes = [
   { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
 
   { path: 'workCalendar', component: WorkCalendarComponent },
+  { path: 'uploadQRcode', component: UploadQrCodeComponent },
 
   { path: 'displayProfile', component: DisplayProfile },
 
@@ -36,10 +48,10 @@ const routes: Routes = [
     component: DisplayProfile,
     // canActivate: [AuthGuard, RoleGuard],
     // data: { roles: ['ROLE_REGISTERED_USER'] },
-  },
+},
 
   { path: 'registerCompanyAdmin', component: CreateCompanyAdminComponent },
-  { path: 'registerSystemAdmin', component: CreateSystemAdminComponent },
+{ path: 'registerSystemAdmin', component: CreateSystemAdminComponent },
   { path: 'searchEquipment', component: SearchEquipmentComponent },
 
   {
@@ -58,6 +70,10 @@ const routes: Routes = [
     component: OneCompanyComponent,
   },
   { path: 'login', component: LoginComponent },
+  { path: 'changePassword/:id', component: ChangePasswordComponent },
+  {path: 'showReservations', component: ShowReservationsComponent},
+  {path:'successfullReservation', component: SuccessfullReservationComponent},
+  {path:'usersReserved',component: ReservationsUsersComponent}
 ];
 
 @NgModule({

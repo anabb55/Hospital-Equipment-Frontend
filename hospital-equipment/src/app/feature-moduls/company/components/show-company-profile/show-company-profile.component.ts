@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { CompanyServiceService } from '../../service/company-service.service';
 import { Company } from 'src/app/model/company.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from 'src/app/model/user.model';
 
 @Component({
   selector: 'app-show-company-profile',
@@ -15,12 +18,53 @@ export class ShowCompanyProfileComponent {
   ratingFilter: number=0;
   selectedRating: number=0;
   isFilterVisible: boolean = false;
+  loggedInUser : number=0;
 
+  ulogovaniUser:User={
+    id: 0,
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    username: '',
+    phoneNumber: '',
+    occupation: '',
+    address: {
+      id: 0,
+      city: '',
+      country: '',
+      street: '',
+      number: '',
+      latitude: 0,
+      longitude: 0
+    },
+    waslogged: false,
+    roles: []
+  }
+  constructor(private companyService: CompanyServiceService, private router: Router,private activedRoute: ActivatedRoute,
+    private authService: AuthServiceService,
+    private jwtHelper: JwtHelperService){
+
+    this.loggedInUser=this.getLoggedInUser();
+    this.getAllCompanies();
+      this.getUser();
+      this.authService.passChangeSource.next(true);
+  }
 
   
-  constructor(private companyService: CompanyServiceService, private router: Router){
-
-   this.getAllCompanies()
+  getUser(){
+    this.companyService.getUserById(this.loggedInUser).subscribe({
+      next:(result)=>{
+        console.log('Ulogovani user je: '+ result.firstname);
+        this.ulogovaniUser=result;
+      },
+      error:(error)=>{
+        console.log(error);
+      }
+    })
+  }
+  getLoggedInUser():number{
+    return this.authService.getUserIdd();
   }
 
   getAllCompanies(){
@@ -78,6 +122,11 @@ toggleFilterVisibility(){
   this.isFilterVisible = !this.isFilterVisible;
 }
   
+
+Rola() {
+  const rola = this.authService.getUserRole();
+  console.log(rola);
+}
   
   
 }
