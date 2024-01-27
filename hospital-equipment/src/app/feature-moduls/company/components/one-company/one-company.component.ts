@@ -12,6 +12,8 @@ import { EquipmentStock } from 'src/app/model/equipment_stock.model';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import * as L from 'leaflet';
+import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-one-company',
   templateUrl: './one-company.component.html',
@@ -19,7 +21,7 @@ import * as L from 'leaflet';
 })
 export class OneCompanyComponent implements OnInit {
   reservationData: any = {};
-  
+
   reservationEqStock: any = {};
   id: number = 0;
   confirmationText: string = 'Confirm your reservation!!';
@@ -44,6 +46,7 @@ export class OneCompanyComponent implements OnInit {
   equipmentFlag: boolean = false;
   extraordinary: boolean = false;
   predefinedAppointments: Appointment[] = [];
+  canceledAppointments: CanceledAppointment[] = [];
   userId: number = 0;
 
   userRole: string = '';
@@ -58,8 +61,8 @@ export class OneCompanyComponent implements OnInit {
       city: '',
       country: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0,
     },
     description: '',
     grade: 0,
@@ -73,7 +76,7 @@ export class OneCompanyComponent implements OnInit {
     },
   };
 
-  public isMapVisible:boolean=false;
+  public isMapVisible: boolean = false;
   constructor(
     private activedRoute: ActivatedRoute,
     private companyService: CompanyServiceService,
@@ -85,7 +88,6 @@ export class OneCompanyComponent implements OnInit {
     this.getCompany();
     this.minDate = new Date();
     this.dateAdapter.setLocale('en-US');
-
   }
 
   ngOnInit(): void {
@@ -105,7 +107,6 @@ export class OneCompanyComponent implements OnInit {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 */
-
   }
 
   getId() {
@@ -161,7 +162,7 @@ export class OneCompanyComponent implements OnInit {
     this.userId = token.id;
 
     this.companyService
-      .updateStatus(appointment.id, appointment)
+      .updateStatus(appointment.id, appointment, this.userId)
       .subscribe((res) => {
         console.log(res);
       });
@@ -191,10 +192,39 @@ export class OneCompanyComponent implements OnInit {
     this.predefinedAppointmentsFlag = true;
     this.extraordinaryClickedFinish = true;
     this.equipmentFlag = true;
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
 
-    this.companyService.getAppointmentsByCompany(this.id).subscribe((res) => {
-      this.predefinedAppointments = res;
+    forkJoin([
+      this.companyService.getAppointmentsByCompany(this.id),
+      this.companyService.getCanceledAppointments(),
+    ]).subscribe(([predefinedAppointments, canceledAppointments]) => {
+      if (canceledAppointments != null) {
+        console.log(canceledAppointments);
+        this.canceledAppointments = canceledAppointments.filter(
+          (canceledAppointment) => canceledAppointment.userDTO.id == this.userId
+        );
+
+        console.log('Filtrirano', this.canceledAppointments);
+
+        this.predefinedAppointments = predefinedAppointments.filter(
+          (appointment) =>
+            !this.canceledAppointments.some(
+              (cancelledAppointment) =>
+                cancelledAppointment.appointmentDTO.id == appointment.id
+            )
+        );
+      }
     });
+
+    // this.predefinedAppointments = this.predefinedAppointments.filter(
+    //   (appointment) => {
+    //     return !this.canceledAppointments.some(
+    //       (cancelledAppointment) =>
+    //         cancelledAppointment.appointmentDTO.id == appointment.id
+    //     );
+    //   }
+    // );
   }
 
   CheckExtraordinaryeAppointments(): void {
@@ -277,34 +307,41 @@ export class OneCompanyComponent implements OnInit {
   }
   addAdmin() {}
 
-  initializeMap(){
-    this.isMapVisible=true;
-    console.log('adresaa')
+  initializeMap() {
+    this.isMapVisible = true;
+    console.log('adresaa');
     console.log(this.company.address);
-    const map=L.map('map',{
-      center: [this.company.address.latitude,this.company.address.longitude],
-      zoom:15,
-      renderer:L.canvas()
-    })
+    const map = L.map('map', {
+      center: [this.company.address.latitude, this.company.address.longitude],
+      zoom: 15,
+      renderer: L.canvas(),
+    });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+      attribution: '© OpenStreetMap contributors',
     }).addTo(map);
 
-    
-  const customIcon = L.icon({
-    iconUrl: '../assets/location.png',
-    iconSize: [32, 52],  
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32]
-  });
+    const customIcon = L.icon({
+      iconUrl: '../assets/location.png',
+      iconSize: [32, 52],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32],
+    });
 
-  const marker = L.marker([this.company.address.latitude, this.company.address.longitude], {
-    icon: customIcon
-  }).addTo(map);
+    const marker = L.marker(
+      [this.company.address.latitude, this.company.address.longitude],
+      {
+        icon: customIcon,
+      }
+    ).addTo(map);
 
- 
-  marker.bindPopup('<b>' + this.company.address.street + ' '+this.company.address.number+'</b>').openPopup();
-
-}
-  
+    marker
+      .bindPopup(
+        '<b>' +
+          this.company.address.street +
+          ' ' +
+          this.company.address.number +
+          '</b>'
+      )
+      .openPopup();
+  }
 }
