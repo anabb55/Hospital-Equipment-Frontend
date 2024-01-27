@@ -16,7 +16,11 @@ import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_s
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Time } from '@angular/common';
+
 import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
+
+import { User } from 'src/app/model/user.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -50,15 +54,10 @@ export class CompanyServiceService {
     });
     console.log('Poslata u servis', company);
     return this.http.put<Company>(
-      environment.apiHost +
-        'companyProfile/update/' +
-        company.id +
-        '/' +
-        company.name +
-        '/' +
-        company.description,
-      company.address,
-      { headers }
+
+      environment.apiHost + 'companyProfile/update/' + company.id , company,
+      {headers}
+
     );
   }
 
@@ -74,6 +73,7 @@ export class CompanyServiceService {
       { headers }
     );
   }
+
 
   updateCompanyAdmin(
     companyAdmin: CompanyAdministrator
@@ -431,9 +431,38 @@ export class CompanyServiceService {
     );
   }
 
+
   getCanceledAppointments(): Observable<CanceledAppointment[]> {
     return this.http.get<CanceledAppointment[]>(
       `http://localhost:8081/api/canceledAppointments/`
     );
   }
+
+  getUserById(id: number): Observable<User> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<User>(
+      environment.apiHost + 'users/getById/' + id,{headers}
+    );
+  }
+
+
+  getAllReservations(): Observable<Reservation[]> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Reservation[]>(
+      environment.apiHost + 'reservation/getAll',{headers}
+    );
+  }
+
+
 }
