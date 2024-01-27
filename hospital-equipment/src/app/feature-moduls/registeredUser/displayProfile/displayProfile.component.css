@@ -93,6 +93,12 @@ padding-top: 20px;  }
     justify-content: center;
     color: white; 
   }
+
+.main-one{
+  display: flex;
+  flex-direction: column;
+}
+
   .image-button {
     background: none;
     border: none;

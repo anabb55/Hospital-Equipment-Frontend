@@ -53,17 +53,69 @@
           <p><strong>Penalty Points:</strong> {{ registeredUser.penaltyPoints }}</p>
           <p class="category"> {{ registeredUser.userCategory }}</p>
         </div>
-        <div class="card-footer" >
-          <ul class="equipment-list">
+        <div class="main-one">
+          <div class="card-footer" >
+            <div class="sorting-options">
+              <label for="sort-appointments">Sort by:</label>
+              <select id="sort-appointments" [(ngModel)]="selectedSort" (ngModelChange)="sortAppointments()">
+                <option value="dateAsc">Date🔼</option>
+                <option value="dateDesc">Date🔽</option>
+                <option value="timeAsc">Time🔼</option>
+                <option value="timeDesc">Time🔽</option>
+                <option value="priceAsc">Price🔼</option>
+                <option value="priceDesc">Price🔽</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <ul class="equipment-list">
               <li *ngFor="let app of myAppointments" class="equipment-item">
-                  <div class="above-button">
-                <p class="eq-name">📅{{app.date}}</p>
-              </div>
-                <p class="price-text">🕓:{{app.startTime}}</p>
-                <p class="price-text">⏳:{{app.endTime}} </p>
+                <div class="above-button">
+                  <p class="eq-name">{{ app.date }}</p>
+                </div>
+                <p class="price-text">🕒: {{ app.startTime }}</p>
+                <p class="price-text">🕓: {{ app.endTime }} </p>
+                <p class="price-text">💵: {{ appointmentPrices[app.id] }}</p>
+
+          
+                <label *ngIf="isReservationTaken(app.id)">
+                  📦✅ <!-- Reservation taken -->
+                </label>
+                <label *ngIf="!isReservationTaken(app.id)">
+                  📦❌ <!-- Reservation not taken -->
+                </label>
               </li>
             </ul>
-            
+          </div>
+          <div class="search"> 
+            <button class="filter-button"
+            (click)="toggleFilterVisibility()">Filter</button>
+          </div>
+         
+          
+          
+          
+        <div class="search" *ngIf="isFilterVisible">
+          <label>
+            Status:
+            <select [(ngModel)]="selectedStatus" (change)="loadQRs()">
+              <option value="TAKEN">TAKEN</option>
+              <option value="RESERVED">RESERVED</option>
+              <option value="CANCELED">CANCELED</option>
+              <option value="EXPIRED">EXPIRED</option>
+            </select>
+          </label>
+         
+          </div>
+          <ul class="equipment-list">
+          <li *ngFor="let reservation of reservations">
+            <img [src]="'data:image/png;base64,' + reservation.qrCodeBase64" alt="QR Code" style="width: 100px; height: 100px;">
+          </li>
+        </ul>
+          
+          
+          
+          
       </div>
         </div>
       </div>
