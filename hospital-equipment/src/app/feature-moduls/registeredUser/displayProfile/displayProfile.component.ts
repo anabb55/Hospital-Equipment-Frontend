@@ -195,5 +195,11 @@ export class DisplayProfile implements OnInit {
           (a) => a !== appointment
         );
       });
+
+    this.service
+      .deleteReservationByAppointment(appointment.id)
+      .subscribe((res) => {
+        console.log('obrisano je');
+      });
   }
 }

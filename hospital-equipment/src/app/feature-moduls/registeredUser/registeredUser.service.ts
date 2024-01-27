@@ -8,6 +8,7 @@ import { DisplayProfile } from './displayProfile/displayProfile.component';
 import { RegisteredUser } from '../model/RegisteredUser';
 import { Appointment } from 'src/app/model/appointment.model';
 import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
+import { Reservation } from 'src/app/model/reservation,model';
 
 @Injectable({
   providedIn: 'root',
@@ -48,6 +49,14 @@ export class RegisteredUserService {
     return this.http.put<RegisteredUser>(
       `http://localhost:8081/api/registeredUsers/updatePenaltyPoints/${id}`,
       appointment
+    );
+  }
+
+  deleteReservationByAppointment(
+    appointmentId: number
+  ): Observable<Reservation> {
+    return this.http.delete<Reservation>(
+      `http://localhost:8081/api/reservation/deleteByAppointmentId/${appointmentId}`
     );
   }
 }
