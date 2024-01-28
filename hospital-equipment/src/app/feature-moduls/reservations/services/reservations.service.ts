@@ -29,6 +29,18 @@ export class ReservationsService {
     );
   }
 
+  getAllReservations():Observable<Reservation[]>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<Reservation[]>(
+      environment.apiHost + 'reservation/getAll',{headers}
+    );
+  }
+
   updateReservationStatus(reservationId:number){
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
@@ -86,4 +98,16 @@ export class ReservationsService {
       environment.apiHost + 'equipmentStocks/getById/' + id,{headers}
     );
   }
-}
+
+
+  updateLoyaltyProgram(id:number,winPoints:number,penaltyPoints:number):Observable<RegisteredUser>{
+    const token = this.jwtHelper.tokenGetter();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<RegisteredUser>(
+      environment.apiHost +'registeredUsers/updateLoyaltyProgram/' +id+ '/' + winPoints + '/' + penaltyPoints,{ headers }
+    );
+  }
+} 

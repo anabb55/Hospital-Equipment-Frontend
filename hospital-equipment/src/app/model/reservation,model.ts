@@ -1,3 +1,4 @@
+import { RegisteredUser } from "../feature-moduls/model/RegisteredUser";
 import { User } from "../feature-moduls/model/User";
 import { Appointment } from "./appointment.model";
 export enum ReservationStatus {
@@ -11,5 +12,5 @@ export interface Reservation{
     appointmentDTO:Appointment,
     reservationStatus:ReservationStatus,
     penaltyPoints:number,
-    registeredUserDTO:User
+    registeredUserDTO:RegisteredUser
 }
