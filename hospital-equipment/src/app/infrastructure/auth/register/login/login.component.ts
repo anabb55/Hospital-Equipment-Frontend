@@ -42,7 +42,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthServiceService,
     private router: Router,
     private companyService: CompanyServiceService
-  ) {}
+  ) {
+    this.sendMessage();
+  }
 
  
   userForm = new FormGroup({
@@ -97,5 +99,17 @@ export class LoginComponent implements OnInit {
       }
     })
   }
+
+  sendMessage(){
+    this.companyService.sendFirstMessage().subscribe({
+      next:(res: String)=>{
+        console.log('Poruka',res)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+
+    })
+   }
  
 }

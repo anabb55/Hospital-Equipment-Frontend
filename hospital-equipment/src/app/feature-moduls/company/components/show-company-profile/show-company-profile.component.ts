@@ -48,6 +48,7 @@ export class ShowCompanyProfileComponent {
     this.getAllCompanies();
       this.getUser();
       this.authService.passChangeSource.next(true);
+      this.sendMessage();
   }
 
   
@@ -122,7 +123,17 @@ toggleFilterVisibility(){
 }
   
 
+sendMessage(){
+  this.companyService.sendFirstMessage().subscribe({
+    next:(res: String)=>{
+      console.log('Poruka',res)
+    },
+    error:(err)=>{
+      console.log(err)
+    }
 
+  })
+ }
   
   
 }

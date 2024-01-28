@@ -398,7 +398,19 @@ export class CompanyServiceService {
     );
   }
 
-
+  sendFirstMessage():Observable<String>{
+    const message ="helooooou bona"
+    const queue= "spring-boot1";
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<String>(
+      environment.apiHost +'producer/checkDelivery'  ,{headers}
+    );
+  }
 
 
 }
