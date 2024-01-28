@@ -5,7 +5,6 @@ import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Company } from 'src/app/model/company.model';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/model/address.model';
-import { CompanyServiceService } from '../company/service/company-service.service';
 
 @Component({
   selector: 'app-register-company-profile',
@@ -92,16 +91,15 @@ export class RegisterCompanyProfileComponent implements OnInit {
       country: '',
       street: '',
       number: '',
-      longitude: 0,
-      latitude: 0
+      longitude:0,
+      latitude:0
     },
     company: undefined,
     username: '',
-    waslogged: false,
-    roles: []
+    waslogged:false
   }
   savedAddress:Address | undefined
-  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,private companyService :CompanyServiceService){
+  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){
     
   }
   ngOnInit(): void {
@@ -146,21 +144,20 @@ export class RegisterCompanyProfileComponent implements OnInit {
       },
     })
 
-    
+    this.addedAdmin.forEach(admin => {
+      this.service.updateCompanyAdmin(admin).subscribe({
+      next:(result:CompanyAdministrator)=>{
+        this.updatedAdmin = result;
+        console.log('Ime kompanije od updatovanog admina: '+this.updatedAdmin.company?.name);
+      }
+    })
+  });
   
 
     this.service.createCompany(this.company).subscribe({
     
       next:(result:Company)=>{
         this.createdCompany = result;
-        this.addedAdmin.forEach(admin => {
-          this.companyService.updateCompanyAdmin(admin).subscribe({
-          next:(result:CompanyAdministrator)=>{
-            this.updatedAdmin = result;
-            console.log('Ime kompanije od updatovanog admina: '+this.updatedAdmin.company?.name);
-          }
-        })
-      });
         this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
           duration: 6000, // Vreme prikazivanja obaveštenja u milisekundama
           panelClass: ['success-snackbar'] // Opciona klasa za stilizovanje obaveštenja
