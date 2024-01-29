@@ -37,6 +37,25 @@
   cursor: pointer;
   text-align: center;
 }
+.log-out{
+  width: 90%;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.nbuttonEnd {
+  padding-right: 10px;
+  height: 100%;
+  font-size: 22px;
+  font-family: Georgia, serif;
+  font-weight: medium;
+
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(212, 243, 232);
+  cursor: pointer;
+  text-align: center;
+}
 
 
 .link {
