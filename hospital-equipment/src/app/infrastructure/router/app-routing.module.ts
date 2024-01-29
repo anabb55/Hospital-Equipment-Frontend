@@ -28,6 +28,7 @@ import { WorkCalendarComponent } from 'src/app/feature-moduls/work-calendar/work
 import { ShowReservationsComponent } from 'src/app/feature-moduls/reservations/components/show-reservations/show-reservations.component';
 import { SuccessfullReservationComponent } from 'src/app/feature-moduls/reservations/components/successfull-reservation/successfull-reservation.component';
 import { ReservationsUsersComponent } from 'src/app/feature-moduls/reservations/components/reservations-users/reservations-users.component';
+import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upload-qr-code.component';
 
 
 const routes: Routes = [
@@ -68,7 +69,8 @@ const routes: Routes = [
   { path: 'changePassword/:id', component: ChangePasswordComponent },
   {path: 'showReservations', component: ShowReservationsComponent},
   {path:'successfullReservation', component: SuccessfullReservationComponent},
-  {path:'usersReserved',component: ReservationsUsersComponent}
+  {path:'usersReserved',component: ReservationsUsersComponent},
+  {path:'uploadQRCODE', component:UploadQrCodeComponent}
 ];
 
 @NgModule({

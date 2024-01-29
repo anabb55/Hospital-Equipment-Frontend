@@ -8,7 +8,7 @@ export enum ReservationStatus {
     'REJECTED' }
 export interface Reservation{
     id:number,
-    appointment:Appointment,
+    appointmentDTO:Appointment,
     reservationStatus:ReservationStatus,
     penaltyPoints:number,
     registeredUserDTO:RegisteredUser
