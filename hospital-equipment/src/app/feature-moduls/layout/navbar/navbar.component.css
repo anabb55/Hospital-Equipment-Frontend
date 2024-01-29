@@ -57,6 +57,14 @@
   text-align: center;
 }
 
+.reg-user{
+  width: 100%;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
 
 .link {
   color: #ffffff; 
