@@ -51,6 +51,7 @@ import { ReservationsUsersComponent } from './feature-moduls/reservations/compon
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
 import { PositionSimulatorComponent } from './feature-moduls/position-simulator/position-simulator.component';
+import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admin-add-appointment/admin-add-appointment.component';
 
 
 
@@ -82,7 +83,8 @@ import { PositionSimulatorComponent } from './feature-moduls/position-simulator/
 
   ReservationsUsersComponent,
     UploadQrCodeComponent,
-    PositionSimulatorComponent
+    PositionSimulatorComponent,
+    AdminAddAppointmentComponent
 
 
   ],

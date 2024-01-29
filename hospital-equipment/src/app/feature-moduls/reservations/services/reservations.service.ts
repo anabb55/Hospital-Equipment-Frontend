@@ -17,7 +17,7 @@ export class ReservationsService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
 
-  getReservationsByCompany(companyId:number):Observable<ReservationEquipmentStock[]>{
+  getReservationsByCompany(companyId:number,adminId:number):Observable<ReservationEquipmentStock[]>{
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
@@ -25,7 +25,7 @@ export class ReservationsService {
       'Content-Type': 'application/json',
     });
     return this.http.get<ReservationEquipmentStock[]>(
-      environment.apiHost + 'reservationEquipment/getByCompanyId/' + companyId,{headers}
+      environment.apiHost + 'reservationEquipment/getByCompanyId/' + companyId +'/'+adminId,{headers}
     );
   }
 

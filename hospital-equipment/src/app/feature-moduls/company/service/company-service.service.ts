@@ -408,14 +408,14 @@ export class CompanyServiceService {
     startTime: string,
     endTime: string,
     adminId: number
-  ): Observable<Appointment> {
+  ): Observable<String> {
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.post<Appointment>(
+    return this.http.post<String>(
       environment.apiHost +
         'appointments/createApp' +
         '/' +
