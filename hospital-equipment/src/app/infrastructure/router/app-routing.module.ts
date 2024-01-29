@@ -25,20 +25,19 @@ import { SearchEquipmentComponent } from 'src/app/feature-moduls/search-equipmen
 import { ChangePasswordComponent } from 'src/app/feature-moduls/change-password/change-password.component';
 
 import { WorkCalendarComponent } from 'src/app/feature-moduls/work-calendar/work-calendar.component';
-
 import { ShowReservationsComponent } from 'src/app/feature-moduls/reservations/components/show-reservations/show-reservations.component';
 import { SuccessfullReservationComponent } from 'src/app/feature-moduls/reservations/components/successfull-reservation/successfull-reservation.component';
 import { ReservationsUsersComponent } from 'src/app/feature-moduls/reservations/components/reservations-users/reservations-users.component';
-
 import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upload-qr-code.component';
+
 import { PositionSimulatorComponent } from 'src/app/feature-moduls/position-simulator/position-simulator.component';
+
 
 const routes: Routes = [
   { path: 'showCompanyProfile', component: ShowCompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
 
   { path: 'workCalendar', component: WorkCalendarComponent },
-  { path: 'uploadQRcode', component: UploadQrCodeComponent },
 
   { path: 'displayProfile', component: DisplayProfile },
 
@@ -70,6 +69,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'changePassword/:id', component: ChangePasswordComponent },
+
   { path: 'showReservations', component: ShowReservationsComponent },
   {
     path: 'successfullReservation',
@@ -77,6 +77,9 @@ const routes: Routes = [
   },
   { path: 'usersReserved', component: ReservationsUsersComponent },
   { path: 'position-simulator', component: PositionSimulatorComponent },
+
+  {path:'uploadQRCODE', component:UploadQrCodeComponent}
+
 ];
 
 @NgModule({

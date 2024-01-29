@@ -74,6 +74,18 @@ export class CompanyServiceService {
     );
   }
 
+  getUserById(id: number): Observable<User> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<User>(
+      environment.apiHost + 'users/getById/' + id,{headers}
+    );
+  }
+
 
   updateCompanyAdmin(
     companyAdmin: CompanyAdministrator
@@ -438,17 +450,20 @@ export class CompanyServiceService {
     );
   }
 
-  getUserById(id: number): Observable<User> {
+  sendFirstMessage():Observable<String>{
+    const message ="helooooou bona"
+    const queue= "spring-boot1";
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<User>(
-      environment.apiHost + 'users/getById/' + id,{headers}
+    return this.http.get<String>(
+      environment.apiHost +'producer/checkDelivery'  ,{headers}
     );
   }
+
 
 
   getAllReservations(): Observable<Reservation[]> {
@@ -463,6 +478,7 @@ export class CompanyServiceService {
       environment.apiHost + 'reservation/getAll',{headers}
     );
   }
+
 
 
 }

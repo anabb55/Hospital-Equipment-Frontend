@@ -9,6 +9,7 @@ export enum UserCategory {
 
 export interface RegisteredUser extends User {
   penaltyPoints: number;
+  accumulatedPoints:number,
   userCategory: UserCategory; 
   loyaltyProgram:LoyaltyProgram;
 
