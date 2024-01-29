@@ -71,7 +71,8 @@
             <ul class="equipment-list">
               <li *ngFor="let app of myAppointments" class="equipment-item">
                 <div class="above-button">
-                  <p class="eq-name">{{ app.date }}</p>
+                  <p class="eq-name">📅{{ app.date }}</p>
+                 
                 </div>
                 <p class="price-text">🕒: {{ app.startTime }}</p>
                 <p class="price-text">🕓: {{ app.endTime }} </p>
@@ -84,6 +85,10 @@
                 <label *ngIf="!isReservationTaken(app.id)">
                   📦❌ <!-- Reservation not taken -->
                 </label>
+
+                <button (click)="cancelReservation(app)" class="cancel-button">
+                  Cancel
+                </button>
               </li>
             </ul>
           </div>
