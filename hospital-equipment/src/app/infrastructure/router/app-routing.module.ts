@@ -31,6 +31,7 @@ import { ReservationsUsersComponent } from 'src/app/feature-moduls/reservations/
 import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upload-qr-code.component';
 
 import { PositionSimulatorComponent } from 'src/app/feature-moduls/position-simulator/position-simulator.component';
+import { AdminAddAppointmentComponent } from 'src/app/feature-moduls/appointments/admin-add-appointment/admin-add-appointment.component';
 
 
 const routes: Routes = [
@@ -78,7 +79,8 @@ const routes: Routes = [
   { path: 'usersReserved', component: ReservationsUsersComponent },
   { path: 'position-simulator', component: PositionSimulatorComponent },
 
-  {path:'uploadQRCODE', component:UploadQrCodeComponent}
+  {path:'uploadQRCODE', component:UploadQrCodeComponent},
+  {path:'addAppointment', component:AdminAddAppointmentComponent}
 
 ];
 

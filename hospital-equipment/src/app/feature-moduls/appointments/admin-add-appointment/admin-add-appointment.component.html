@@ -1,0 +1,38 @@
+
+
+    <div class="form-container">
+
+        <form class="company-form" [formGroup]="appForm">
+            <h2 class="form-title">Create new appointment</h2>
+            <div class="form-group">
+                <label for="name">Admin Name:</label>
+                <input matInput type="text">
+            </div>
+            <div class="form-group">
+                <label for="description"> Admin LastName:</label>
+                <input matInput type="text">
+            </div>
+            <div class="form-group">
+                <label>Date:</label>
+                <input type="date" formControlName="date" [min]="minDate">
+            </div>
+
+            <div class="form-group">
+                <label>From:</label>
+                <input type="time" formControlName="startTime">
+            </div>
+            <div class="form-group">
+                <label>To:</label>
+                <input type="time" formControlName="endTime">
+            </div>
+
+          
+
+
+
+
+
+
+        </form>
+    </div>
+    <button class="appointmentButton" (click)="addApp()">ADD APPOINTMENT</button>
