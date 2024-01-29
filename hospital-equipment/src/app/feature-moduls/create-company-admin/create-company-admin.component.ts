@@ -3,7 +3,6 @@ import { CompanyAdmin } from '../model/companyAdmin.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { Address } from 'src/app/model/address.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
-import { Role } from 'src/app/model/userRole.model';
 
 @Component({
   selector: 'app-create-company-admin',
@@ -35,14 +34,15 @@ export class CreateCompanyAdminComponent implements OnInit {
       country: '',
       street: '',
       number: '',
-      longitude: 0,
-      latitude: 0
+      longitude:0,
+      latitude:0
     },
     id: 0,
-    waslogged: false,
+    waslogged:false,
 
     company: undefined,
-    roles: []
+    
+
   };
 
   address:Address={
@@ -63,10 +63,7 @@ export class CreateCompanyAdminComponent implements OnInit {
     longitude:0,
     latitude:0
   }
-role:Role={
-  id: 2,
-  name: 'ROLE_COMPANY_ADMIN'
-}
+
   createdAdmin : CompanyAdministrator | undefined;
 
   createAdmin() {
@@ -74,7 +71,6 @@ role:Role={
       next:(result:Address)=>{
         this.savedAddress = result;
         this.adminData.address = this.savedAddress;
-        this.adminData.roles.push(this.role);
         this.service.createCompanyAdmin(this.adminData).subscribe({
           next:(result:CompanyAdministrator)=>{
               this.createdAdmin =result;

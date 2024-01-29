@@ -1,5 +1,4 @@
 import { Address } from "./address.model";
-import { Role } from "./userRole.model";
 
 export interface User {
   id: number;
@@ -12,5 +11,4 @@ export interface User {
   occupation: String;
   address: Address;
   waslogged:boolean
-  roles:Role[]
 }

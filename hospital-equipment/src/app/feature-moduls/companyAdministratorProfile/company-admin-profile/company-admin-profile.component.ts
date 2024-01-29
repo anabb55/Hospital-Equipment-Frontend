@@ -23,8 +23,8 @@ export class CompanyAdminProfileComponent {
         country: '',
         street: '',
         number: '',
-        longitude: 0,
-        latitude: 0
+        longitude:0,
+        latitude:0
       },
       description: '',
       grade: 0,
@@ -49,13 +49,13 @@ export class CompanyAdminProfileComponent {
       city: '',
       country: '',
       number: '',
-      longitude: 0,
-      latitude: 0
+      longitude:0,
+      latitude:0
     },
 
     waslogged: false,
     username: '',
-    roles: []
+
   }
 
   inputForm= new FormGroup({
