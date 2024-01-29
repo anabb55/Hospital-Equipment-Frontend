@@ -114,6 +114,6 @@ export class ShowReservationsComponent implements OnInit{
 
   
 navigateToUploadQRCode() {
-  this.router.navigate(['/uploadQRcode']);
+  this.router.navigate(['/uploadQRCODE']);
 }
 }
