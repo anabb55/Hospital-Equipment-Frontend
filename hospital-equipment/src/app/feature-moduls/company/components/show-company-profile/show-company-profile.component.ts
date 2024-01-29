@@ -40,8 +40,7 @@ export class ShowCompanyProfileComponent {
       latitude: 0,
       longitude: 0
     },
-    waslogged: false,
-    roles: []
+    waslogged: false
   }
   constructor(private companyService: CompanyServiceService, private router: Router,private activedRoute: ActivatedRoute,
     private authService: AuthServiceService,
@@ -51,6 +50,7 @@ export class ShowCompanyProfileComponent {
     this.getAllCompanies();
       this.getUser();
       this.authService.passChangeSource.next(true);
+      this.sendMessage();
   }
 
   
@@ -154,6 +154,18 @@ Rola() {
   const rola = this.authService.getUserRole();
   console.log(rola);
 }
+
+sendMessage(){
+  this.companyService.sendFirstMessage().subscribe({
+    next:(res: String)=>{
+      console.log('Poruka',res)
+    },
+    error:(err)=>{
+      console.log(err)
+    }
+
+  })
+ }
   
   
 }

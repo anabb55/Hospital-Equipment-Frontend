@@ -11,8 +11,12 @@ import { Appointment } from 'src/app/model/appointment.model';
 import { CalendarEvent } from 'angular-calendar';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { CompanyServiceService } from '../../company/service/company-service.service';
+import { Subscription } from 'rxjs';
+import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
 import { Reservation } from 'src/app/model/reservation,model';
 import { Observable, of, take } from 'rxjs';
+
 
 @Component({
   selector: 'app-display-profile', // Adjust the selector as needed
@@ -40,7 +44,8 @@ export class DisplayProfile implements OnInit {
     private cdr: ChangeDetectorRef, // Inject ChangeDetectorRef
     private toastr: ToastrService,
     private authService: AuthServiceService,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private companyService: CompanyServiceService
   ) {
     this.profileForm = this.fb.group({
       id: [''],
@@ -110,9 +115,11 @@ export class DisplayProfile implements OnInit {
     this.service.getFutureAppointments(this.userId).subscribe({
       next: (data: Appointment[]) => {
         this.myAppointments = data;
+
         this.checkReservationsForAppointments();
         this.fetchTotalPricesForAppointments(); 
         console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
+
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
@@ -261,5 +268,32 @@ export class DisplayProfile implements OnInit {
         titleClass: 'toast-custom-title',
       }
     );
+  }
+
+  cancelReservation(appointment: Appointment) {
+    const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
+
+    console.log(this.userId);
+
+    this.service
+      .updatePenaltyPoints(this.userId, appointment)
+      .subscribe((res) => {
+        this.registeredUser.penaltyPoints = res.penaltyPoints;
+      });
+
+    this.companyService
+      .updateStatus(appointment.id, appointment, this.userId)
+      .subscribe((res) => {
+        this.myAppointments = this.myAppointments.filter(
+          (a) => a !== appointment
+        );
+      });
+
+    this.service
+      .deleteReservationByAppointment(appointment.id)
+      .subscribe((res) => {
+        console.log('obrisano je');
+      });
   }
 }

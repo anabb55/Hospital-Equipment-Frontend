@@ -6,6 +6,7 @@ import { CompanyServiceService } from 'src/app/feature-moduls/company/service/co
 import { Company } from 'src/app/model/company.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-reservations',
@@ -21,7 +22,7 @@ export class ShowReservationsComponent implements OnInit{
   displayedColumns: string[] = ['ReservationID','Appointment', 'ReservationStatus','Amount','TotalAmount','User','Equipment','Select']; // Dodajte nazive kolona
   
   dataSource = new MatTableDataSource(this.reservations);
-  constructor(private resService: ReservationsService,private authService:AuthServiceService,private companyService:CompanyServiceService){
+  constructor(private router:Router,private resService: ReservationsService,private authService:AuthServiceService,private companyService:CompanyServiceService){
     this.getLoggedInUser();
     this.findCompanyIdByAdmin();
     this.dataSource = new MatTableDataSource(this.reservations);
@@ -110,4 +111,9 @@ export class ShowReservationsComponent implements OnInit{
     
     return true
   }
+
+  
+navigateToUploadQRCode() {
+  this.router.navigate(['/uploadQRCODE']);
+}
 }

@@ -1,4 +1,5 @@
 <div class="companies-view">
+  
 
   <div class="search-bar">
     <div class="search">
@@ -9,6 +10,7 @@
     <button class="filter-button"
     (click)="toggleFilterVisibility()">Filter</button>
   </div>
+
  
   <div class="search" *ngIf="!isFilterVisible">
     <label>
@@ -25,6 +27,7 @@
   </div>
   
   
+
 <div class="search" *ngIf="isFilterVisible">
   <label>
     Rating:

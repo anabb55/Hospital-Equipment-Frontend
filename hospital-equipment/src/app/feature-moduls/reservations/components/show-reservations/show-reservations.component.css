@@ -61,3 +61,17 @@
   border-color: #004d00; /* Tamnija zelena boja ivice kada je dugme pritisnuto */
 }
   
+
+.upload-button {
+  background-color: #008888; /* Zelena boja */
+  color: #fff; /* Bela boja teksta */
+  padding: 10px 20px; /* Margine dugmeta */
+  border: none; /* Bez ivice oko dugmeta */
+  cursor: pointer; /* Pokazivač misa pri hover-u */
+  border-radius: 5px; /* Zaobljeni uglovi */
+  font-size: 16px; /* Veličina fonta */
+}
+
+.upload-button:hover {
+  background-color: #005555; /* Tamnija nijansa zelene boje pri hover-u */
+}

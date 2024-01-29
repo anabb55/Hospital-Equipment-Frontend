@@ -16,31 +16,35 @@ export class LoginComponent implements OnInit {
  
 
   user :User={
-    id: 0,
-    email: '',
-    password: '',
-    firstname: '',
-    lastname: '',
-    phoneNumber: '',
-    occupation: '',
+    id:0,
+    email:'',
+    password:'',
+    firstname:'',
+    lastname:'',
+    phoneNumber:'',
+    occupation:'',
     address: {
-      id: 0,
+      id:0,
       street: '',
       city: '',
-      country: '',
+      country:'',
       number: '',
-      longitude: 0,
-      latitude: 0
+      longitude:0,
+      latitude:0
     },
     waslogged: false,
-    username: '',
-    roles: []
+    username: ''
+    
+
+
   }
   constructor(
     private authService: AuthServiceService,
     private router: Router,
     private companyService: CompanyServiceService
-  ) {}
+  ) {
+    this.sendMessage();
+  }
 
  
   userForm = new FormGroup({
@@ -95,5 +99,17 @@ export class LoginComponent implements OnInit {
       }
     })
   }
+
+  sendMessage(){
+    this.companyService.sendFirstMessage().subscribe({
+      next:(res: String)=>{
+        console.log('Poruka',res)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+
+    })
+   }
  
 }

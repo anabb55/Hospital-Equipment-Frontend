@@ -4,6 +4,6 @@ import { Equipment } from "./equipment.model";
 export interface EquipmentStock{
     id:number,
     equipment:Equipment,
-    company:Company,
+    companyDTO:Company,
     amount:number
 }
