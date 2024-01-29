@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Reservation } from 'src/app/model/reservation,model';
 import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
 import { RegisteredUser } from '../../model/RegisteredUser';
+import { EquipmentStock } from 'src/app/model/equipment_stock.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +26,18 @@ export class ReservationsService {
     });
     return this.http.get<ReservationEquipmentStock[]>(
       environment.apiHost + 'reservationEquipment/getByCompanyId/' + companyId,{headers}
+    );
+  }
+
+  getAllReservations():Observable<Reservation[]>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<Reservation[]>(
+      environment.apiHost + 'reservation/getAll',{headers}
     );
   }
 
@@ -63,4 +76,38 @@ export class ReservationsService {
       environment.apiHost + 'reservationEquipment/getUsersReserved/' + companyId,{headers}
     );
   }
-}
+
+  getReservationEquipmentStock(reservationId:number):Observable<ReservationEquipmentStock[]>{
+    const token = this.jwtHelper.tokenGetter();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<ReservationEquipmentStock[]>(
+      environment.apiHost + 'reservationEquipment/getByReservationId/' + reservationId,{headers}
+    );
+  }
+
+  getEquipmentStock(id:number):Observable<EquipmentStock>{
+    const token = this.jwtHelper.tokenGetter();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<EquipmentStock>(
+      environment.apiHost + 'equipmentStocks/getById/' + id,{headers}
+    );
+  }
+
+
+  updateLoyaltyProgram(id:number,winPoints:number,penaltyPoints:number):Observable<RegisteredUser>{
+    const token = this.jwtHelper.tokenGetter();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<RegisteredUser>(
+      environment.apiHost +'registeredUsers/updateLoyaltyProgram/' +id+ '/' + winPoints + '/' + penaltyPoints,{ headers }
+    );
+  }
+} 

@@ -269,10 +269,7 @@ export class OneCompanyComponent implements OnInit {
       );
   }
   confirmReservation(): void {
-    this.companyService.sendQRCode().subscribe((res) => {
-      console.log('mail je poslat');
-      alert('Check your email!');
-    });
+    
 
     this.companyService
       .processReservation(
@@ -286,6 +283,12 @@ export class OneCompanyComponent implements OnInit {
           console.log(this.reservationEqStock);
           this.reserveClicked = true;
           this.confirmReservationClicked = true;
+
+          this.companyService.sendQRCode().subscribe((res) => {
+            console.log('mail je poslat');
+            alert('Check your email!');
+          });
+
         },
         (error) => {
           console.error(error);

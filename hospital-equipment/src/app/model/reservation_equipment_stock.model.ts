@@ -4,6 +4,6 @@ import { Reservation } from "./reservation,model";
 export interface ReservationEquipmentStock{
     id:number,
     reservation:Reservation,
-    equipmentStock:EquipmentStock,
+    equipmentStockDTO:EquipmentStock,
     amount:number
 }

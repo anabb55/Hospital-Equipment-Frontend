@@ -19,6 +19,8 @@ export class ShowCompanyProfileComponent {
   selectedRating: number=0;
   isFilterVisible: boolean = false;
   loggedInUser : number=0;
+  selectedSort: string = '';
+
 
   ulogovaniUser:User={
     id: 0,
@@ -78,7 +80,32 @@ export class ShowCompanyProfileComponent {
       }
     })
   }
-
+  sortCompanies() {
+    switch (this.selectedSort) {
+      case 'nameAsc':
+        this.companies.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'nameDesc':
+        this.companies.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'cityAsc':
+        this.companies.sort((a, b) => a.address.city.localeCompare(b.address.city));
+        break;
+      case 'cityDesc':
+        this.companies.sort((a, b) => b.address.city.localeCompare(a.address.city));
+        break;
+      case 'ratingAsc':
+        this.companies.sort((a, b) => a.grade - b.grade);
+        break;
+      case 'ratingDesc':
+        this.companies.sort((a, b) => b.grade - a.grade);
+        break;
+      default:
+        // No sort or default sort logic
+        break;
+    }
+  }
+  
   showOneCompany(company:Company){
     this.router.navigate(['/oneCompany/', company.id]);
   }
@@ -122,6 +149,11 @@ toggleFilterVisibility(){
   this.isFilterVisible = !this.isFilterVisible;
 }
   
+
+Rola() {
+  const rola = this.authService.getUserRole();
+  console.log(rola);
+}
 
 sendMessage(){
   this.companyService.sendFirstMessage().subscribe({

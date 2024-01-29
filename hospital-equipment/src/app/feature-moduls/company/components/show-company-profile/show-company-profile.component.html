@@ -1,4 +1,5 @@
 <div class="companies-view">
+  
 
   <div class="search-bar">
     <div class="search">
@@ -9,6 +10,23 @@
     <button class="filter-button"
     (click)="toggleFilterVisibility()">Filter</button>
   </div>
+
+ 
+  <div class="search" *ngIf="!isFilterVisible">
+    <label>
+      Sort by:
+      <select [(ngModel)]="selectedSort" (ngModelChange)="sortCompanies()">
+        <option value="nameAsc">Name - 🔼</option>
+        <option value="nameDesc">Name - 🔽</option>
+        <option value="cityAsc">City - 🔼</option>
+        <option value="cityDesc">City - 🔽</option>
+        <option value="ratingAsc">Grade - 🔼</option>
+        <option value="ratingDesc">Grade - 🔽</option>
+      </select>
+    </label>
+  </div>
+  
+  
 
 <div class="search" *ngIf="isFilterVisible">
   <label>
