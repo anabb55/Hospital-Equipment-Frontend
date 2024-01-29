@@ -45,7 +45,13 @@ export class RegisteredUserService {
     );
   }
 
-
+  getReservationsQRForUser(userId: number, status?: string): Observable<any[]> {
+    let url = `http://localhost:8081/api/reservation/qrCode/${userId}`;
+    if (status) {
+      url += `?status=${encodeURIComponent(status)}`; 
+    }
+    return this.http.get<any[]>(url);
+  }
   getTotalPrice(idAppointment: number): Observable<number> {
     return this.http.get<number>(`http://localhost:8081/api/reservationEquipment/totalPrice/${idAppointment}`);
 
