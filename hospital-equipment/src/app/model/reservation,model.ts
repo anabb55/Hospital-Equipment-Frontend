@@ -1,3 +1,4 @@
+import { RegisteredUser } from "../feature-moduls/model/RegisteredUser";
 import { Appointment } from "./appointment.model";
 export enum ReservationStatus {
     'CANCELED',
@@ -9,5 +10,7 @@ export interface Reservation{
     id:number,
     appointment:Appointment,
     reservationStatus:ReservationStatus,
-    penaltyPoints:number
+    penaltyPoints:number,
+    registeredUserDTO:RegisteredUser
+
 }
