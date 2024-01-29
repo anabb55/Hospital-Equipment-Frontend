@@ -48,6 +48,11 @@ import { SuccessfullReservationComponent } from './feature-moduls/reservations/c
 import { ReservationsUsersComponent } from './feature-moduls/reservations/components/reservations-users/reservations-users.component';
 //import 'leaflet/dist/leaflet.css';
 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
+import { PositionSimulatorComponent } from './feature-moduls/position-simulator/position-simulator.component';
+
+
 
 
 @NgModule({
@@ -74,7 +79,12 @@ import { ReservationsUsersComponent } from './feature-moduls/reservations/compon
     WorkCalendarComponent,
   ShowReservationsComponent,
   SuccessfullReservationComponent,
-  ReservationsUsersComponent
+
+  ReservationsUsersComponent,
+    UploadQrCodeComponent,
+    PositionSimulatorComponent
+
+
   ],
 
   imports: [
