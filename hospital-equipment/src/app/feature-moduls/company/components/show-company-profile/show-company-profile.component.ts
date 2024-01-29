@@ -51,6 +51,7 @@ export class ShowCompanyProfileComponent {
       this.getUser();
       this.authService.passChangeSource.next(true);
       this.sendMessage();
+      this.checkExpiredReservations();
   }
 
   
@@ -167,5 +168,15 @@ sendMessage(){
   })
  }
   
+ checkExpiredReservations(){
+  this.companyService.checkExpiredReservations().subscribe({
+    next:(res)=>{
+      console.log('Provjerene istekle',res)
+    },
+    error:(err)=>{
+      console.log(err)
+    }
+  })
+ }
   
 }

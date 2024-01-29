@@ -479,6 +479,17 @@ export class CompanyServiceService {
     );
   }
 
-
+  checkExpiredReservations(){
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.put(
+      environment.apiHost + 'reservation/checkExpiredReservations/',{headers}
+    );
+  }
 
 }
