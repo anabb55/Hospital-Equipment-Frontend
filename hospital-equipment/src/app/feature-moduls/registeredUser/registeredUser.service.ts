@@ -10,6 +10,7 @@ import { Appointment } from 'src/app/model/appointment.model';
 import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
 import { Reservation } from 'src/app/model/reservation,model';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +24,19 @@ export class RegisteredUserService {
     );
   }
 
+
   /* getProfileForUserWithId5(): Observable<RegisteredUser> {
+
+  getReservationsQRForUser(userId: number, status?: string): Observable<any[]> {
+    let url = `http://localhost:8081/api/reservation/qrCode/${userId}`;
+    if (status) {
+      url += `?status=${encodeURIComponent(status)}`; 
+    }
+    return this.http.get<any[]>(url);
+  }
+
+ /* getProfileForUserWithId5(): Observable<RegisteredUser> {
+
     return this.getProfile(5);
   }*/
   getFutureAppointments(idUser: number): Observable<Appointment[]> {
@@ -31,6 +44,21 @@ export class RegisteredUserService {
       `http://localhost:8081/api/appointments/futureAppointment/${idUser}`
     );
   }
+
+
+  getTotalPrice(idAppointment: number): Observable<number> {
+    return this.http.get<number>(`http://localhost:8081/api/reservationEquipment/totalPrice/${idAppointment}`);
+
+  }
+
+  isStatusTaken(id: number): Observable<boolean> {
+    console.log("id je" + id);
+    return this.http.get<boolean>(`http://localhost:8081/api/reservation/isReservationTaken/${id}`);
+  }
+  
+  
+  
+
 
   updateProfile(
     profile: RegisteredUser,
