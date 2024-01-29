@@ -25,6 +25,15 @@
         raised-button
         *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
         routerLinkActive="active"
+        [routerLink]="['position-simulator']"
+        class="link"
+      >
+        PositionSimulator
+     </a>
+     <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
         [routerLink]="['companyAdminProfile']"
         class="link"
       >

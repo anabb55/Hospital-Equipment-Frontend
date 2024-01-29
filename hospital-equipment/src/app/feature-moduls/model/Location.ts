@@ -1,4 +1,4 @@
-export interface PositionSimulator {
+export interface Location {
   latitude: number;
   longitude: number;
 }
