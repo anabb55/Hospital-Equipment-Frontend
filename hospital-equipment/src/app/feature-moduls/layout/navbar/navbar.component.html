@@ -62,6 +62,15 @@ class="link"
 >
 WorkCalendar
 </a>
+<a
+raised-button
+*ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+routerLinkActive="active"
+[routerLink]="['addAppointment']"
+class="link"
+>
+Add Appointment
+</a>
       <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
         Login
       </button>
