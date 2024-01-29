@@ -49,6 +49,7 @@ import { ReservationsUsersComponent } from './feature-moduls/reservations/compon
 //import 'leaflet/dist/leaflet.css';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
+import { PositionSimulatorComponent } from './feature-moduls/position-simulator/position-simulator.component';
 
 
 
@@ -77,7 +78,8 @@ import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr
   ShowReservationsComponent,
   SuccessfullReservationComponent,
   ReservationsUsersComponent,
-    UploadQrCodeComponent
+    UploadQrCodeComponent,
+    PositionSimulatorComponent
 
   ],
 
