@@ -3,6 +3,7 @@ import { Address } from 'src/app/model/address.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { SystemAdmin } from 'src/app/model/systemAdmin.model';
 import { UserCategory } from '../model/RegisteredUser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-system-admin',
@@ -11,7 +12,7 @@ import { UserCategory } from '../model/RegisteredUser';
 })
 export class CreateSystemAdminComponent implements OnInit{
 
-  constructor(private service:RegisterCompanyService){}
+  constructor(private service:RegisterCompanyService,private router:Router){}
 
   addresses:Address[] =[] 
 
@@ -29,13 +30,14 @@ export class CreateSystemAdminComponent implements OnInit{
       country: '',
       street: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0
     },
     userCategory: UserCategory.Regular,
 
 
-    username: ''
+    username: '',
+    waslogged: false
   }
   address:Address={
     id: 0,
@@ -72,19 +74,21 @@ export class CreateSystemAdminComponent implements OnInit{
         this.savedAddress = result;
         this.adminData.address = this.savedAddress;
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
+
+        this.service.createSystemAdmin(this.adminData).subscribe({
+          next:(result:SystemAdmin)=>{
+              this.createdAdmin =result;
+              alert('Company admin successfully created!');
+              this.router.navigate(['showCompanyProfile']);
+        
+          }
+        })
       },
       error: (err: any) => {
         console.log(err);
       },
     })
-          console.log("adesa: "+ this.adminData.address.id);
-          this.service.createSystemAdmin(this.adminData).subscribe({
-            next:(result:SystemAdmin)=>{
-                this.createdAdmin =result;
-                
-          
-            }
-          })
+         
 }
 
 }

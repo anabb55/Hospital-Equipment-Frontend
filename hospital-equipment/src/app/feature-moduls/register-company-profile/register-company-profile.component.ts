@@ -105,30 +105,14 @@ export class RegisterCompanyProfileComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAllCompanyAdmins().subscribe({
       next:(result:CompanyAdministrator[])=>{
-        this.admins = result;
-        /*this.admins.forEach(admin => {
-          console.log(admin.firstname);
-          console.log("Id: " +admin.id);
-          console.log("Lastname:" + admin.lastname);
-          console.log("Firstname:" + admin.firstname);
-          console.log("Email:" + admin.email);
-          console.log("Phone:" + admin.phoneNumber);
-          console.log("ocupp:" + admin.occupation);
-          if(admin.company != undefined){
-            console.log("company description:" + admin.company.description);
+        result.forEach(admin => {
+          if(admin.company?.id === undefined){
+            this.admins.push(admin);
           }
-          
-          console.log("pass:" + admin.password);
-          console.log("Adresa: " +admin.address.city);  
-          
-        });*/
+        });
       }
     })
-    this.service.getAllAddresses().subscribe({
-      next:(result:Address[])=>{
-        this.addresses = result;
-      }
-    })
+    
   }
  
 
@@ -144,14 +128,7 @@ export class RegisterCompanyProfileComponent implements OnInit {
       },
     })
 
-    this.addedAdmin.forEach(admin => {
-      this.service.updateCompanyAdmin(admin).subscribe({
-      next:(result:CompanyAdministrator)=>{
-        this.updatedAdmin = result;
-        console.log('Ime kompanije od updatovanog admina: '+this.updatedAdmin.company?.name);
-      }
-    })
-  });
+   
   
 
     this.service.createCompany(this.company).subscribe({
@@ -160,9 +137,21 @@ export class RegisterCompanyProfileComponent implements OnInit {
         this.createdCompany = result;
         this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
           duration: 6000, // Vreme prikazivanja obaveštenja u milisekundama
-          panelClass: ['success-snackbar'] // Opciona klasa za stilizovanje obaveštenja
+          panelClass: ['success-snackbar']// Opciona klasa za stilizovanje obaveštenja
+          
         });
-        
+        this.addedAdmin.forEach(admin=>{
+          admin.company = this.createdCompany;
+          console.log("Admin koji ce da se azurira",admin);
+          this.service.updateCompanyAdmin(admin).subscribe({
+            next:(response:CompanyAdministrator)=>{
+              console.log("Azuriran admina: ",response.company?.id);
+            }
+          })
+        })
+       
+
+        this.router.navigate(['showCompanyProfile']);
       }
     })
     
@@ -174,7 +163,7 @@ export class RegisterCompanyProfileComponent implements OnInit {
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
     console.log("Dodato amdina: "+ this.addedAdmin.length);
-    admin.company = this.createdCompany;
+    //admin.company = this.createdCompany;
     
   }
 
