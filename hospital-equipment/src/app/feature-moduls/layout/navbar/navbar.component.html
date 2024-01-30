@@ -5,18 +5,18 @@
             <img src="https://upload.wikimedia.org/wikipedia/en/archive/d/dd/20211109064614%21Manipal_Hospitals_%28logo%29.png" alt="Home">
         </a>
         <div class="reg-user"  *ngIf="isLogged && userRole == 'ROLE_REGISTERED_USER'">
-        <a
-        raised-button
-        routerLinkActive="active"
-        [routerLink]="['displayProfile']"
-        class="link"
-      >
-        My Profile
-     </a>
-     <button  class="nbuttonEnd" (click)="onLogout()">
-      Logout
-    </button>
-    </div>
+              <a
+              raised-button
+              routerLinkActive="active"
+              [routerLink]="['displayProfile']"
+              class="link"
+            >
+              My Profile
+          </a>
+          <button  class="nbuttonEnd" (click)="onLogout()">
+            Logout
+          </button>
+        </div>
     
     <div class="buttons">
       
@@ -70,25 +70,25 @@
 
 
 
-<a
-raised-button
-*ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-routerLinkActive="active"
-[routerLink]="['workCalendar']"
-class="link"
->
-WorkCalendar
-</a>
-
-<a
+    <a
     raised-button
-    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+    *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
     routerLinkActive="active"
-    [routerLink]="['allLoyaltyPrograms']"
+    [routerLink]="['workCalendar']"
     class="link"
     >
-    Loyalty program
-</a>
+    WorkCalendar
+    </a>
+
+    <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['allLoyaltyPrograms']"
+        class="link"
+        >
+        Loyalty program
+    </a>
 
 <a
     raised-button
@@ -121,21 +121,14 @@ WorkCalendar
 </a>
 
 
-      <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
-        Login
-      </button>
-      <button *ngIf="isLogged" class="nbutton" (click)="onLogout()">
-      <button *ngIf="isLogged && userRole != 'ROLE_REGISTERED_USER'"  class="nbuttonEnd" (click)="onLogout()">
-
-        Logout
-      </button>
-      
+          <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
+            Login
+          </button>
+          <button *ngIf="isLogged && userRole != 'ROLE_REGISTERED_USER'"  class="nbuttonEnd" (click)="onLogout()">
+            Logout
+          </button>
+    </div> 
     </div>
-    <div class="log-out"*ngIf="!isLogged">
-    
-      <button  class="nbuttonEnd" [routerLink]="['login']">
-        Login
-      </button>
-    </div>
-  </div>
+          
+               
 </div>

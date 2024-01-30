@@ -87,7 +87,7 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
     UploadQrCodeComponent,
     PositionSimulatorComponent,
     CreateLoyaltyProgramComponent,
-    UpdateLoyaltyProgramComponent
+    UpdateLoyaltyProgramComponent,
     AdminAddAppointmentComponent
 
 
