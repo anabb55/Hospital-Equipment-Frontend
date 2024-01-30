@@ -19,6 +19,8 @@ export class ShowCompanyProfileComponent {
   selectedRating: number=0;
   isFilterVisible: boolean = false;
   loggedInUser : number=0;
+  selectedSort: string = '';
+
 
   ulogovaniUser:User={
     id: 0,
@@ -49,6 +51,7 @@ export class ShowCompanyProfileComponent {
       this.getUser();
       this.authService.passChangeSource.next(true);
       this.sendMessage();
+      this.checkExpiredReservations();
   }
 
   
@@ -78,7 +81,32 @@ export class ShowCompanyProfileComponent {
       }
     })
   }
-
+  sortCompanies() {
+    switch (this.selectedSort) {
+      case 'nameAsc':
+        this.companies.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case 'nameDesc':
+        this.companies.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case 'cityAsc':
+        this.companies.sort((a, b) => a.address.city.localeCompare(b.address.city));
+        break;
+      case 'cityDesc':
+        this.companies.sort((a, b) => b.address.city.localeCompare(a.address.city));
+        break;
+      case 'ratingAsc':
+        this.companies.sort((a, b) => a.grade - b.grade);
+        break;
+      case 'ratingDesc':
+        this.companies.sort((a, b) => b.grade - a.grade);
+        break;
+      default:
+        // No sort or default sort logic
+        break;
+    }
+  }
+  
   showOneCompany(company:Company){
     this.router.navigate(['/oneCompany/', company.id]);
   }
@@ -140,5 +168,15 @@ sendMessage(){
   })
  }
   
+ checkExpiredReservations(){
+  this.companyService.checkExpiredReservations().subscribe({
+    next:(res)=>{
+      console.log('Provjerene istekle',res)
+    },
+    error:(err)=>{
+      console.log(err)
+    }
+  })
+ }
   
 }

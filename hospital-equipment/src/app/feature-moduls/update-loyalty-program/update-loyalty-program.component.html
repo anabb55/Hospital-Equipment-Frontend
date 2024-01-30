@@ -1,0 +1,12 @@
+<!-- loyalty-program-edit.component.html -->
+
+<form (ngSubmit)="onSubmit()">
+    <label for="discountPercentage">Discount Percentage:</label>
+    <input type="number" id="discountPercentage" [(ngModel)]="loyaltyProgram.discountPercentage" name="discountPercentage" required>
+  
+    <label for="pointsPerEquipment">Points Per Equipment:</label>
+    <input type="number" id="pointsPerEquipment" [(ngModel)]="loyaltyProgram.pointsPerEquipment" name="pointsPerEquipment" required>
+  
+    <button type="submit">Sačuvaj izmene</button>
+  </form>
+  

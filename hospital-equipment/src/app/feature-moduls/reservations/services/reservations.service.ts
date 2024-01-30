@@ -7,6 +7,7 @@ import { Reservation } from 'src/app/model/reservation,model';
 import { ReservationEquipmentStock } from 'src/app/model/reservation_equipment_stock.model';
 import { RegisteredUser } from '../../model/RegisteredUser';
 import { EquipmentStock } from 'src/app/model/equipment_stock.model';
+import { LoyaltyProgram } from '../../model/LoyaltyProgram';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ export class ReservationsService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
 
-  getReservationsByCompany(companyId:number):Observable<ReservationEquipmentStock[]>{
+  getReservationsByCompany(companyId:number,adminId:number):Observable<ReservationEquipmentStock[]>{
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
@@ -25,7 +26,7 @@ export class ReservationsService {
       'Content-Type': 'application/json',
     });
     return this.http.get<ReservationEquipmentStock[]>(
-      environment.apiHost + 'reservationEquipment/getByCompanyId/' + companyId,{headers}
+      environment.apiHost + 'reservationEquipment/getByCompanyId/' + companyId +'/'+adminId,{headers}
     );
   }
 
@@ -50,6 +51,18 @@ export class ReservationsService {
     });
     return this.http.put<Reservation>(
       environment.apiHost + 'reservation/updateStatus/' + reservationId,{headers}
+    );
+  }
+
+  updateReservationStatusToExpired(reservationId:number){
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<Reservation>(
+      environment.apiHost + 'reservation/updateStatusToExpired/' + reservationId,{headers}
     );
   }
 
@@ -100,6 +113,17 @@ export class ReservationsService {
   }
 
 
+  getAllLoyaltyPrograms():Observable<LoyaltyProgram[]>{
+    const token = this.jwtHelper.tokenGetter();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<LoyaltyProgram[]>(
+      environment.apiHost + 'loyaltyProgram/findAll',{headers}
+    );
+  }
+
   updateLoyaltyProgram(id:number,winPoints:number,penaltyPoints:number):Observable<RegisteredUser>{
     const token = this.jwtHelper.tokenGetter();
     const headers = new HttpHeaders({
@@ -108,6 +132,17 @@ export class ReservationsService {
     });
     return this.http.put<RegisteredUser>(
       environment.apiHost +'registeredUsers/updateLoyaltyProgram/' +id+ '/' + winPoints + '/' + penaltyPoints,{ headers }
+    );
+  }
+
+   updateLoyaltyProgramBySystemAdmin(loyaltyProgram:LoyaltyProgram):Observable<LoyaltyProgram>{
+    const token = this.jwtHelper.tokenGetter();
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<LoyaltyProgram>(
+      environment.apiHost +'loyaltyProgram/update',loyaltyProgram,{ headers }
     );
   }
 } 

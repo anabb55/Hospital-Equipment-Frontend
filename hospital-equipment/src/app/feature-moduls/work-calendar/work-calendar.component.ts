@@ -1,6 +1,6 @@
 import { CompanyServiceService } from '../company/service/company-service.service';
 import { Company } from 'src/app/model/company.model';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Calendar, CalendarOptions, EventInput } from '@fullcalendar/core';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
@@ -8,13 +8,15 @@ import { Appointment } from 'src/app/model/appointment.model';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { AuthServiceService } from 'src/app/infrastructure/auth/register/auth-service.service';
+import { Reservation } from 'src/app/model/reservation,model';
 
 
 
 @Component({
   selector: 'app-work-calendar',
   templateUrl: './work-calendar.component.html',
-  styleUrls: ['./work-calendar.component.css']
+  styleUrls: ['./work-calendar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WorkCalendarComponent implements OnInit{
  
@@ -44,14 +46,17 @@ export class WorkCalendarComponent implements OnInit{
     }
   };
   
+  selectedRange: String = 'month'
+
   companyAdmins:CompanyAdministrator[]=[]
   companyAdminstrators:CompanyAdministrator[]=[]
   appointments: Appointment[]=[]
 
+  reservations:Reservation[]=[];
   Appointments: EventInput[] = [];
 
-  constructor(private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService,private authService:AuthServiceService){
-    this.authService.passChangeSource.next(true);
+  constructor(private cdr: ChangeDetectorRef,private companyService:CompanyServiceService, private elementRef: ElementRef,private adminService: RegisterCompanyService){
+
   }
 
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent; //prvo
@@ -107,18 +112,46 @@ export class WorkCalendarComponent implements OnInit{
       console.error(error);
     }
 
-
+  }
    
+
+    changeCalendarPerspective(): void {
+      if(this.selectedRange === 'week') {
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          initialView: 'dayGridWeek'
+        }
+  
+        if(this.fullCalendar) {
+          this.fullCalendar.getApi().changeView('dayGridWeek');
+        }
+      }
+      else if(this.selectedRange === 'month') {
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          initialView: 'dayGridMonth'
+        }
+  
+        if(this.fullCalendar) {
+          this.fullCalendar.getApi().changeView('dayGridMonth');
+        }
+      }
+      else {
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          initialView: 'dayGridYear'
+        }
+  
+  
+  
+  
+        if(this.fullCalendar) {
+          this.fullCalendar.getApi().changeView('dayGridYear');
+        }
+      }
   
   }
-
-
-
- 
-
-
+  
+  }
   
 
-  
-
-}

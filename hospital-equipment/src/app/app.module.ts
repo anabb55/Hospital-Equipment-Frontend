@@ -48,9 +48,12 @@ import { SuccessfullReservationComponent } from './feature-moduls/reservations/c
 import { ReservationsUsersComponent } from './feature-moduls/reservations/components/reservations-users/reservations-users.component';
 //import 'leaflet/dist/leaflet.css';
 
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr-code.component';
 import { PositionSimulatorComponent } from './feature-moduls/position-simulator/position-simulator.component';
+import { CreateLoyaltyProgramComponent } from './feature-moduls/create-loyalty-program/create-loyalty-program.component';
+import { UpdateLoyaltyProgramComponent } from './feature-moduls/update-loyalty-program/update-loyalty-program.component';
+import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admin-add-appointment/admin-add-appointment.component';
+
 
 
 
@@ -82,7 +85,10 @@ import { PositionSimulatorComponent } from './feature-moduls/position-simulator/
 
   ReservationsUsersComponent,
     UploadQrCodeComponent,
-    PositionSimulatorComponent
+    PositionSimulatorComponent,
+    CreateLoyaltyProgramComponent,
+    UpdateLoyaltyProgramComponent
+    AdminAddAppointmentComponent
 
 
   ],

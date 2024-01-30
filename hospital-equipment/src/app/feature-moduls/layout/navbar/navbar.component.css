@@ -11,12 +11,17 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 30px;
-  gap: 30px;
+  padding-right: 30px; 
+  gap: 25px;
 }
+
 
 .spacer {
   flex: 0.95;
+}
+.link img {
+  width: 400px;  
+  height: auto;
 }
 
 .nbutton {
@@ -32,16 +37,52 @@
   cursor: pointer;
   text-align: center;
 }
-
-.link {
-  color: #ffffff;
+.log-out{
+  width: 90%;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.nbuttonEnd {
+  padding-right: 10px;
+  height: 100%;
   font-size: 22px;
   font-family: Georgia, serif;
+  font-weight: medium;
+
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(212, 243, 232);
+  cursor: pointer;
+  text-align: center;
 }
 
-.link:hover {
-  color: rgb(77, 157, 148);
+.reg-user{
+  width: 100%;
+  padding-right: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 }
+
+
+.link {
+  color: #ffffff; 
+  font-size: 18px; 
+  font-family: 'Helvetica Neue', sans-serif; 
+  text-decoration: none; 
+  padding: 10px 15px; 
+  border-radius: 5px; 
+  transition: color 0.3s, background-color 0.3s; 
+}
+
+
+.link:hover {
+  color: #4D9D94; 
+  background-color: rgba(255, 255, 255, 0.2); 
+}
+
+
 
 .buttons {
   display: flex;
