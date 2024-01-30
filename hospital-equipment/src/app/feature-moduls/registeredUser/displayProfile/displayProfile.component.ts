@@ -189,7 +189,7 @@ export class DisplayProfile implements OnInit {
       });
 
     this.companyService
-      .updateStatus(appointment.id, appointment, this.userId)
+      .cancelAppointment(appointment.id, appointment, this.userId)
       .subscribe((res) => {
         this.myAppointments = this.myAppointments.filter(
           (a) => a !== appointment
