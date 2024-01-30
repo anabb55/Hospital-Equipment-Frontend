@@ -5,6 +5,7 @@ import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 import { Company } from 'src/app/model/company.model';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/model/address.model';
+import { Role } from 'src/app/model/userRole.model';
 
 @Component({
   selector: 'app-register-company-profile',
@@ -91,13 +92,19 @@ export class RegisterCompanyProfileComponent implements OnInit {
       country: '',
       street: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0
     },
     company: undefined,
     username: '',
-    waslogged:false
+    waslogged: false,
+    roles: []
   }
+  role:Role={
+    id: 2,
+    name: 'COMPANY_ADMIN'
+  }
+  
   savedAddress:Address | undefined
   constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){
     
@@ -121,42 +128,38 @@ export class RegisterCompanyProfileComponent implements OnInit {
       next:(result:Address)=>{
         this.savedAddress = result;
         this.company.address = this.savedAddress;
+        this.service.createCompany(this.company).subscribe({
+    
+          next:(result:Company)=>{
+            this.createdCompany = result;
+            this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
+              duration: 6000, // Vreme prikazivanja obaveštenja u milisekundama
+              panelClass: ['success-snackbar']// Opciona klasa za stilizovanje obaveštenja
+              
+            });
+            this.addedAdmin.forEach(admin=>{
+              
+              admin.company = this.createdCompany;
+              console.log("Admin koji ce da se azurira",admin);
+              this.service.updateCompanyAdmin(admin).subscribe({
+                next:(response:CompanyAdministrator)=>{
+                  console.log("Azuriran admina: ",response);
+                }
+              })
+            })
+           
+    
+            this.router.navigate(['showCompanyProfile']);
+          }
+        })
+
+        
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
       },
       error: (err: any) => {
         console.log(err);
       },
     })
-
-   
-  
-
-    this.service.createCompany(this.company).subscribe({
-    
-      next:(result:Company)=>{
-        this.createdCompany = result;
-        this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
-          duration: 6000, // Vreme prikazivanja obaveštenja u milisekundama
-          panelClass: ['success-snackbar']// Opciona klasa za stilizovanje obaveštenja
-          
-        });
-        this.addedAdmin.forEach(admin=>{
-          admin.company = this.createdCompany;
-          console.log("Admin koji ce da se azurira",admin);
-          this.service.updateCompanyAdmin(admin).subscribe({
-            next:(response:CompanyAdministrator)=>{
-              console.log("Azuriran admina: ",response.company?.id);
-            }
-          })
-        })
-       
-
-        this.router.navigate(['showCompanyProfile']);
-      }
-    })
-    
-  
-    
   }
 
 
