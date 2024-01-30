@@ -17,7 +17,6 @@ import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
 import { Reservation } from 'src/app/model/reservation,model';
 import { Observable, of, take } from 'rxjs';
 
-
 @Component({
   selector: 'app-display-profile', // Adjust the selector as needed
   templateUrl: './displayProfile.component.html',
@@ -28,11 +27,11 @@ export class DisplayProfile implements OnInit {
   profileForm: FormGroup;
   isEditing: boolean = false;
   userRole: string = '';
-  filteredReservations: any[] = []; 
-  reservations: any[] = []; 
+  filteredReservations: any[] = [];
+  reservations: any[] = [];
   reservationStatusMap = new Map<number, boolean>();
   myAppointments: Appointment[] = [];
-  appointmentPrices: number[] = []; 
+  appointmentPrices: number[] = [];
   selectedSort: string = 'dateAsc';
   isFilterVisible: boolean = false;
   selectedStatus: string = '';
@@ -68,31 +67,31 @@ export class DisplayProfile implements OnInit {
     this.loadProfileData();
     this.loadAppointment();
     this.loadQRs();
-    
-    
   }
   toggleFilterVisibility(): void {
     this.isFilterVisible = !this.isFilterVisible;
   }
   checkReservationsForAppointments() {
-    this.myAppointments.forEach(appointment => {
-      this.service.isStatusTaken(appointment.id).subscribe(isTaken => {
+    this.myAppointments.forEach((appointment) => {
+      this.service.isStatusTaken(appointment.id).subscribe((isTaken) => {
         this.reservationStatusMap.set(appointment.id, isTaken);
       });
     });
   }
-  
+
   isReservationTaken(appointmentId: number): boolean {
     return this.reservationStatusMap.get(appointmentId) || false;
   }
-  
+
   fetchTotalPricesForAppointments(): void {
     this.myAppointments.forEach((appointment, index) => {
       this.service.getTotalPrice(appointment.id).subscribe(
         (totalPrice: number) => {
-          this.appointmentPrices[appointment.id] = totalPrice; 
+          this.appointmentPrices[appointment.id] = totalPrice;
           console.log(`Price for appointment ${appointment.id}: ${totalPrice}`);
-          console.log(`appointmentPrices: ${JSON.stringify(this.appointmentPrices)}`);
+          console.log(
+            `appointmentPrices: ${JSON.stringify(this.appointmentPrices)}`
+          );
         },
         (error) => {
           // Handle any errors here
@@ -101,13 +100,6 @@ export class DisplayProfile implements OnInit {
       );
     });
   }
-  
-
-
-  
-  
-  
-
 
   loadAppointment() {
     const token = this.jwtHelper.decodeToken();
@@ -117,9 +109,8 @@ export class DisplayProfile implements OnInit {
         this.myAppointments = data;
 
         this.checkReservationsForAppointments();
-        this.fetchTotalPricesForAppointments(); 
+        this.fetchTotalPricesForAppointments();
         console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
-
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
@@ -127,13 +118,15 @@ export class DisplayProfile implements OnInit {
     });
   }
 
-  loadQRs(){
+  loadQRs() {
     const token = this.jwtHelper.decodeToken();
     const userId = token.id;
-    console.log(this.selectedStatus)
-    this.service.getReservationsQRForUser(userId,this.selectedStatus).subscribe(data => {
-      this.reservations = data; 
-    });
+    console.log(this.selectedStatus);
+    this.service
+      .getReservationsQRForUser(userId, this.selectedStatus)
+      .subscribe((data) => {
+        this.reservations = data;
+      });
   }
 
   loadProfileData() {
@@ -189,34 +182,50 @@ export class DisplayProfile implements OnInit {
   }
 
   sortAppointments() {
-    const convertTimeObjToMinutes = (timeObj: { hours: number; minutes: number }) => {
+    const convertTimeObjToMinutes = (timeObj: {
+      hours: number;
+      minutes: number;
+    }) => {
       return timeObj.hours * 60 + timeObj.minutes;
     };
-  
+
     switch (this.selectedSort) {
       case 'dateAsc':
-        this.myAppointments.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        this.myAppointments.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
         break;
       case 'dateDesc':
-        this.myAppointments.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        this.myAppointments.sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
         break;
       case 'timeAsc':
-          this.myAppointments.sort((a, b) => convertTimeObjToMinutes(a.startTime) - convertTimeObjToMinutes(b.startTime));
-          break;
+        this.myAppointments.sort(
+          (a, b) =>
+            convertTimeObjToMinutes(a.startTime) -
+            convertTimeObjToMinutes(b.startTime)
+        );
+        break;
       case 'timeDesc':
-          this.myAppointments.sort((a, b) => convertTimeObjToMinutes(b.startTime) - convertTimeObjToMinutes(a.startTime));
-          break;
+        this.myAppointments.sort(
+          (a, b) =>
+            convertTimeObjToMinutes(b.startTime) -
+            convertTimeObjToMinutes(a.startTime)
+        );
+        break;
       case 'priceAsc':
-            this.myAppointments.sort((a, b) => this.appointmentPrices[a.id] - this.appointmentPrices[b.id]);
-            break;
+        this.myAppointments.sort(
+          (a, b) => this.appointmentPrices[a.id] - this.appointmentPrices[b.id]
+        );
+        break;
       case 'priceDesc':
-            this.myAppointments.sort((a, b) => this.appointmentPrices[b.id] - this.appointmentPrices[a.id]);
-            break;
+        this.myAppointments.sort(
+          (a, b) => this.appointmentPrices[b.id] - this.appointmentPrices[a.id]
+        );
+        break;
     }
   }
-  
-  
-  
 
   updateProfile() {
     console.log('Form value:', this.profileForm.value);
@@ -255,7 +264,6 @@ export class DisplayProfile implements OnInit {
     // });
   }
 
-
   loyaltyProgramAdvantages() {
     this.toastr.success(
       'You have ' +
@@ -289,6 +297,10 @@ export class DisplayProfile implements OnInit {
           (a) => a !== appointment
         );
       });
+
+    this.service.returnEquipment(appointment.id).subscribe((res) => {
+      console.log('vracena oprema');
+    });
 
     this.service
       .deleteReservationByAppointment(appointment.id)
