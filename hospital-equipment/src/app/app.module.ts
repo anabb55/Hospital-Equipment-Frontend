@@ -52,6 +52,8 @@ import { UploadQrCodeComponent } from './feature-moduls/upload-qr-code/upload-qr
 import { PositionSimulatorComponent } from './feature-moduls/position-simulator/position-simulator.component';
 import { CreateLoyaltyProgramComponent } from './feature-moduls/create-loyalty-program/create-loyalty-program.component';
 import { UpdateLoyaltyProgramComponent } from './feature-moduls/update-loyalty-program/update-loyalty-program.component';
+import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admin-add-appointment/admin-add-appointment.component';
+
 
 
 
@@ -86,6 +88,7 @@ import { UpdateLoyaltyProgramComponent } from './feature-moduls/update-loyalty-p
     PositionSimulatorComponent,
     CreateLoyaltyProgramComponent,
     UpdateLoyaltyProgramComponent
+    AdminAddAppointmentComponent
 
 
   ],

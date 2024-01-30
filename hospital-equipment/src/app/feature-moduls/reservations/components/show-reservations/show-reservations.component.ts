@@ -40,7 +40,7 @@ export class ShowReservationsComponent implements OnInit{
 
   getReservations(){
     console.log('ID',this.companyId)
-    this.resService.getReservationsByCompany(this.companyId).subscribe({
+    this.resService.getReservationsByCompany(this.companyId,this.loggedInUser).subscribe({
       next:(response)=>{
         this.reservations=response;
         console.log('REZERVACIJEE',this.reservations)

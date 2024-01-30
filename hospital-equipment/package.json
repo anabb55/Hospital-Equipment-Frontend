@@ -28,8 +28,7 @@
     "@fullcalendar/interaction": "^6.1.10",
     "@stomp/stompjs": "^7.0.0",
     "@zxing/browser": "^0.1.4",
-
-     "@zxing/library": "^0.20.0",
+    "@zxing/library": "^0.20.0",
     "@zxing/ngx-scanner": "^17.0.0",
     "angular-calendar": "^0.31.0",
     "angular2-jwt": "^0.2.3",

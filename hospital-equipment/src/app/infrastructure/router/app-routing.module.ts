@@ -33,6 +33,7 @@ import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upl
 import { PositionSimulatorComponent } from 'src/app/feature-moduls/position-simulator/position-simulator.component';
 import { CreateLoyaltyProgramComponent } from 'src/app/feature-moduls/create-loyalty-program/create-loyalty-program.component';
 import { UpdateLoyaltyProgramComponent } from 'src/app/feature-moduls/update-loyalty-program/update-loyalty-program.component';
+import { AdminAddAppointmentComponent } from 'src/app/feature-moduls/appointments/admin-add-appointment/admin-add-appointment.component';
 
 
 const routes: Routes = [
@@ -83,6 +84,7 @@ const routes: Routes = [
   {path:'uploadQRCODE', component:UploadQrCodeComponent},
   {path:'allLoyaltyPrograms', component:CreateLoyaltyProgramComponent},
   {path:'updateLoyaltyPrograms/:id', component:UpdateLoyaltyProgramComponent},
+  {path:'addAppointment', component:AdminAddAppointmentComponent}
 
 ];
 
