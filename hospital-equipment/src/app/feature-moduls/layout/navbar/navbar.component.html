@@ -93,6 +93,17 @@ WorkCalendar
 </a>
 
 
+<a
+    raised-button
+    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+    routerLinkActive="active"
+    [routerLink]="['registerSystemAdmin']"
+    class="link"
+    >
+    Register system admin
+</a>
+
+
       <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
         Login
       </button>

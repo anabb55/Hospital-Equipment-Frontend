@@ -43,8 +43,6 @@ export class RegisterCompanyService {
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-
-
     return this.http.put<CompanyAdministrator>( 'http://localhost:8081/api/companyAdministrators/update/'+ admin.id,admin,{headers});
   }
 
@@ -56,7 +54,7 @@ export class RegisterCompanyService {
     return this.http.get<Address[]>( 'http://localhost:8081/api/addresses/getAll');
   }
   
-  getAllCompanyAdmins(): Observable< CompanyAdministrator[]> {
+  getAllCompanyAdmins(): Observable<CompanyAdministrator[]> {
     const token = this.jwtHelper.tokenGetter();
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,

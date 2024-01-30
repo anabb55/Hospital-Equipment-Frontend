@@ -142,7 +142,12 @@ export class RegisterCompanyProfileComponent implements OnInit {
         });
         this.addedAdmin.forEach(admin=>{
           admin.company = this.createdCompany;
-          this.service.updateCompanyAdmin(admin);
+          console.log("Admin koji ce da se azurira",admin);
+          this.service.updateCompanyAdmin(admin).subscribe({
+            next:(response:CompanyAdministrator)=>{
+              console.log("Azuriran admina: ",response.company?.id);
+            }
+          })
         })
        
 
