@@ -31,6 +31,8 @@ import { ReservationsUsersComponent } from 'src/app/feature-moduls/reservations/
 import { UploadQrCodeComponent } from 'src/app/feature-moduls/upload-qr-code/upload-qr-code.component';
 
 import { PositionSimulatorComponent } from 'src/app/feature-moduls/position-simulator/position-simulator.component';
+import { CreateLoyaltyProgramComponent } from 'src/app/feature-moduls/create-loyalty-program/create-loyalty-program.component';
+import { UpdateLoyaltyProgramComponent } from 'src/app/feature-moduls/update-loyalty-program/update-loyalty-program.component';
 
 
 const routes: Routes = [
@@ -78,7 +80,9 @@ const routes: Routes = [
   { path: 'usersReserved', component: ReservationsUsersComponent },
   { path: 'position-simulator', component: PositionSimulatorComponent },
 
-  {path:'uploadQRCODE', component:UploadQrCodeComponent}
+  {path:'uploadQRCODE', component:UploadQrCodeComponent},
+  {path:'allLoyaltyPrograms', component:CreateLoyaltyProgramComponent},
+  {path:'updateLoyaltyPrograms/:id', component:UpdateLoyaltyProgramComponent},
 
 ];
 

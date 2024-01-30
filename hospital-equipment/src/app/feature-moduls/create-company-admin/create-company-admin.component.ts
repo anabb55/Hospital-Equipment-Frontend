@@ -3,6 +3,7 @@ import { CompanyAdmin } from '../model/companyAdmin.model';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { Address } from 'src/app/model/address.model';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-company-admin',
@@ -11,7 +12,7 @@ import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
 })
 export class CreateCompanyAdminComponent implements OnInit {
 
-    constructor(private service:RegisterCompanyService){}
+    constructor(private service:RegisterCompanyService,private router:Router){}
     ngOnInit(): void {
       this.service.getAllAddresses().subscribe({
         next:(result:Address[])=>{
@@ -75,6 +76,7 @@ export class CreateCompanyAdminComponent implements OnInit {
           next:(result:CompanyAdministrator)=>{
               this.createdAdmin =result;
               console.log("admin: "+ this.createdAdmin.firstname);
+              this.router.navigate(['showCompanyProfile']);
           }
         })
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);

@@ -1,0 +1,11 @@
+<!-- loyalty-program-list.component.html -->
+
+<div *ngFor="let loyaltyProgram of all">
+    <div>
+      <b><p>FOR {{ getStatusLabel(loyaltyProgram.id) }} USERS</p></b>
+      <p>Discount Percentage: {{ loyaltyProgram.discountPercentage }}</p>
+      <p>Points Per Equipment: {{ loyaltyProgram.pointsPerEquipment }}</p>
+      <button (click)="editLoyaltyProgram(loyaltyProgram.id)">Update</button>
+      <br><br>
+    </div>
+</div>
