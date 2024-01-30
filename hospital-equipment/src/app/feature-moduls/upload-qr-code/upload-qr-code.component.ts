@@ -40,7 +40,8 @@ registredUser: RegisteredUser={
   loyaltyProgram: {
     discountPercentage: 0,
     penaltyTreshold: 0,
-    pointsPerEquipment: 0
+    pointsPerEquipment: 0,
+    id: 0
   },
   email: '',
   password: '',
@@ -129,87 +130,80 @@ allReservations:Reservation[]=[];
 
     img.src = imageDataUrl;
   }
-  handleReservation(reservationId: number): void {
-console.log("USAO U HANDLE");
+handleReservation(reservationId: number): void {
+  console.log("USAO U HANDLE");
 
-this.resService.getAllReservations().subscribe({
-  next:(result:Reservation[])=>{
-    this.allReservations = result;
+  this.resService.getAllReservations().subscribe({
+    next:(result:Reservation[])=>{
+      this.allReservations = result;
 
-    this.allReservations.forEach(res => {
-      if(res.id === reservationId){
-        this.registredUser = res.registeredUserDTO;
+      this.allReservations.forEach(res => {
+        if(res.id === reservationId){
+          this.registredUser = res.registeredUserDTO;
 
-        const appointmentDate = new Date(res.appointmentDTO.date);
-        const appointmentTime = res.appointmentDTO.endTime.toString(); // Pretvori Time u string
-        const currentDateTime = new Date();
-        
-        const appointmentDateTimeString = `${appointmentDate.toISOString().split('T')[0]}T${appointmentTime}`;
-        
-        if (new Date(appointmentDateTimeString) <= currentDateTime) {
-          // Datum i vrijeme su istekli ili jednaki trenutnom trenutku
-          console.log('Datum i vrijeme su istekli ili su jednaki trenutnom trenutku.');
-          this.reservationDetails?.concat('This reservation is expired! You can not take you equipment. You get 2 penalty points!')
-          if(this.registredUser.id){
-            this.updateLoyaltyProgram(this.registredUser.id,0,2);
-          }
-
-        } else {
-          // Datum i vrijeme nisu istekli
-          console.log('Datum i vrijeme nisu istekli.');
-
+          const appointmentDate = new Date(res.appointmentDTO.date);
+          const appointmentTime = res.appointmentDTO.endTime.toString(); // Pretvori Time u string
+          const currentDateTime = new Date();
           
-          this.registredUser.accumulatedPoints = this.registredUser.accumulatedPoints+5;
-            console.log("user accuml points: ",this.registredUser.accumulatedPoints)
-          this.resService.getReservationEquipmentStock(reservationId).subscribe({
-            next:(result:ReservationEquipmentStock[])=>{
-              this.reservationEquipmentStocks = result;
-              console.log("Usao u rezerv equip stock",result);
-              this.reservationEquipmentStocks.forEach(resEq=>{
-                console.log("ID res equipm stocka: " , resEq);
-                
-      
-                    this.equipmentStock.push(resEq.equipmentStockDTO);
-                    console.log("ID Equipment stocka: ", result);
-                    
-                    const newAmount= resEq.equipmentStockDTO.amount-resEq.amount
-                    const TotalAmount= resEq.equipmentStockDTO.amount;
-                    console.log('nova kolicinaa: ', newAmount)
-                    console.log("Stara kolicina: ",TotalAmount)
-                    if(this.validateAmount(newAmount,TotalAmount)){
-                      console.log("ZAvrsio")
-                      console.log("Company id: " ,resEq.equipmentStockDTO.companyDTO.id);
-                      this.updateReservationsStatus(reservationId,resEq.id,newAmount,resEq.equipmentStockDTO.companyDTO.id);
-                      this.updateAmount(resEq.id,newAmount,resEq.equipmentStockDTO.companyDTO.id);
-                    
-                    console.log("Pretosni broj bodova: ", this.registredUser.accumulatedPoints);
-                    //this.registredUser.accumulatedPoints = this.registredUser.accumulatedPoints+5;
-
-                    if(this.registredUser.id){
-                      this.updateLoyaltyProgram(this.registredUser.id,6,0);
-                    }
-                    
-                    alert("Successifuly taken reservation! You received 6 points and possible discounts for subsequent purchases!");
-                    this.router.navigate(['showCompanyProfile']);
-                  }
-                    //-------------------------------------------
-               
-              })
-              
+          const appointmentDateTimeString = `${appointmentDate.toISOString().split('T')[0]}T${appointmentTime}`;
+          
+          if (new Date(appointmentDateTimeString) <= currentDateTime) {
+            console.log('Datum i vrijeme su istekli .');
+            if(this.registredUser.id){
+              this.updateLoyaltyProgram(this.registredUser.id,0,2);
             }
-          })
+            this.updateReservationsStatusToExpired(reservationId);
+            alert('Your reservation expaired. You got 2 penalty points! ');
+            this.router.navigate(['showCompanyProfile']);
 
+          } else {
+            // Datum i vrijeme nisu istekli
+            console.log('Datum i vrijeme nisu istekli.');
 
-        }
+            
+            this.registredUser.accumulatedPoints = this.registredUser.accumulatedPoints+5;
+              console.log("user accuml points: ",this.registredUser.accumulatedPoints)
+            this.resService.getReservationEquipmentStock(reservationId).subscribe({
+              next:(result:ReservationEquipmentStock[])=>{
+                this.reservationEquipmentStocks = result;
+                console.log("Usao u rezerv equip stock",result);
+                this.reservationEquipmentStocks.forEach(resEq=>{
+                  console.log("ID res equipm stocka: " , resEq);
+                  
         
+                      this.equipmentStock.push(resEq.equipmentStockDTO);
+                      console.log("ID Equipment stocka: ", result);
+                      
+                      const newAmount= resEq.equipmentStockDTO.amount-resEq.amount
+                      const TotalAmount= resEq.equipmentStockDTO.amount;
+                      console.log('nova kolicinaa: ', newAmount)
+                      console.log("Stara kolicina: ",TotalAmount)
+                      if(this.validateAmount(newAmount,TotalAmount)){
+                        console.log("ZAvrsio")
+                        console.log("Company id: " ,resEq.equipmentStockDTO.companyDTO.id);
+                        this.updateReservationsStatus(reservationId,resEq.id,newAmount,resEq.equipmentStockDTO.companyDTO.id);
+                        this.updateAmount(resEq.id,newAmount,resEq.equipmentStockDTO.companyDTO.id);
+                      
+                      console.log("Pretosni broj bodova: ", this.registredUser.accumulatedPoints);
+                      //this.registredUser.accumulatedPoints = this.registredUser.accumulatedPoints+5;
 
-
-
-
-
-      }
-    });
-  }
+                      if(this.registredUser.id){
+                        this.updateLoyaltyProgram(this.registredUser.id,6,0);
+                      }
+                      
+                      alert("Successifuly taken reservation! You received 6 points and possible discounts for subsequent purchases!");
+                      this.router.navigate(['showCompanyProfile']);
+                    }
+                      //-------------------------------------------
+                
+                })
+                
+              }
+            })
+          }
+        }
+      });
+    }
 })
     
   }
@@ -226,6 +220,17 @@ this.resService.getAllReservations().subscribe({
 
   updateReservationsStatus(id:number,resId:number,newAmount:number,companyId:number){
     this.resService.updateReservationStatus(id).subscribe({
+      next:(response)=>{
+        console.log('Apdejtovana rezervacija',response)
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
+  
+  updateReservationsStatusToExpired(id:number){
+    this.resService.updateReservationStatusToExpired(id).subscribe({
       next:(response)=>{
         console.log('Apdejtovana rezervacija',response)
       },

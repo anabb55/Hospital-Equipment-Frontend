@@ -29,7 +29,13 @@ export class CompanyServiceService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 
   getAllCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(environment.apiHost + 'companyProfile/');
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<Company[]>(environment.apiHost + 'companyProfile/',{headers});
   }
 
   getCompanyByAdmin(id: number): Observable<Company[]> {
@@ -106,8 +112,15 @@ export class CompanyServiceService {
   }
 
   getCompanyById(id: number): Observable<Company> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+
     return this.http.get<Company>(
-      environment.apiHost + 'companyProfile/getById/' + id
+      environment.apiHost + 'companyProfile/getById/' + id,{headers}
     );
   }
 
