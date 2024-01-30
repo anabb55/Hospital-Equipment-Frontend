@@ -21,7 +21,6 @@ import { CanceledAppointment } from 'src/app/model/canceledAppointment.model';
 
 import { User } from 'src/app/model/user.model';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -60,10 +59,9 @@ export class CompanyServiceService {
     });
     console.log('Poslata u servis', company);
     return this.http.put<Company>(
-
-      environment.apiHost + 'companyProfile/update/' + company.id , company,
-      {headers}
-
+      environment.apiHost + 'companyProfile/update/' + company.id,
+      company,
+      { headers }
     );
   }
 
@@ -87,11 +85,10 @@ export class CompanyServiceService {
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<User>(
-      environment.apiHost + 'users/getById/' + id,{headers}
-    );
+    return this.http.get<User>(environment.apiHost + 'users/getById/' + id, {
+      headers,
+    });
   }
-
 
   updateCompanyAdmin(
     companyAdmin: CompanyAdministrator
@@ -254,7 +251,21 @@ export class CompanyServiceService {
     );
   }
 
-  updateStatus(
+  updateStatus(id: number, appointment: Appointment): Observable<Appointment> {
+    const token = this.jwtHelper.tokenGetter();
+    console.log(this.jwtHelper.decodeToken());
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    return this.http.put<Appointment>(
+      `http://localhost:8081/api/appointments/update/${id}`,
+      appointment,
+      { headers }
+    );
+  }
+
+  cancelAppointment(
     id: number,
     appointment: Appointment,
     userId: number
@@ -456,16 +467,15 @@ export class CompanyServiceService {
     );
   }
 
-
   getCanceledAppointments(): Observable<CanceledAppointment[]> {
     return this.http.get<CanceledAppointment[]>(
       `http://localhost:8081/api/canceledAppointments/`
     );
   }
 
-  sendFirstMessage():Observable<String>{
-    const message ="helooooou bona"
-    const queue= "spring-boot1";
+  sendFirstMessage(): Observable<String> {
+    const message = 'helooooou bona';
+    const queue = 'spring-boot1';
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
@@ -473,11 +483,10 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.get<String>(
-      environment.apiHost +'producer/checkDelivery'  ,{headers}
+      environment.apiHost + 'producer/checkDelivery',
+      { headers }
     );
   }
-
-
 
   getAllReservations(): Observable<Reservation[]> {
     const token = this.jwtHelper.tokenGetter();
@@ -486,11 +495,13 @@ export class CompanyServiceService {
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    
+
     return this.http.get<Reservation[]>(
-      environment.apiHost + 'reservation/getAll',{headers}
+      environment.apiHost + 'reservation/getAll',
+      { headers }
     );
   }
+
 
   checkExpiredReservations(){
     const token = this.jwtHelper.tokenGetter();
@@ -502,6 +513,32 @@ export class CompanyServiceService {
     
     return this.http.put(
       environment.apiHost + 'reservation/checkExpiredReservations/',{headers}
+    );
+  }
+
+  isAdminToCompany(companyId:number,adminId:number):Observable<Boolean>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Boolean>(
+      environment.apiHost + 'companyProfile/isAdminToCompany/' + companyId+'/'+ adminId,{headers}
+    );
+  }
+
+  isEquipmentReserved(companyId:number,eqId:number):Observable<Boolean>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Boolean>(
+      environment.apiHost + 'reservationEquipment/isEquipmentReserved/' + eqId+'/'+ companyId,{headers}
     );
   }
 

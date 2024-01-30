@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyServiceService } from '../../service/company-service.service';
 import { Company } from 'src/app/model/company.model';
 import { Equipment } from 'src/app/model/equipment.model';
@@ -52,6 +52,7 @@ export class OneCompanyComponent implements OnInit {
   userRole: string = '';
   isLogged: boolean = false;
   minDate: Date;
+  isAdmin:boolean=false;
   company: Company = {
     id: 0,
     name: '',
@@ -82,12 +83,14 @@ export class OneCompanyComponent implements OnInit {
     private companyService: CompanyServiceService,
     private dateAdapter: DateAdapter<Date>,
     private authService: AuthServiceService,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private router: Router
   ) {
     this.getId();
     this.getCompany();
     this.minDate = new Date();
     this.dateAdapter.setLocale('en-US');
+   
   }
 
   ngOnInit(): void {
@@ -162,7 +165,7 @@ export class OneCompanyComponent implements OnInit {
     this.userId = token.id;
 
     this.companyService
-      .updateStatus(appointment.id, appointment, this.userId)
+      .updateStatus(appointment.id, appointment)
       .subscribe((res) => {
         console.log(res);
       });
@@ -269,8 +272,6 @@ export class OneCompanyComponent implements OnInit {
       );
   }
   confirmReservation(): void {
-    
-
     this.companyService
       .processReservation(
         this.reservationEqStock,
@@ -288,7 +289,6 @@ export class OneCompanyComponent implements OnInit {
             console.log('mail je poslat');
             alert('Check your email!');
           });
-
         },
         (error) => {
           console.error(error);
@@ -302,6 +302,7 @@ export class OneCompanyComponent implements OnInit {
       next: (response) => {
         this.company = response;
         console.log('Kompanijaa', this.company);
+        this.isAdminToCompany();
       },
       error: (error) => {
         console.log(error);
@@ -347,4 +348,26 @@ export class OneCompanyComponent implements OnInit {
       )
       .openPopup();
   }
+
+ isAdminToCompany(){
+  const token = this.jwtHelper.decodeToken();
+    this.userId = token.id;
+    this.companyService.isAdminToCompany(this.company.id,this.userId).subscribe({
+      next:(res)=>{
+        console.log('Da li je admin',res)
+        if(res==true){
+          this.isAdmin=true;
+        }else{
+          this.isAdmin=false;
+        }
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+ }
+
+ goToUpdateCompany(){
+  this.router.navigate(['updateCompany']);
+ }
 }
