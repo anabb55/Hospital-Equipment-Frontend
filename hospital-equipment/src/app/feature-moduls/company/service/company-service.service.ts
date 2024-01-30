@@ -516,5 +516,30 @@ export class CompanyServiceService {
     );
   }
 
+  isAdminToCompany(companyId:number,adminId:number):Observable<Boolean>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Boolean>(
+      environment.apiHost + 'companyProfile/isAdminToCompany/' + companyId+'/'+ adminId,{headers}
+    );
+  }
+
+  isEquipmentReserved(companyId:number,eqId:number):Observable<Boolean>{
+    const token = this.jwtHelper.tokenGetter();
+    console.log(token);
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json',
+    });
+    
+    return this.http.get<Boolean>(
+      environment.apiHost + 'reservationEquipment/isEquipmentReserved/' + eqId+'/'+ companyId,{headers}
+    );
+  }
 
 }

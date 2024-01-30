@@ -20,15 +20,7 @@
     
     <div class="buttons">
       
-     <a
-        raised-button
-        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-        routerLinkActive="active"
-        [routerLink]="['updateCompany']"
-        class="link"
-      >
-        Update Company
-     </a>
+    
      <a
         raised-button
         *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"

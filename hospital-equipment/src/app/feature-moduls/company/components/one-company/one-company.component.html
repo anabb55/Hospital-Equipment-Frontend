@@ -37,6 +37,9 @@
             <button class="buttonAdmin" (click)="addAdmin()">
               Add company admin
             </button>
+            <button class="buttonAdmin" (click)="goToUpdateCompany()" *ngIf="isAdmin==true">
+              Update Company
+            </button>
           </div>
         </div>
       </div>
