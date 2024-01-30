@@ -162,7 +162,7 @@ export class OneCompanyComponent implements OnInit {
     this.userId = token.id;
 
     this.companyService
-      .updateStatus(appointment.id, appointment, this.userId)
+      .updateStatus(appointment.id, appointment)
       .subscribe((res) => {
         console.log(res);
       });
@@ -269,8 +269,6 @@ export class OneCompanyComponent implements OnInit {
       );
   }
   confirmReservation(): void {
-    
-
     this.companyService
       .processReservation(
         this.reservationEqStock,
@@ -288,7 +286,6 @@ export class OneCompanyComponent implements OnInit {
             console.log('mail je poslat');
             alert('Check your email!');
           });
-
         },
         (error) => {
           console.error(error);

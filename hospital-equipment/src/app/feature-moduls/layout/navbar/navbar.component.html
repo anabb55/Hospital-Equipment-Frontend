@@ -79,54 +79,7 @@ class="link"
 >
 WorkCalendar
 </a>
-
-<a
-    raised-button
-    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
-    routerLinkActive="active"
-    [routerLink]="['allLoyaltyPrograms']"
-    class="link"
-    >
-    Loyalty program
-</a>
-
-<a
-    raised-button
-    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
-    routerLinkActive="active"
-    [routerLink]="['registerCompanyProfile']"
-    class="link"
-    >
-    Create company
-</a>
-<a
-    raised-button
-    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
-    routerLinkActive="active"
-    [routerLink]="['registerCompanyAdmin']"
-    class="link"
-    >
-    Register company admin
-</a>
-
-
-<a
-    raised-button
-    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
-    routerLinkActive="active"
-    [routerLink]="['registerSystemAdmin']"
-    class="link"
-    >
-    Register system admin
-</a>
-
-
-      <button *ngIf="!isLogged" class="nbutton" [routerLink]="['login']">
-        Login
-      </button>
-      <button *ngIf="isLogged" class="nbutton" (click)="onLogout()">
       <button *ngIf="isLogged && userRole != 'ROLE_REGISTERED_USER'"  class="nbuttonEnd" (click)="onLogout()">
-
         Logout
       </button>
       

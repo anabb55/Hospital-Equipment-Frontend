@@ -54,10 +54,6 @@ import { CreateLoyaltyProgramComponent } from './feature-moduls/create-loyalty-p
 import { UpdateLoyaltyProgramComponent } from './feature-moduls/update-loyalty-program/update-loyalty-program.component';
 import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admin-add-appointment/admin-add-appointment.component';
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +65,6 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
     FailRegistrationComponent,
     SuccessfullRegistrationComponent,
 
-
     CompanyAdminProfileComponent,
     OneCompanyComponent,
     LoginComponent,
@@ -80,17 +75,15 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
     ChangePasswordComponent,
 
     WorkCalendarComponent,
-  ShowReservationsComponent,
-  SuccessfullReservationComponent,
+    ShowReservationsComponent,
+    SuccessfullReservationComponent,
 
-  ReservationsUsersComponent,
+    ReservationsUsersComponent,
     UploadQrCodeComponent,
     PositionSimulatorComponent,
     CreateLoyaltyProgramComponent,
-    UpdateLoyaltyProgramComponent
-    AdminAddAppointmentComponent
-
-
+    UpdateLoyaltyProgramComponent,
+    AdminAddAppointmentComponent,
   ],
 
   imports: [
@@ -116,18 +109,18 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
       },
     }),
     LeafletModule,
-    FullCalendarModule
+    FullCalendarModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true,
-    }, {
+    },
+    {
       provide: DateAdapter,
       useFactory: adapterFactory,
-    }
-
+    },
   ],
   bootstrap: [AppComponent],
 })
