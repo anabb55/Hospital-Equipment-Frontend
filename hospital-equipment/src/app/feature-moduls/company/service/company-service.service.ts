@@ -34,7 +34,9 @@ export class CompanyServiceService {
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    return this.http.get<Company[]>(environment.apiHost + 'companyProfile/',{headers});
+    return this.http.get<Company[]>(environment.apiHost + 'companyProfile/', {
+      headers,
+    });
   }
 
   getCompanyByAdmin(id: number): Observable<Company[]> {
@@ -117,7 +119,8 @@ export class CompanyServiceService {
     });
 
     return this.http.get<Company>(
-      environment.apiHost + 'companyProfile/getById/' + id,{headers}
+      environment.apiHost + 'companyProfile/getById/' + id,
+      { headers }
     );
   }
 
@@ -251,7 +254,11 @@ export class CompanyServiceService {
     );
   }
 
-  updateStatus(id: number, appointment: Appointment): Observable<Appointment> {
+  updateStatus(
+    id: number,
+    appointment: Appointment,
+    userId: number
+  ): Observable<Appointment> {
     const token = this.jwtHelper.tokenGetter();
     console.log(this.jwtHelper.decodeToken());
     const headers = new HttpHeaders({
@@ -259,7 +266,7 @@ export class CompanyServiceService {
       'Content-Type': 'application/json',
     });
     return this.http.put<Appointment>(
-      `http://localhost:8081/api/appointments/update/${id}`,
+      `http://localhost:8081/api/reservation/update/${id}/${userId}`,
       appointment,
       { headers }
     );
@@ -502,19 +509,17 @@ export class CompanyServiceService {
     );
   }
 
-
-  checkExpiredReservations(){
+  checkExpiredReservations() {
     const token = this.jwtHelper.tokenGetter();
     console.log(token);
     const headers = new HttpHeaders({
       Authorization: 'Bearer ' + token,
       'Content-Type': 'application/json',
     });
-    
+
     return this.http.put(
-      environment.apiHost + 'reservation/checkExpiredReservations/',{headers}
+      environment.apiHost + 'reservation/checkExpiredReservations/',
+      { headers }
     );
   }
-
-
 }
