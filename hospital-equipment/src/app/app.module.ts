@@ -83,7 +83,7 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
     PositionSimulatorComponent,
     CreateLoyaltyProgramComponent,
     UpdateLoyaltyProgramComponent,
-    AdminAddAppointmentComponent
+    AdminAddAppointmentComponent,
 
 
   ],
