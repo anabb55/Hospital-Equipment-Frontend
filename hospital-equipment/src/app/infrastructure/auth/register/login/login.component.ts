@@ -17,27 +17,25 @@ export class LoginComponent implements OnInit {
   userId:number=0;
 
   user :User={
-    id:0,
-    email:'',
-    password:'',
-    firstname:'',
-    lastname:'',
-    phoneNumber:'',
-    occupation:'',
+    id: 0,
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    phoneNumber: '',
+    occupation: '',
     address: {
-      id:0,
+      id: 0,
       street: '',
       city: '',
-      country:'',
+      country: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0
     },
     waslogged: false,
-    username: ''
-    
-
-
+    username: '',
+    roles: []
   }
   constructor(
     private authService: AuthServiceService,

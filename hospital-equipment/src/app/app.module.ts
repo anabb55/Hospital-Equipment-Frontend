@@ -84,6 +84,8 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
     CreateLoyaltyProgramComponent,
     UpdateLoyaltyProgramComponent,
     AdminAddAppointmentComponent,
+
+
   ],
 
   imports: [

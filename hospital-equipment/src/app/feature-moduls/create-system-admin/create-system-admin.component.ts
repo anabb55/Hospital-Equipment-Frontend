@@ -4,6 +4,7 @@ import { RegisterCompanyService } from '../register-company-admin-service.servic
 import { SystemAdmin } from 'src/app/model/systemAdmin.model';
 import { UserCategory } from '../model/RegisteredUser';
 import { Router } from '@angular/router';
+import { Role } from 'src/app/model/userRole.model';
 
 @Component({
   selector: 'app-create-system-admin',
@@ -16,6 +17,10 @@ export class CreateSystemAdminComponent implements OnInit{
 
   addresses:Address[] =[] 
 
+  role:Role ={
+    id: 3,
+    name: 'SYSTEM_ADMIN'
+  }
   adminData:SystemAdmin={
     id: 0,
     email: '',
@@ -37,7 +42,8 @@ export class CreateSystemAdminComponent implements OnInit{
 
 
     username: '',
-    waslogged: false
+    waslogged: false,
+    roles: []
   }
   address:Address={
     id: 0,
@@ -75,6 +81,7 @@ export class CreateSystemAdminComponent implements OnInit{
         this.adminData.address = this.savedAddress;
         console.log(this.savedAddress.city + "  " + this.savedAddress.country);
 
+        this.adminData.roles.push(this.role);
         this.service.createSystemAdmin(this.adminData).subscribe({
           next:(result:SystemAdmin)=>{
               this.createdAdmin =result;

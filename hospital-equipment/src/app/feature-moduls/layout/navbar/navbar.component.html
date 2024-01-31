@@ -20,7 +20,15 @@
     
     <div class="buttons">
       
-    
+     <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['updateCompany']"
+        class="link"
+      >
+        Update Company
+     </a>
      <a
         raised-button
         *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
@@ -49,6 +57,15 @@
    >
      UsersReserved
   </a>
+  <a
+  raised-button
+  *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+  routerLinkActive="active"
+  [routerLink]="['allLoyaltyPrograms']"
+  class="link"
+  >
+  Loyalty program
+</a>
 
   <a
   raised-button
@@ -72,6 +89,26 @@ class="link"
 WorkCalendar
 </a>
 <a
+
+    raised-button
+    *ngIf="isLogged && wasLogged"
+    routerLinkActive="active"
+    [routerLink]="['searchEquipment']"
+    class="link"
+    >
+    Search equipment
+</a>
+      
+<a
+    raised-button
+    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+    routerLinkActive="active"
+    [routerLink]="['registerSystemAdmin']"
+    class="link"
+    >
+    Register system admin
+</a>
+      <a 
 raised-button
 *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
 routerLinkActive="active"
@@ -79,6 +116,7 @@ routerLinkActive="active"
 class="link"
 >
 Add Appointment
+
 </a>
 
       <button *ngIf="isLogged && userRole != 'ROLE_REGISTERED_USER'"  class="nbuttonEnd" (click)="onLogout()">
