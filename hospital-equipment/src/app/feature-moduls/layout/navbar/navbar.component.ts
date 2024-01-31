@@ -16,7 +16,15 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private authService: AuthServiceService 
   ) {
-   
+    this.authService.loginObserver.subscribe((val) => {
+      this.isLogged = val;
+      
+      if (this.isLogged) {
+        this.userRole = this.authService.getUserRole()
+        this.checkAdminLogged();
+      }
+    });
+
     
   }
   ngOnInit(): void {
@@ -38,6 +46,7 @@ export class NavbarComponent implements OnInit {
 
   checkAdminLogged(){
     this.authService.passChangeObserver.subscribe((val) => {
+      console.log('Ulogovan ranije', val)
       this.wasLogged = val;
       
      
