@@ -165,12 +165,7 @@ export class OneCompanyComponent implements OnInit {
     this.userId = token.id;
 
     this.companyService
-      .updateStatus(appointment.id, appointment)
-      .subscribe((res) => {
-        console.log(res);
-      });
-    this.companyService
-      .createReservationPredefined(appointment, this.userId)
+      .updateStatus(appointment.id, appointment, this.userId)
       .subscribe((res) => {
         console.log(res);
         this.buttonDisabled = true;
