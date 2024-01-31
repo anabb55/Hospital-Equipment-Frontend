@@ -188,10 +188,11 @@ handleReservation(reservationId: number): void {
                       //this.registredUser.accumulatedPoints = this.registredUser.accumulatedPoints+5;
 
                       if(this.registredUser.id){
-                        this.updateLoyaltyProgram(this.registredUser.id,6,0);
+                        const numberPoints = this.registredUser.loyaltyProgram.pointsPerEquipment;
+                        this.updateLoyaltyProgram(this.registredUser.id,numberPoints,0);
                       }
                       
-                      alert("Successifuly taken reservation! You received 6 points and possible discounts for subsequent purchases!");
+                      alert("Successifuly taken reservation! You received bonus points and possible discounts for subsequent purchases!");
                       this.router.navigate(['showCompanyProfile']);
                     }
                       //-------------------------------------------

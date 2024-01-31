@@ -104,6 +104,15 @@
 
 <a
     raised-button
+    *ngIf="isLogged && wasLogged"
+    routerLinkActive="active"
+    [routerLink]="['searchEquipment']"
+    class="link"
+    >
+    Search equipment
+</a>
+<a
+    raised-button
     *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
     routerLinkActive="active"
     [routerLink]="['registerSystemAdmin']"

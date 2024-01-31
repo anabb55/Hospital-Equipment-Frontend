@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
@@ -10,7 +10,9 @@ import { Role } from 'src/app/model/userRole.model';
 @Component({
   selector: 'app-register-company-profile',
   templateUrl: './register-company-profile.component.html',
-  styleUrls: ['./register-company-profile.component.css']
+  styleUrls: ['./register-company-profile.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush  // Dodajte ovu liniju
+
 })
 export class RegisterCompanyProfileComponent implements OnInit {
 
@@ -106,7 +108,7 @@ export class RegisterCompanyProfileComponent implements OnInit {
   }
   
   savedAddress:Address | undefined
-  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar,){
+  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef){
     
   }
   ngOnInit(): void {
@@ -166,8 +168,12 @@ export class RegisterCompanyProfileComponent implements OnInit {
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
     console.log("Dodato amdina: "+ this.addedAdmin.length);
-    //admin.company = this.createdCompany;
-    
+    const indexOfAdmin = this.admins.findIndex(a => a.id === admin.id);
+
+    if (indexOfAdmin !== -1) {
+      this.admins.splice(indexOfAdmin, 1);
+  }
+  this.cdr.detectChanges();
   }
 
 

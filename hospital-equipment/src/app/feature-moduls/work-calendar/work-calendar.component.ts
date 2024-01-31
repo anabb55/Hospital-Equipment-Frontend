@@ -76,30 +76,48 @@ export class WorkCalendarComponent implements OnInit{
           next:(result:Appointment[])=>{
 
             result.forEach(app => {
-              const startTime = new Date(app.date+'T'+app.startTime);
-              const endTime = new Date(app.date+'T'+app.endTime);
+              this.companyService.getAllReservations().subscribe({
+                next:(result:Reservation[])=>{
+                  this.reservations = result;
+                  console.log("UKupno res: " + this.reservations.length);
+                  let name = "";
+                  let startTime = new Date();
+                  let endTime = new Date();
+                  let duration = 0;
+                                this.reservations.forEach(res => {
+                                  if(res.appointmentDTO.id === app.id) {
+                                    duration = app.endTime.hours - app.startTime.hours;
+                                    name = res.registeredUserDTO.firstname + " " + res.registeredUserDTO.lastname+" ,Duration: "+ duration
+                                    startTime = new Date(app.date+'T'+app.startTime);
+                                    endTime = new Date(app.date+'T'+app.endTime);
+                                  }
 
-              const newEvent: EventInput = {
-                title: 'Sastanak',
-                start: startTime,
-                end: endTime
-              };
+                                  console.log(res.registeredUserDTO.firstname + " " + res.registeredUserDTO.lastname);
+                                });
+                  const newEvent: EventInput = {
+                    title: name,
+                    start: startTime,
+                    end: endTime
+                  };
 
-              this.Appointments.push(newEvent);
+                  this.Appointments.push(newEvent);
 
-              this.calendarOptions = {
-                ...this.calendarOptions,
-                events: this.Appointments
-              };
+                  this.calendarOptions = {
+                    ...this.calendarOptions,
+                    events: this.Appointments
+                  };
 
-              // Explicitly add the new event to FullCalendar
-              if (this.fullCalendar) {
-                this.fullCalendar.getApi().addEvent(newEvent);
-              }
-            });
-           
-   
-          }
+                  // Explicitly add the new event to FullCalendar
+                  if (this.fullCalendar) {
+                    this.fullCalendar.getApi().addEvent(newEvent);
+                  }
+
+
+                }
+              })
+
+            
+          })}
         }),
          (error: any) => {
           console.log("Greska: ");
@@ -107,13 +125,13 @@ export class WorkCalendarComponent implements OnInit{
         }
       }
     }),
-     (error: any) => {
-      console.log("Greska: ");
-      console.error(error);
-    }
+                      (error: any) => {
+                        console.log("Greska: ");
+                        console.error(error);
+                      }
 
   }
-   
+
 
     changeCalendarPerspective(): void {
       if(this.selectedRange === 'week') {
