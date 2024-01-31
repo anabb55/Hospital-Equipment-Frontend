@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { RegisterCompanyService } from '../register-company-admin-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompanyAdministrator } from 'src/app/model/companyAdministrator.model';
@@ -11,12 +16,10 @@ import { Role } from 'src/app/model/userRole.model';
   selector: 'app-register-company-profile',
   templateUrl: './register-company-profile.component.html',
   styleUrls: ['./register-company-profile.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush  // Dodajte ovu liniju
-
+  changeDetection: ChangeDetectionStrategy.OnPush, // Dodajte ovu liniju
 })
 export class RegisterCompanyProfileComponent implements OnInit {
-
-  createdCompany: Company ={
+  createdCompany: Company = {
     id: 0,
     name: '',
     address: {
@@ -25,36 +28,36 @@ export class RegisterCompanyProfileComponent implements OnInit {
       country: '',
       street: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0,
     },
     description: '',
     grade: 0,
     workStartTime: {
       hours: 0,
-      minutes: 0
+      minutes: 0,
     },
     workEndTime: {
       hours: 0,
-      minutes: 0
-    }
-  }
+      minutes: 0,
+    },
+  };
 
-  street: string = ''
-  city: string = ''
-  number: string = ''
-  country: string = ''
-  addedAdmin: CompanyAdministrator[]=[]
-  addresses:Address[] =[] 
+  street: string = '';
+  city: string = '';
+  number: string = '';
+  country: string = '';
+  addedAdmin: CompanyAdministrator[] = [];
+  addresses: Address[] = [];
   address: Address = {
-    id : 0,
+    id: 0,
     city: '',
     country: '',
     number: '',
     street: '',
-    longitude:0,
-    latitude:0
-  }
+    longitude: 0,
+    latitude: 0,
+  };
 
   company: Company = {
     name: '',
@@ -66,21 +69,21 @@ export class RegisterCompanyProfileComponent implements OnInit {
       city: '',
       number: '',
       country: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0,
     },
     id: 0,
     workStartTime: {
       hours: 0,
-      minutes: 0
+      minutes: 0,
     },
     workEndTime: {
       hours: 0,
-      minutes: 0
-    }
+      minutes: 0,
+    },
   };
-  admins: CompanyAdministrator[] = []
-  updatedAdmin :CompanyAdministrator={
+  admins: CompanyAdministrator[] = [];
+  updatedAdmin: CompanyAdministrator = {
     id: 0,
     email: '',
     password: '',
@@ -95,91 +98,98 @@ export class RegisterCompanyProfileComponent implements OnInit {
       street: '',
       number: '',
       longitude: 0,
-      latitude: 0
+      latitude: 0,
     },
     company: undefined,
     username: '',
     waslogged: false,
-    roles: []
-  }
-  role:Role={
+    roles: [],
+  };
+  role: Role = {
     id: 2,
-    name: 'COMPANY_ADMIN'
-  }
-  
-  savedAddress:Address | undefined
-  constructor(private router:Router, private service:RegisterCompanyService,private _snackBar: MatSnackBar, private cdr: ChangeDetectorRef){
-    
-  }
+    name: 'COMPANY_ADMIN',
+  };
+  admini: CompanyAdministrator[] = [];
+  savedAddress: Address | undefined;
+  constructor(
+    private router: Router,
+    private service: RegisterCompanyService,
+    private _snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
+  ) {}
   ngOnInit(): void {
+    this.loadAdmins();
+  }
+
+  loadAdmins() {
     this.service.getAllCompanyAdmins().subscribe({
-      next:(result:CompanyAdministrator[])=>{
-        result.forEach(admin => {
-          if(admin.company?.id === undefined){
+      next: (result) => {
+        console.log('Admini: ' + result);
+        this.admini = result;
+        console.log('admini: ', this.admini);
+        this.admini.forEach((admin) => {
+          if (admin.company == null) {
             this.admins.push(admin);
           }
+          this.cdr.detectChanges();
         });
-      }
-    })
-    
+        // Assuming this.admins is an array of objects
+        console.log('admini su ' + JSON.stringify(this.admins));
+
+        console.log('ukupno : ' + this.admins.length);
+      },
+    });
   }
- 
 
   onSubmit() {
-        this.service.createAddress(this.address).subscribe({
-      next:(result:Address)=>{
+    this.address.longitude = 0;
+    this.address.latitude = 0;
+    this.service.createAddress(this.address).subscribe({
+      next: (result: Address) => {
         this.savedAddress = result;
         this.company.address = this.savedAddress;
         this.service.createCompany(this.company).subscribe({
-    
-          next:(result:Company)=>{
+          next: (result: Company) => {
             this.createdCompany = result;
             this._snackBar.open('Kompanija je uspjesno kreirana!', 'Zatvori', {
               duration: 6000, // Vreme prikazivanja obaveštenja u milisekundama
-              panelClass: ['success-snackbar']// Opciona klasa za stilizovanje obaveštenja
-              
+              panelClass: ['success-snackbar'], // Opciona klasa za stilizovanje obaveštenja
             });
-            this.addedAdmin.forEach(admin=>{
-              
+            this.addedAdmin.forEach((admin) => {
               admin.company = this.createdCompany;
-              console.log("Admin koji ce da se azurira",admin);
+              console.log('Admin koji ce da se azurira', admin);
               this.service.updateCompanyAdmin(admin).subscribe({
-                next:(response:CompanyAdministrator)=>{
-                  console.log("Azuriran admina: ",response);
-                }
-              })
-            })
-           
-    
-            this.router.navigate(['showCompanyProfile']);
-          }
-        })
+                next: (response: CompanyAdministrator) => {
+                  console.log('Azuriran admina: ', response);
+                },
+              });
+            });
 
-        
-        console.log(this.savedAddress.city + "  " + this.savedAddress.country);
+            this.router.navigate(['showCompanyProfile']);
+          },
+        });
+
+        console.log(this.savedAddress.city + '  ' + this.savedAddress.country);
       },
       error: (err: any) => {
         console.log(err);
       },
-    })
+    });
   }
-
 
   addAdmin(admin: CompanyAdministrator) {
     this.addedAdmin.push(admin);
-    console.log("Dodato amdina: "+ this.addedAdmin.length);
-    const indexOfAdmin = this.admins.findIndex(a => a.id === admin.id);
+    console.log('Dodato amdina: ' + this.addedAdmin.length);
+    const indexOfAdmin = this.admins.findIndex((a) => a.id === admin.id);
 
     if (indexOfAdmin !== -1) {
       this.admins.splice(indexOfAdmin, 1);
-  }
-  this.cdr.detectChanges();
+    }
+    this.cdr.detectChanges();
   }
 
-
-  createAdmin(){
-    console.log("Usaoooo")
+  createAdmin() {
+    console.log('Usaoooo');
     this.router.navigate(['registerCompanyAdmin']);
-    
   }
 }

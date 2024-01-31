@@ -9,19 +9,21 @@ import { Role } from 'src/app/model/userRole.model';
 @Component({
   selector: 'app-create-company-admin',
   templateUrl: './create-company-admin.component.html',
-  styleUrls: ['./create-company-admin.component.css']
+  styleUrls: ['./create-company-admin.component.css'],
 })
 export class CreateCompanyAdminComponent implements OnInit {
-
-    constructor(private service:RegisterCompanyService,private router:Router){}
-    ngOnInit(): void {
-      this.service.getAllAddresses().subscribe({
-        next:(result:Address[])=>{
-          this.addresses = result;
-        }
-      })
-    }
-    addresses:Address[] =[] 
+  constructor(
+    private service: RegisterCompanyService,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    this.service.getAllAddresses().subscribe({
+      next: (result: Address[]) => {
+        this.addresses = result;
+      },
+    });
+  }
+  addresses: Address[] = [];
   adminData: CompanyAdministrator = {
     email: '',
     password: '',
@@ -37,66 +39,59 @@ export class CreateCompanyAdminComponent implements OnInit {
       street: '',
       number: '',
       longitude: 0,
-      latitude: 0
+      latitude: 0,
     },
     id: 0,
     waslogged: false,
 
     company: undefined,
-    roles: []
+    roles: [],
   };
 
-  address:Address={
+  address: Address = {
     id: 0,
     city: '',
     country: '',
     street: '',
     number: '',
-    longitude:0,
-    latitude:0
-  }
-  savedAddress:Address={
+    longitude: 0,
+    latitude: 0,
+  };
+  savedAddress: Address = {
     id: 0,
     city: '',
     country: '',
     street: '',
     number: '',
-    longitude:0,
-    latitude:0
-  }
-role:Role={
-  id: 2,
-  name: 'COMPANY_ADMIN'
-}
-  createdAdmin : CompanyAdministrator | undefined;
+    longitude: 0,
+    latitude: 0,
+  };
+  role: Role = {
+    id: 2,
+    name: 'COMPANY_ADMIN',
+  };
+  createdAdmin: CompanyAdministrator | undefined;
 
   createAdmin() {
-    this.address.latitude = 0;
-    this.address.longitude = 0;
+    this.address.latitude = 0.0;
+    this.address.longitude = 0.0;
     this.service.createAddress(this.address).subscribe({
-      next:(result:Address)=>{
+      next: (result: Address) => {
         this.savedAddress = result;
         this.adminData.address = this.savedAddress;
         this.adminData.roles.push(this.role);
         this.service.createCompanyAdmin(this.adminData).subscribe({
-          next:(result:CompanyAdministrator)=>{
-              this.createdAdmin =result;
-              console.log("admin: "+ this.createdAdmin.firstname);
-              this.router.navigate(['showCompanyProfile']);
-          }
-        })
-        console.log(this.savedAddress.city + "  " + this.savedAddress.country);
+          next: (result: CompanyAdministrator) => {
+            this.createdAdmin = result;
+            console.log('admin: ' + this.createdAdmin.firstname);
+            this.router.navigate(['showCompanyProfile']);
+          },
+        });
+        console.log(this.savedAddress.city + '  ' + this.savedAddress.country);
       },
       error: (err: any) => {
         console.log(err);
       },
-    })
-
-
-          
-}
-
-
-
-
+    });
+  }
 }

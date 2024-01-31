@@ -1,44 +1,37 @@
 <div class="wrapper">
   <div class="inner-wrap">
-   
-        <a raised-button [routerLink]="['showCompanyProfile']" class="link">
-            <img src="https://upload.wikimedia.org/wikipedia/en/archive/d/dd/20211109064614%21Manipal_Hospitals_%28logo%29.png" alt="Home">
-        </a>
-        <div class="reg-user"  *ngIf="isLogged && userRole == 'ROLE_REGISTERED_USER'">
-        <a
+    <a raised-button [routerLink]="['showCompanyProfile']" class="link">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/en/archive/d/dd/20211109064614%21Manipal_Hospitals_%28logo%29.png"
+        alt="Home"
+      />
+    </a>
+    <div
+      class="reg-user"
+      *ngIf="isLogged && userRole == 'ROLE_REGISTERED_USER'"
+    >
+      <a
         raised-button
         routerLinkActive="active"
         [routerLink]="['displayProfile']"
         class="link"
       >
         My Profile
-     </a>
-     <button  class="nbuttonEnd" (click)="onLogout()">
-      Logout
-    </button>
+      </a>
+      <button class="nbuttonEnd" (click)="onLogout()">Logout</button>
     </div>
-    
+
     <div class="buttons">
-      
-     <a
-        raised-button
-        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-        routerLinkActive="active"
-        [routerLink]="['updateCompany']"
-        class="link"
-      >
-        Update Company
-     </a>
-     <a
+      <a
         raised-button
         *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
         routerLinkActive="active"
         [routerLink]="['position-simulator']"
         class="link"
       >
-      Track Shipment
-     </a>
-     <a
+        Track Shipment
+      </a>
+      <a
         raised-button
         *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
         routerLinkActive="active"
@@ -46,89 +39,108 @@
         class="link"
       >
         Your Profile
-     </a>
+      </a>
 
-     <a
-     raised-button
-     *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-     routerLinkActive="active"
-     [routerLink]="['usersReserved']"
-     class="link"
-   >
-     UsersReserved
-  </a>
-  <a
-  raised-button
-  *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
-  routerLinkActive="active"
-  [routerLink]="['allLoyaltyPrograms']"
-  class="link"
-  >
-  Loyalty program
-</a>
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['usersReserved']"
+        class="link"
+      >
+        UsersReserved
+      </a>
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['allLoyaltyPrograms']"
+        class="link"
+      >
+        Loyalty program
+      </a>
 
-  <a
-  raised-button
-  *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-  routerLinkActive="active"
-  [routerLink]="['showReservations']"
-  class="link"
->
-  Reservation Approve
-</a>
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['showReservations']"
+        class="link"
+      >
+        Reservation Approve
+      </a>
 
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['workCalendar']"
+        class="link"
+      >
+        WorkCalendar
+      </a>
+      <a
+        raised-button
+        *ngIf="
+          isLogged &&
+          wasLogged &&
+          (userRole == 'ROLE_REGISTERED_USER' ||
+            userRole == 'ROLE_SYSTEM_ADMIN')
+        "
+        routerLinkActive="active"
+        [routerLink]="['searchEquipment']"
+        class="link"
+      >
+        Search equipment
+      </a>
 
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['registerSystemAdmin']"
+        class="link"
+      >
+        Register system admin
+      </a>
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['registerCompanyAdmin']"
+        class="link"
+      >
+        Register company admin
+      </a>
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['registerCompanyProfile']"
+        class="link"
+      >
+        Create company
+      </a>
+      <a
+        raised-button
+        *ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
+        routerLinkActive="active"
+        [routerLink]="['addAppointment']"
+        class="link"
+      >
+        Add Appointment
+      </a>
 
-<a
-raised-button
-*ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-routerLinkActive="active"
-[routerLink]="['workCalendar']"
-class="link"
->
-WorkCalendar
-</a>
-<a
-
-    raised-button
-    *ngIf="isLogged && wasLogged && (userRole== 'ROLE_REGISTERED_USER' || userRole == 'ROLE_SYSTEM_ADMIN') "
-    routerLinkActive="active"
-    [routerLink]="['searchEquipment']"
-    class="link"
-    >
-    Search equipment
-</a>
-      
-<a
-    raised-button
-    *ngIf="isLogged && userRole == 'ROLE_SYSTEM_ADMIN' && wasLogged"
-    routerLinkActive="active"
-    [routerLink]="['registerSystemAdmin']"
-    class="link"
-    >
-    Register system admin
-</a>
-      <a 
-raised-button
-*ngIf="isLogged && userRole == 'ROLE_COMPANY_ADMIN' && wasLogged"
-routerLinkActive="active"
-[routerLink]="['addAppointment']"
-class="link"
->
-Add Appointment
-
-</a>
-
-      <button *ngIf="isLogged && userRole != 'ROLE_REGISTERED_USER'"  class="nbuttonEnd" (click)="onLogout()">
+      <button
+        *ngIf="isLogged && userRole != 'ROLE_REGISTERED_USER'"
+        class="nbuttonEnd"
+        (click)="onLogout()"
+      >
         Logout
       </button>
-      
     </div>
-    <div class="log-out"*ngIf="!isLogged">
-    
-      <button  class="nbuttonEnd" [routerLink]="['login']">
-        Login
-      </button>
+    <div class="log-out" *ngIf="!isLogged">
+      <button class="nbuttonEnd" [routerLink]="['login']">Login</button>
     </div>
   </div>
 </div>

@@ -8,53 +8,59 @@ import { RegisteredUser } from 'src/app/feature-moduls/model/RegisteredUser';
 @Component({
   selector: 'app-reservations-users',
   templateUrl: './reservations-users.component.html',
-  styleUrls: ['./reservations-users.component.css']
+  styleUrls: ['./reservations-users.component.css'],
 })
 export class ReservationsUsersComponent {
+  loggedInUser: number = 0;
+  companyId: number = 0;
+  companies: Company[] = [];
+  users: RegisteredUser[] = [];
+  displayedColumns: string[] = [
+    'firstname',
+    'lastname',
+    'penaltyPoints',
+    'pointsPerEquipment',
+    'penaltyThreshold',
+    'discountPercentage',
+  ];
 
-  loggedInUser:number=0;
-  companyId:number=0;
-  companies:Company[]=[]
-  users:RegisteredUser[]=[]
-  displayedColumns: string[] = ['firstname','lastname','penaltyPoints','pointsPerEquipment','penaltyThreshold','discountPercentage']; 
-
-
-  constructor(private resService:ReservationsService,private authService:AuthServiceService,private companyService:CompanyServiceService){
+  constructor(
+    private resService: ReservationsService,
+    private authService: AuthServiceService,
+    private companyService: CompanyServiceService
+  ) {
     this.getLoggedInUser();
     this.findCompanyIdByAdmin();
-    
+
     this.authService.passChangeSource.next(true);
   }
-  getLoggedInUser(){
-    this.loggedInUser=this.authService.getUserIdd();
+  getLoggedInUser() {
+    this.loggedInUser = this.authService.getUserIdd();
   }
-  findCompanyIdByAdmin(){
+  findCompanyIdByAdmin() {
     this.companyService.getCompanyByAdmin(this.loggedInUser).subscribe({
-      next:(response)=>{
-        this.companies=response;
-        this.companyId=this.companies[0].id;
-        console.log('id kompanijee',this.companyId)
+      next: (response) => {
+        this.companies = response;
+        this.companyId = this.companies[0].id;
+        console.log('id kompanijee', this.companyId);
         this.getReservationsUsersByCompany();
-       
-      }
-    })
-
-    
-  }
-  getReservationsUsersByCompany(){
-    console.log('ID',this.companyId)
-    this.resService.getReservationsUsersByCompany(this.companyId).subscribe({
-      next:(response)=>{
-        this.users=response;
-        console.log('Korisnicii',this.users);
       },
-      error:(err)=>{
+    });
+  }
+  getReservationsUsersByCompany() {
+    console.log('ID', this.companyId);
+    this.resService.getReservationsUsersByCompany(this.companyId).subscribe({
+      next: (response) => {
+        this.users = response;
+        console.log('Korisnicii', this.users);
+        this.users = this.users.filter(
+          (user, index, self) =>
+            index === self.findIndex((u) => u.id === user.id)
+        );
+      },
+      error: (err) => {
         console.log(err);
-      }
-    })
-
+      },
+    });
   }
 }
-
-
-  

@@ -1,64 +1,122 @@
 <div class="form-container">
-
-<form class="company-form" #companyForm="ngForm">
+  <form class="company-form" #companyForm="ngForm">
     <h2 class="form-title">Create new company</h2>
-    <div  class="form-group">
+    <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" [(ngModel)]="company.name" required>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="company.name"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
-      <textarea id="description" name="description" [(ngModel)]="company.description" required></textarea>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="company.description"
+        required
+      ></textarea>
     </div>
     <div class="form-group">
       <label for="grade">Grade:</label>
-      <input type="number" id="grade" name="grade" [(ngModel)]="company.grade" required>
+      <input
+        type="number"
+        id="grade"
+        name="grade"
+        [(ngModel)]="company.grade"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="startTime">Star time:</label>
-      <input type="time" id="startTime" name="startTime" [(ngModel)]="company.workStartTime" required>
+      <input
+        type="time"
+        id="startTime"
+        name="startTime"
+        [(ngModel)]="company.workStartTime"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="endTime">Star time:</label>
-      <input type="time" id="endTime" name="endTime" [(ngModel)]="company.workEndTime" required>
+      <input
+        type="time"
+        id="endTime"
+        name="endTime"
+        [(ngModel)]="company.workEndTime"
+        required
+      />
     </div>
     <div>
       <p>Adresa</p>
     </div>
     <div class="form-group">
       <label for="street">Street:</label>
-      <input type="text" id="street" name="street" [(ngModel)]="address.street" required>
+      <input
+        type="text"
+        id="street"
+        name="street"
+        [(ngModel)]="address.street"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="number">Number:</label>
-      <input type="number" id="number" name="street" [(ngModel)]="address.number" required>
+      <input
+        type="number"
+        id="number"
+        name="street"
+        [(ngModel)]="address.number"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="street">City:</label>
-      <input type="text" id="city" name="city" [(ngModel)]="address.city" required>
+      <input
+        type="text"
+        id="city"
+        name="city"
+        [(ngModel)]="address.city"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="street">Country:</label>
-      <input type="text" id="country" name="country" [(ngModel)]="address.country" required>
+      <input
+        type="text"
+        id="country"
+        name="country"
+        [(ngModel)]="address.country"
+        required
+      />
     </div>
 
-   
-    
-<br>
+    <br />
     <div>
       <h3>Add company admin:</h3>
       <div *ngFor="let admin of admins">
-        <span>{{ admin.firstname }}  {{admin.lastname}} </span>
-        <button (click)="addAdmin(admin)" class="button">Add</button><br><br>
+        <p>{{ admin.firstname }} {{ admin.lastname }}</p>
+        <button (click)="addAdmin(admin)" class="button">Add</button
+        ><br /><br />
       </div>
     </div>
-<br>
+    <br />
 
-<a [routerLink]="['/registerCompanyAdmin']" class="create-link">Create new administrator</a>
+    <a [routerLink]="['/registerCompanyAdmin']" class="create-link"
+      >Create new administrator</a
+    >
 
-
-<br><br><br>
-      <button type="submit" (click)=onSubmit() [disabled]="!companyForm.valid" class="submitButton">Create Company</button>
-    
+    <br /><br /><br />
+    <button
+      type="submit"
+      (click)="onSubmit()"
+      [disabled]="!companyForm.valid"
+      class="submitButton"
+    >
+      Create Company
+    </button>
   </form>
- </div>
+</div>

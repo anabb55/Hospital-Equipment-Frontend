@@ -31,7 +31,7 @@ export class DisplayProfile implements OnInit {
   reservations: any[] = [];
   reservationStatusMap = new Map<number, boolean>();
   myAppointments: Appointment[] = [];
-  filteredAppointments: Appointment[]=[];
+  filteredAppointments: Appointment[] = [];
   appointmentPrices: number[] = [];
   selectedSort: string = 'dateAsc';
   isFilterVisible: boolean = false;
@@ -85,31 +85,30 @@ export class DisplayProfile implements OnInit {
   }
 
   showUntakenAppointments() {
-    this.showOnlyUntaken = !this.showOnlyUntaken; 
+    this.showOnlyUntaken = !this.showOnlyUntaken;
 
     if (this.showOnlyUntaken) {
-      this.filteredAppointments = this.myAppointments.filter(app => 
-        !this.isReservationTaken(app.id)
+      this.filteredAppointments = this.myAppointments.filter(
+        (app) => !this.isReservationTaken(app.id)
       );
     } else {
       this.filteredAppointments = [...this.myAppointments];
     }
 
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
   }
 
-  showTakenAppointments(){
-    this.showOnlyTaken = !this.showOnlyTaken; 
+  showTakenAppointments() {
+    this.showOnlyTaken = !this.showOnlyTaken;
     if (this.showOnlyTaken) {
-      this.filteredAppointments = this.myAppointments.filter(app => 
+      this.filteredAppointments = this.myAppointments.filter((app) =>
         this.isReservationTaken(app.id)
       );
     } else {
       this.filteredAppointments = [...this.myAppointments];
     }
 
-    this.cdr.detectChanges(); 
-
+    this.cdr.detectChanges();
   }
 
   isReservationTaken(appointmentId: number): boolean {
@@ -144,7 +143,6 @@ export class DisplayProfile implements OnInit {
         this.fetchTotalPricesForAppointments();
         console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
         this.filteredAppointments = [...this.myAppointments];
-
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
@@ -237,13 +235,11 @@ export class DisplayProfile implements OnInit {
       case 'timeAsc':
         this.filteredAppointments.sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-
         );
         break;
       case 'timeDesc':
         this.filteredAppointments.sort(
           (a, b) => this.appointmentPrices[b.id] - this.appointmentPrices[a.id]
-
         );
         break;
       case 'priceAsc':
@@ -325,19 +321,19 @@ export class DisplayProfile implements OnInit {
     this.companyService
       .cancelAppointment(appointment.id, appointment, this.userId)
       .subscribe((res) => {
-        this.myAppointments = this.myAppointments.filter(
+        this.filteredAppointments = this.myAppointments.filter(
           (a) => a !== appointment
         );
       });
 
     this.service.returnEquipment(appointment.id).subscribe((res) => {
       console.log('vracena oprema');
-    });
 
-    this.service
-      .deleteReservationByAppointment(appointment.id)
-      .subscribe((res) => {
-        console.log('obrisano je');
-      });
+      this.service
+        .deleteReservationByAppointment(appointment.id)
+        .subscribe((res) => {
+          console.log('obrisano je');
+        });
+    });
   }
 }
