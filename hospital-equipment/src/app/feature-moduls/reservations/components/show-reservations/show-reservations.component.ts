@@ -23,6 +23,7 @@ export class ShowReservationsComponent implements OnInit{
   
   dataSource = new MatTableDataSource(this.reservations);
   constructor(private router:Router,private resService: ReservationsService,private authService:AuthServiceService,private companyService:CompanyServiceService){
+    this.checkExpiredReservations()
     this.getLoggedInUser();
     this.findCompanyIdByAdmin();
     this.dataSource = new MatTableDataSource(this.reservations);
@@ -116,4 +117,14 @@ export class ShowReservationsComponent implements OnInit{
 navigateToUploadQRCode() {
   this.router.navigate(['/uploadQRCODE']);
 }
+checkExpiredReservations(){
+  this.companyService.checkExpiredReservations().subscribe({
+    next:(res)=>{
+      console.log('Provjerene istekle',res)
+    },
+    error:(err)=>{
+      console.log(err)
+    }
+  })
+ }
 }
