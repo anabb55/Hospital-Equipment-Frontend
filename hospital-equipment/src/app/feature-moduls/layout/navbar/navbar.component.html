@@ -91,7 +91,7 @@ WorkCalendar
 <a
 
     raised-button
-    *ngIf="isLogged && wasLogged"
+    *ngIf="isLogged && wasLogged && (userRole== 'ROLE_REGISTERED_USER' || userRole == 'ROLE_SYSTEM_ADMIN') "
     routerLinkActive="active"
     [routerLink]="['searchEquipment']"
     class="link"
