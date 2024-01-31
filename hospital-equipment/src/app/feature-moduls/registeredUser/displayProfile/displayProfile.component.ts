@@ -31,11 +31,13 @@ export class DisplayProfile implements OnInit {
   reservations: any[] = [];
   reservationStatusMap = new Map<number, boolean>();
   myAppointments: Appointment[] = [];
+  filteredAppointments: Appointment[]=[];
   appointmentPrices: number[] = [];
   selectedSort: string = 'dateAsc';
   isFilterVisible: boolean = false;
   selectedStatus: string = '';
   userId: number = 1;
+  showOnlyUntaken: boolean = false;
 
   constructor(
     private service: RegisteredUserService,
@@ -67,6 +69,8 @@ export class DisplayProfile implements OnInit {
     this.loadProfileData();
     this.loadAppointment();
     this.loadQRs();
+    this.filteredReservations = [...this.myAppointments];
+    // this.showUntakenAppointments();
   }
   toggleFilterVisibility(): void {
     this.isFilterVisible = !this.isFilterVisible;
@@ -77,6 +81,20 @@ export class DisplayProfile implements OnInit {
         this.reservationStatusMap.set(appointment.id, isTaken);
       });
     });
+  }
+
+  showUntakenAppointments() {
+    this.showOnlyUntaken = !this.showOnlyUntaken; 
+
+    if (this.showOnlyUntaken) {
+      this.filteredAppointments = this.myAppointments.filter(app => 
+        !this.isReservationTaken(app.id)
+      );
+    } else {
+      this.filteredAppointments = [...this.myAppointments];
+    }
+
+    this.cdr.detectChanges(); 
   }
 
   isReservationTaken(appointmentId: number): boolean {
@@ -107,10 +125,11 @@ export class DisplayProfile implements OnInit {
     this.service.getFutureAppointments(this.userId).subscribe({
       next: (data: Appointment[]) => {
         this.myAppointments = data;
-
         this.checkReservationsForAppointments();
         this.fetchTotalPricesForAppointments();
         console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
+        this.filteredAppointments = [...this.myAppointments];
+
       },
       error: (error) => {
         console.error('Error loading appointments:', error);

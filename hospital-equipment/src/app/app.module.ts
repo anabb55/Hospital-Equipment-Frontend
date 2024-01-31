@@ -86,7 +86,6 @@ import { AdminAddAppointmentComponent } from './feature-moduls/appointments/admi
     AdminAddAppointmentComponent
 
 
-    AdminAddAppointmentComponent,
   ],
 
   imports: [
