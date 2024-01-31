@@ -84,25 +84,26 @@ padding-top: 20px;  }
   }
 
   .filter-untaken-button {
-    background-color: #4CAF50; /* Green background */
+    background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent background */
     color: white; /* White text */
-    padding: 10px 20px; /* Top and bottom padding of 10px, left and right padding of 20px */
-    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+    border: 1px solid white; /* White border */
     border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Cursor changes to pointer when hovering over the button */
+    cursor: pointer; /* Pointer cursor on hover */
     font-size: 16px; /* Font size */
-    transition: background-color 0.3s, transform 0.3s; /* Transition effect for background-color and transform */
-  }
-  
-  .filter-untaken-button:hover {
-    background-color: #45a049; /* Darker shade of green on hover */
-    transform: scale(1.05); /* Slightly increase the size of the button on hover */
-  }
-  
-  .filter-untaken-button:active {
-    background-color: #3e8e41; /* Even darker shade of green when the button is clicked */
-    transform: scale(0.95); /* Slightly decrease the size of the button when clicked */
-  }
+    transition: background-color 0.3s, transform 0.3s; /* Transition effect */
+}
+
+.filter-untaken-button:hover {
+    background-color: rgba(255, 255, 255, 0.5); /* More transparent on hover */
+    transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.filter-untaken-button:active {
+    background-color: rgba(255, 255, 255, 0.7); /* Less transparent when clicked */
+    transform: scale(0.95); /* Slightly decrease size when clicked */
+}
+
   
   
   .sorting-options{
