@@ -14,36 +14,35 @@ import { User } from 'src/app/model/user.model';
 export class LoginComponent implements OnInit {
   ngOnInit(): void {}
  
+  userId:number=0;
 
   user :User={
-    id:0,
-    email:'',
-    password:'',
-    firstname:'',
-    lastname:'',
-    phoneNumber:'',
-    occupation:'',
+    id: 0,
+    email: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    phoneNumber: '',
+    occupation: '',
     address: {
-      id:0,
+      id: 0,
       street: '',
       city: '',
-      country:'',
+      country: '',
       number: '',
-      longitude:0,
-      latitude:0
+      longitude: 0,
+      latitude: 0
     },
     waslogged: false,
-    username: ''
-    
-
-
+    username: '',
+    roles: []
   }
   constructor(
     private authService: AuthServiceService,
     private router: Router,
     private companyService: CompanyServiceService
   ) {
-    this.sendMessage();
+   
   }
 
  
@@ -85,12 +84,23 @@ export class LoginComponent implements OnInit {
  
 
   changePassword(){
-    const id= this.authService.getUserId();
-  
+    this.userId= this.authService.getUserIdd();
+    this.authService.WasUserLogged(this.userId).subscribe({
+      next:(res)=>{
+        console.log('Was user logged', res)
+        if(res==false){
+          this.router.navigate(['/changePassword/'+ this.userId]);
+        }else{
+          this.router.navigate(['showCompanyProfile']);
+        }
+      }
+    })
+    /*
     this.companyService.getUserById(parseInt(id,10)).subscribe({
       next:(response)=>{
         this.user=response;
         console.log(response);
+        console.log('User status was logged :', this.user.waslogged)
         if(this.user.waslogged==false){
           this.router.navigate(['/changePassword/'+ this.user.id]);
         }else{
@@ -98,18 +108,8 @@ export class LoginComponent implements OnInit {
         }
       }
     })
+    */
   }
 
-  sendMessage(){
-    this.companyService.sendFirstMessage().subscribe({
-      next:(res: String)=>{
-        console.log('Poruka',res)
-      },
-      error:(err)=>{
-        console.log(err)
-      }
-
-    })
-   }
  
 }

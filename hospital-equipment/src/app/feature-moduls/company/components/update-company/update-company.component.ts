@@ -142,6 +142,7 @@ export class UpdateCompanyComponent {
     this.loggedInUser=this.getLoggedInUser();
     this.getCompanyByAdmin()
     this.showSearch = false
+    this.authService.passChangeSource.next(true);
   }
 
   getLoggedInUser():number{
@@ -347,14 +348,32 @@ export class UpdateCompanyComponent {
   }
 
   delete(equipmentId: number) {
-    this.companyService.deleteEquipmentStock(this.company.id, equipmentId).subscribe({
+    //is reserved 
+    this.companyService.isEquipmentReserved(this.company.id, equipmentId).subscribe({
       next: (response) => {
-        console.log(response)
+        console.log('Oprema rez a nije preuzeta?',response)
+        
+        if(response==false){
+          this.companyService.deleteEquipmentStock(this.company.id, equipmentId).subscribe({
+            next: (response) => {
+              console.log(response)
+             this.getEquipmentByCompanyId();
+            },
+            error: (err) => {
+              console.log(err)
+            }
+          })
+        }else{
+          alert('Unable to delete equipment');
+        }
+        
       },
       error: (err) => {
         console.log(err)
       }
     })
+    
+   
   }
 
   //SEARCH
@@ -448,5 +467,7 @@ export class UpdateCompanyComponent {
 
   return { hours, minutes };
 }
+
+
 
 }

@@ -4,8 +4,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center; /* Centriranje sadržaja horizontalno */
-    background: url('https://vilmate.com/wp-content/uploads/2018/08/Medical_Website_Development-1.jpg');
+    background: url('https://vilmate.com/wp-content/uploads/2018/08/Medical_Website_Development-1.jpg') center center/cover no-repeat;
     min-height: 100vh; 
+    
 }
 
 .map-container {
