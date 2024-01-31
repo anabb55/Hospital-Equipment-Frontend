@@ -31,11 +31,14 @@ export class DisplayProfile implements OnInit {
   reservations: any[] = [];
   reservationStatusMap = new Map<number, boolean>();
   myAppointments: Appointment[] = [];
+  filteredAppointments: Appointment[]=[];
   appointmentPrices: number[] = [];
   selectedSort: string = 'dateAsc';
   isFilterVisible: boolean = false;
   selectedStatus: string = '';
   userId: number = 1;
+  showOnlyUntaken: boolean = false;
+  showOnlyTaken: boolean = false;
 
   constructor(
     private service: RegisteredUserService,
@@ -67,6 +70,8 @@ export class DisplayProfile implements OnInit {
     this.loadProfileData();
     this.loadAppointment();
     this.loadQRs();
+    this.filteredReservations = [...this.myAppointments];
+    // this.showUntakenAppointments();
   }
   toggleFilterVisibility(): void {
     this.isFilterVisible = !this.isFilterVisible;
@@ -77,6 +82,34 @@ export class DisplayProfile implements OnInit {
         this.reservationStatusMap.set(appointment.id, isTaken);
       });
     });
+  }
+
+  showUntakenAppointments() {
+    this.showOnlyUntaken = !this.showOnlyUntaken; 
+
+    if (this.showOnlyUntaken) {
+      this.filteredAppointments = this.myAppointments.filter(app => 
+        !this.isReservationTaken(app.id)
+      );
+    } else {
+      this.filteredAppointments = [...this.myAppointments];
+    }
+
+    this.cdr.detectChanges(); 
+  }
+
+  showTakenAppointments(){
+    this.showOnlyTaken = !this.showOnlyTaken; 
+    if (this.showOnlyTaken) {
+      this.filteredAppointments = this.myAppointments.filter(app => 
+        this.isReservationTaken(app.id)
+      );
+    } else {
+      this.filteredAppointments = [...this.myAppointments];
+    }
+
+    this.cdr.detectChanges(); 
+
   }
 
   isReservationTaken(appointmentId: number): boolean {
@@ -107,10 +140,11 @@ export class DisplayProfile implements OnInit {
     this.service.getFutureAppointments(this.userId).subscribe({
       next: (data: Appointment[]) => {
         this.myAppointments = data;
-
         this.checkReservationsForAppointments();
         this.fetchTotalPricesForAppointments();
         console.log('Appointmenti su' + JSON.stringify(this.myAppointments));
+        this.filteredAppointments = [...this.myAppointments];
+
       },
       error: (error) => {
         console.error('Error loading appointments:', error);
@@ -191,36 +225,34 @@ export class DisplayProfile implements OnInit {
 
     switch (this.selectedSort) {
       case 'dateAsc':
-        this.myAppointments.sort(
+        this.filteredAppointments.sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
         );
         break;
       case 'dateDesc':
-        this.myAppointments.sort(
+        this.filteredAppointments.sort(
           (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
         );
         break;
       case 'timeAsc':
-        this.myAppointments.sort(
-          (a, b) =>
-            convertTimeObjToMinutes(a.startTime) -
-            convertTimeObjToMinutes(b.startTime)
+        this.filteredAppointments.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+
         );
         break;
       case 'timeDesc':
-        this.myAppointments.sort(
-          (a, b) =>
-            convertTimeObjToMinutes(b.startTime) -
-            convertTimeObjToMinutes(a.startTime)
+        this.filteredAppointments.sort(
+          (a, b) => this.appointmentPrices[b.id] - this.appointmentPrices[a.id]
+
         );
         break;
       case 'priceAsc':
-        this.myAppointments.sort(
+        this.filteredAppointments.sort(
           (a, b) => this.appointmentPrices[a.id] - this.appointmentPrices[b.id]
         );
         break;
       case 'priceDesc':
-        this.myAppointments.sort(
+        this.filteredAppointments.sort(
           (a, b) => this.appointmentPrices[b.id] - this.appointmentPrices[a.id]
         );
         break;

@@ -82,7 +82,34 @@ padding-top: 20px;  }
   ::ng-deep .toast-custom-title {
     color: rgb(18, 5, 5);
   }
+
+  .filter-untaken-button {
+    background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Padding */
+    border: 1px solid white; /* White border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s, transform 0.3s; /* Transition effect */
+}
+
+.filter-untaken-button:hover {
+    background-color: rgba(255, 255, 255, 0.5); /* More transparent on hover */
+    transform: scale(1.05); /* Slightly increase size on hover */
+}
+
+.filter-untaken-button:active {
+    background-color: rgba(255, 255, 255, 0.7); /* Less transparent when clicked */
+    transform: scale(0.95); /* Slightly decrease size when clicked */
+}
+
   
+  
+  .sorting-options{
+    display: flex;
+    gap: 20px;
+  }
   
 .wrapper {
     background: url('https://vilmate.com/wp-content/uploads/2018/08/Medical_Website_Development-1.jpg') center center/cover no-repeat;

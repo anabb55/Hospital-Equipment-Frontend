@@ -64,11 +64,15 @@
                 <option value="priceAsc">Price🔼</option>
                 <option value="priceDesc">Price🔽</option>
               </select>
+              <button class="filter-untaken-button" (click)="showUntakenAppointments()">📦❌</button>
+              <button class="filter-untaken-button" (click)="showTakenAppointments()">📦✅</button>
+
+
             </div>
           </div>
           <div>
             <ul class="equipment-list">
-              <li *ngFor="let app of myAppointments" class="equipment-item">
+              <li *ngFor="let app of filteredAppointments" class="equipment-item">
                 <div class="above-button">
                   <p class="eq-name">{{ app.date }}</p>
                  
